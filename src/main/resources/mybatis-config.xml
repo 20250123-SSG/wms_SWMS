@@ -3,5 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <environments default="shoes">
+        <environment id="shoes">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!-- 서버생성전 -->
+            </dataSource>
+        </environment>
+    </environments>
 
+    <mappers>
+        <mapper resource="shoes-mapper.xml"/>
+    </mappers>
 </configuration>
