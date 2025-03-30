@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offline.dao.ShoeMapper">
+    <resultMap id="offlineStackMap" type="OfflineStackDto">
+        <id column="no" property="no"/>
+        <result column="shoe_code" property="shoeCode"/>
+        <result column="store_code" property="storeCode"/>
+        <result column="quantity" property="quantity"/>
+    </resultMap>
+<select id="shoesSearch" parameterType="String" resultMap="offlineStackMap">
+    SELECT
+         no
+        ,o.shoe_code
+        ,o.store_code
+        ,quantity
+    FROM
+        offlinestack o
+        JOIN shoes h ON o.shoe_code = h.shoe_code
+        JOIN store s ON o.store_code = s.store_code
+    WHERE
+        o.shoe_code = #{code}
+
+
+
+
+</select>
+
+
+</mapper>
