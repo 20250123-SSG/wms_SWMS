@@ -54,7 +54,7 @@ CREATE TABLE `tbl_offline_sale` (
     `offline_sale_id` INT NOT NULL AUTO_INCREMENT,
     `store_id` INT NOT NULL,
     `shoes_id` INT NOT NULL,
-    `quantity` INT NULL,
+    `quantity` INT NOT NULL,
     `sale_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`offline_sale_id`),
     FOREIGN KEY (`store_id`) REFERENCES `tbl_store` (`store_id`),
