@@ -13,17 +13,64 @@
         <result column="size" property="size"/>
     </resultMap>
 
-    <!-- 브랜드와 type에 맞는 신발 조회하기-->
-    <select id="selectMainShoes" parameterType="ShoesDto" resultMap="shoesListResultMap">
+    <select id="searchBrandName" parameterType="_int" resultType="String">
+        SELECT
+            brand_name
+        FROM
+            tbl_brand
+        WHERE
+            brand_id = #{brandId}
+    </select>
+
+    <select id="searchTypeName" parameterType="_int" resultType="String">
+        SELECT
+        brand_name
+        FROM
+        tbl_brand
+        WHERE
+        type_id = #{typeId}
+    </select>
+
+
+
+    <!--  ========= 정렬별 조회하기 ============ -->
+
+    <select id="sortingByLatest" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
         SELECT DISTINCT
             shoes_name
-          , shoes_price
+            , shoes_price
         FROM
             tbl_shoes
         WHERE
             shoes_type_id = #{shoesTypeId}
         AND brand_id = #{brandId}
 
+    </select>
+
+    <select id="sortingByPriceASC" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
+        SELECT DISTINCT
+            shoes_name
+            , shoes_price
+        FROM
+            tbl_shoes
+        WHERE
+            shoes_type_id = #{shoesTypeId}
+        AND brand_id = #{brandId}
+        ORDER BY
+            shoes_price;
+    </select>
+
+    <select id="sortingByPriceDESC" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
+        SELECT DISTINCT
+            shoes_name
+            , shoes_price
+        FROM
+            tbl_shoes
+        WHERE
+            shoes_type_id = #{shoesTypeId}
+        AND brand_id = #{brandId}
+        ORDER BY
+            shoes_price DESC;
     </select>
 
 </mapper>
