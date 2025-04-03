@@ -16,12 +16,12 @@ public class ShoesMenuView {
             String type = inputType();
             String brand = inputBrand();
 
-            shoesController.shoesMainVeiw(type, brand);
+            shoesController.selectMainShoes(type, brand);
         }
     }
 
     public String inputType() {
-        System.out.println("""
+        System.out.print("""
                 ====================================
                 찾으시는 상품의 종류를 선택해주세요.
                 
@@ -34,13 +34,13 @@ public class ShoesMenuView {
                 
                 0. 프로그램 종료
                 ====================================
-                >> 입력 : """);
+                >> 입력 :\t""");
 
         return sc.nextLine();
     }
 
     public String inputBrand() {
-        System.out.println("""
+        System.out.print("""
                 ====================================
                 찾으시는 브랜드를 선택해주세요.
                 
@@ -53,7 +53,7 @@ public class ShoesMenuView {
                 
                 0. 프로그램 종료
                 ========================
-                >> 입력 : """);
+                >> 입력 :\t""");
 
         return sc.nextLine();
     }
