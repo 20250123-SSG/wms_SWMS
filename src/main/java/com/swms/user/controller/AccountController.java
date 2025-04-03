@@ -16,10 +16,9 @@ public class AccountController {
         return accountService.login(account);
     }
 
-    public Boolean checkIdDuplication(String id) {
-        Boolean result = accountService.checkIdDuplication(id);
+    public boolean checkIdDuplication(String id) {
 
-        return result;
+        return accountService.checkIdDuplication(id);
     }
 
 
