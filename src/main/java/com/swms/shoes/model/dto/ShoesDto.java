@@ -13,12 +13,16 @@ public class ShoesDto {
     private Integer shoesTypeId;
     private Integer brandId;
     private String shoesName;
-    private Integer shoesPrice;
+    private String shoesPrice;
     private Integer size;
 
-    public ShoesDto(Integer shoesTypeId, Integer brandId) {
-        this.shoesTypeId = shoesTypeId;
-        this.brandId = brandId;
+    // 맨처음 brand와
+
+
+    public ShoesDto(String shoesName, String shoesPrice) {
+        this.shoesName = shoesName;
+        this.shoesPrice = shoesPrice;
     }
+
 }
 
