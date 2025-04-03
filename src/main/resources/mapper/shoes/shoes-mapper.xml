@@ -2,6 +2,28 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swms.mapper.ShoesMapper">
-  
+<mapper namespace="com.swms.shoes.model.dao.ShoesMapper">
+
+    <resultMap id="shoesListResultMap" type="ShoesDto">
+        <result column="shoes_id" property="shoesId"/>
+        <result column="shoes_type_id" property="shoesTypeId"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="shoes_name" property="shoesName"/>
+        <result column="shoes_price" property="shoesPrice"/>
+        <result column="size" property="size"/>
+    </resultMap>
+
+    <!-- 브랜드와 type에 맞는 신발 조회하기-->
+    <select id="selectMainShoes" parameterType="ShoesDto" resultMap="shoesListResultMap">
+        SELECT DISTINCT
+            shoes_name
+          , shoes_price
+        FROM
+            tbl_shoes
+        WHERE
+            shoes_type_id = #{shoesTypeId}
+        AND brand_id = #{brandId}
+
+    </select>
+
 </mapper>
