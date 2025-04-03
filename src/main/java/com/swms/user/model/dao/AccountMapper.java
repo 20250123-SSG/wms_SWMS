@@ -1,10 +1,16 @@
 package com.swms.user.model.dao;
 
 import com.swms.user.model.dto.AccountDto;
-import java.util.List;
+import com.swms.user.model.dto.AccountUserDto;
+import com.swms.user.model.dto.UserDto;
 
 public interface AccountMapper {
 
-    String selectById(String id);
+    String selectByAccount(String account);
+    AccountDto findByAccountIncludingPassword(String account);
+
+    UserDto findUserByAccount(AccountDto accountDto);
+
+    int insertAccountUser(AccountUserDto accountUserDto);
 
 }

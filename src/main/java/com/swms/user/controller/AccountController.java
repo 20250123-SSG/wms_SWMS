@@ -1,30 +1,38 @@
 package com.swms.user.controller;
 
 import com.swms.user.model.dto.AccountDto;
+import com.swms.user.model.dto.AccountUserDto;
 import com.swms.user.model.dto.UserDto;
 import com.swms.user.model.service.AccountService;
-import com.swms.user.model.service.UserService;
 
 public class AccountController {
 
     private AccountService accountService = new AccountService();
 
-    public UserDto login(String id, String password) {
-        AccountDto account = new AccountDto(id, password);
+    public UserDto login(String account, String password) {
+        AccountDto accountDto = new AccountDto(account, password);
 
+        accountService.checkPassword(accountDto);
 
-        return accountService.login(account);
-    }
-
-    public boolean checkIdDuplication(String id) {
-
-        return accountService.checkIdDuplication(id);
+        return accountService.login(accountDto);
     }
 
 
-    public void signup(String id, String password, String userName, int auth, String phone, String address) {
-        AccountDto account = new AccountDto(id, password);
+    public int signup(String account, String password, String userName, int auth, String phone, String address) {
+        AccountUserDto accountUser = AccountUserDto.builder().
+                account(account).
+                password(password).
+                userName(userName).
+                auth(auth).
+                phone(phone).
+                address(address).
+                build();
 
+        return accountService.registAccountUser(accountUser);
+    }
 
+    public boolean checkAccountDuplication(String account) {
+
+        return accountService.checkAccountDuplication(account);
     }
 }

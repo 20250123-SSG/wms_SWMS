@@ -8,7 +8,12 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class AccountDto {
+public class AccountUserDto {
+    private int userId;  // PK
     private String account;
     private String password;
+    private String userName;
+    private int auth;
+    private String phone;
+    private String address;
 }

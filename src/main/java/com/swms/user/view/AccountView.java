@@ -1,28 +1,29 @@
 package com.swms.user.view;
 
 import com.swms.user.controller.AccountController;
+import com.swms.user.model.dto.UserDto;
 
 import java.util.Scanner;
 
 public class AccountView {
     private Scanner sc = new Scanner(System.in);
-    private AccountController userController = new AccountController();
+    private AccountController accountController = new AccountController();
 
 
     public void signup() {
         // 아이디
-        String id;
+        String account;
         while (true) {
             System.out.println("\n~~~ 등록할 회원 정보를 작성해주세요 ~~~");
             System.out.println("\n 아이디는 20자 이내여야 합니다.");
             System.out.println("> 아이디: ");
-            id = sc.nextLine();
+            account = sc.nextLine();
 
-            boolean result = userController.checkIdDuplication(id);
+            boolean result = accountController.checkAccountDuplication(account);
 
             if (!result) break;
 
-            handleDuplicateId();
+            ResultView.handleDuplicateId();
 
         }
 
@@ -51,7 +52,7 @@ public class AccountView {
             auth = sc.nextLine();
 
             if(auth.equals("1") || auth.equals("2") || auth.equals("0")) break;
-            handleAuth(auth);
+            ResultView.handleAuth(auth);
         }
 
         // 휴대폰 번호
@@ -64,27 +65,19 @@ public class AccountView {
         System.out.println("> 주소: ");
         String address = sc.nextLine();
 
-        userController.signup(id, password, userName, Integer.parseInt(auth), phone, address);
+        int result = accountController.signup(account, password, userName, Integer.parseInt(auth), phone, address);
+        ResultView.signupResult("회원가입", result);
     }
 
-    public void login() {
+    public UserDto login() {
         System.out.println("\n~~~ 로그인 정보를 작성해주세요 ~~~");
         System.out.println("> 아이디: ");
         String id = sc.nextLine();
         System.out.println("> 비밀번호: ");
         String password = sc.nextLine();
 
-        userController.login(id, password);
+        return accountController.login(id, password);
     }
 
-
-    public void handleDuplicateId() {
-        System.out.println("~~~ 중복된 아이디 입니다. 다시 입력해주세요 ~~~");
-    }
-
-    public void handleAuth(String auth) {
-        System.out.printf("~~~ %s는 없는 권한 입니다. 다시 입력해주세요 ~~~", auth);
-        System.out.println();
-    }
 }
 

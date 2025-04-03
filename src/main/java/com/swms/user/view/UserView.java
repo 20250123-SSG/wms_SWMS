@@ -1,4 +1,22 @@
 package com.swms.user.view;
 
+import com.swms.user.controller.AccountController;
+import com.swms.user.controller.UserController;
+import com.swms.user.model.dto.UserDto;
+
+import java.util.Scanner;
+
 public class UserView {
+    private Scanner sc = new Scanner(System.in);
+    private UserController userController = new UserController();
+
+    public void updateAddress(UserDto user) {
+        System.out.println("\n~~~ 수정할 주소를 입력해주세요~~~");
+        System.out.println("> 주소: ");
+        String address = sc.nextLine();
+
+        userController.updateAddress(user, address);
+
+    }
+
 }
