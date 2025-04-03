@@ -3,11 +3,12 @@ package com.swms.run.page;
 import com.swms.common.AnsiColor;
 import com.swms.user.model.dto.UserDto;
 import com.swms.user.view.AccountView;
+import com.swms.user.view.UserView;
 
 import java.util.Scanner;
 
 public class MyPage {
-    private static AccountView userView = new AccountView();
+    private static UserView userView = new UserView();
     private static Scanner sc = new Scanner(System.in);
 
     public static void myPage(UserDto userDto) {
@@ -32,10 +33,11 @@ public class MyPage {
             System.out.println(AnsiColor.BRIGHT_WHITE + "  💰 금액 : " + userDto.getMoney() + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_PURPLE + " ─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─" + AnsiColor.RESET);
             System.out.println();
-            System.out.println(AnsiColor.GREEN + "                1. 내 정보 수정" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "                2. 돈 충전하기" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "                3. 장바구니 조회" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "                4. 좋아요 조회" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "                1. 주소 수정" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "                2. 전화번호 수정" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "                3. 돈 충전하기" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "                4. 장바구니 조회" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "                5. 좋아요 조회" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "                0. 뒤로 가기" + AnsiColor.RESET);
             System.out.println();
@@ -46,6 +48,7 @@ public class MyPage {
 
             switch (menu) {
                 case "1":
+                    userView.updateAddress(userDto);
                     break;
                 case "2":
                     break;

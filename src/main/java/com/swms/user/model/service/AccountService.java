@@ -1,7 +1,6 @@
 package com.swms.user.model.service;
 
 import com.swms.user.model.dao.AccountMapper;
-import com.swms.user.model.dao.UserMapper;
 import com.swms.user.model.dto.AccountDto;
 import com.swms.user.model.dto.AccountUserDto;
 import com.swms.user.model.dto.UserDto;

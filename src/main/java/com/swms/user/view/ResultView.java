@@ -13,4 +13,8 @@ public class ResultView {
     public static void signupResult(String type, int result) {
         System.out.println("📢 " + type + " " + (result > 0 ? "이 완료되었습니다. 로그인을 시도해주세요" : "이 되지 않았습니다."));
     }
+
+    public static void updateResult(String type, int result){
+        System.out.println("📢 " + type + " " +  (result > 0 ? "변경이 완료되었습니다." : "변경에 실패했습니다.") );
+    }
 }

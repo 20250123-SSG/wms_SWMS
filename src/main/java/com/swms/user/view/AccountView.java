@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class AccountView {
     private Scanner sc = new Scanner(System.in);
-    private AccountController userController = new AccountController();
+    private AccountController accountController = new AccountController();
 
 
     public void signup() {
@@ -19,7 +19,7 @@ public class AccountView {
             System.out.println("> 아이디: ");
             account = sc.nextLine();
 
-            boolean result = userController.checkAccountDuplication(account);
+            boolean result = accountController.checkAccountDuplication(account);
 
             if (!result) break;
 
@@ -65,7 +65,7 @@ public class AccountView {
         System.out.println("> 주소: ");
         String address = sc.nextLine();
 
-        int result = userController.signup(account, password, userName, Integer.parseInt(auth), phone, address);
+        int result = accountController.signup(account, password, userName, Integer.parseInt(auth), phone, address);
         ResultView.signupResult("회원가입", result);
     }
 
@@ -76,7 +76,7 @@ public class AccountView {
         System.out.println("> 비밀번호: ");
         String password = sc.nextLine();
 
-        return userController.login(id, password);
+        return accountController.login(id, password);
     }
 
 }

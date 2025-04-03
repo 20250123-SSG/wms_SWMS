@@ -7,7 +7,7 @@ import com.swms.user.view.AccountView;
 import java.util.Scanner;
 
 public class LoginPage {
-    private static AccountView userView = new AccountView();
+    private static AccountView accountView = new AccountView();
     private static Scanner sc = new Scanner(System.in);
 
     public static UserDto loginPage() {
@@ -40,10 +40,10 @@ public class LoginPage {
             String menu = sc.nextLine();
             switch (menu) {
                 case "1":
-                    userDto = userView.login();
+                    userDto = accountView.login();
                     break;
                 case "2":
-                    userView.signup();
+                    accountView.signup();
                 case "0":
                     System.out.println("프로그램을 종료합니다.");
                     return null;
