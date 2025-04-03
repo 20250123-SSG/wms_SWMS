@@ -6,6 +6,10 @@
 
     <properties resource="config/connection-config.properties"/>
 
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
     <typeAliases>
         <typeAlias type="com.swms.user.model.dto.AccountDto" alias="AccountDto"/>
         <typeAlias type="com.swms.user.model.dto.UserDto" alias="UserDto"/>
@@ -29,5 +33,6 @@
         <mapper resource="mapper/user/user-mapper.xml"/>
         <mapper resource="mapper/shoes/shoes-mapper.xml"/>
     </mappers>
+
 
 </configuration>
