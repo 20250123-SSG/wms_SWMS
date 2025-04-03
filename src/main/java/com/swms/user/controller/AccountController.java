@@ -12,6 +12,7 @@ public class AccountController {
     public UserDto login(String account, String password) {
         AccountDto accountDto = new AccountDto(account, password);
 
+        accountService.checkPassword(accountDto);
 
         return accountService.login(accountDto);
     }

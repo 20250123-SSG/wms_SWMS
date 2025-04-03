@@ -1,6 +1,7 @@
 package com.swms.user.view;
 
 import com.swms.user.controller.AccountController;
+import com.swms.user.model.dto.UserDto;
 
 import java.util.Scanner;
 
@@ -22,7 +23,7 @@ public class AccountView {
 
             if (!result) break;
 
-            handleDuplicateId();
+            ResultView.handleDuplicateId();
 
         }
 
@@ -51,7 +52,7 @@ public class AccountView {
             auth = sc.nextLine();
 
             if(auth.equals("1") || auth.equals("2") || auth.equals("0")) break;
-            handleAuth(auth);
+            ResultView.handleAuth(auth);
         }
 
         // 휴대폰 번호
@@ -65,31 +66,17 @@ public class AccountView {
         String address = sc.nextLine();
 
         int result = userController.signup(account, password, userName, Integer.parseInt(auth), phone, address);
-        signupResult("회원가입", result);
+        ResultView.signupResult("회원가입", result);
     }
 
-    public void login() {
+    public UserDto login() {
         System.out.println("\n~~~ 로그인 정보를 작성해주세요 ~~~");
         System.out.println("> 아이디: ");
         String id = sc.nextLine();
         System.out.println("> 비밀번호: ");
         String password = sc.nextLine();
 
-        userController.login(id, password);
-    }
-
-
-    public void handleDuplicateId() {
-        System.out.println("~~~ 중복된 아이디 입니다. 다시 입력해주세요 ~~~");
-    }
-
-    public void handleAuth(String auth) {
-        System.out.printf("~~~ %s는 없는 권한 입니다. 다시 입력해주세요 ~~~", auth);
-        System.out.println();
-    }
-
-    public static void signupResult(String type, int result){
-        System.out.println("📢 " + type + " " +  (result > 0 ? "이 완료되었습니다. 로그인을 시도해주세요" : "이 되지 않았습니다.") );
+        return userController.login(id, password);
     }
 
 }

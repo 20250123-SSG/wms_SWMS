@@ -32,16 +32,16 @@ public class Application {
         System.out.println();
         System.out.println(BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + RESET);
 
-        UserDto user;
+        UserDto userDto = null;
 
-        while (true) {
+        while (userDto == null) {
             System.out.print("""
                     > 입력:""");
 
             String menu = sc.nextLine();
             switch (menu) {
                 case "1":
-                    userView.login();
+                    userDto = userView.login();
                     break;
                 case "2":
                     userView.signup();
@@ -50,7 +50,8 @@ public class Application {
                 default:
                     System.out.println("메뉴를 잘못 입력하셨습니다.");
             }
-
         }
+
+        System.out.print(userDto);
     }
 }

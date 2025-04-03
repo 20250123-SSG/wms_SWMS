@@ -25,13 +25,33 @@ public class AccountService {
         return existingId != null; // 중복이면 true, 없으면 false
     }
 
-    public UserDto login(AccountDto account) {
+    public boolean checkPassword(AccountDto inputAccountDto) {
         SqlSession sqlSession = getSqlSession();
+        accountMapper = sqlSession.getMapper(AccountMapper.class);
+        AccountDto storeAccountDto = accountMapper.findByAccountIncludingPassword(inputAccountDto.getAccount());
 
-        UserDto user = new UserDto();
+        boolean checkPassword = inputAccountDto.getPassword().equals(storeAccountDto.getPassword());
+        if(!checkPassword){
+            // 비밀번호가 틀렸다 리턴
+        }
+
         sqlSession.close();
-        return user;
+
+        return true;
     }
+
+    public UserDto login(AccountDto accountDto) {
+        SqlSession sqlSession = getSqlSession();
+        accountMapper = sqlSession.getMapper(AccountMapper.class);
+
+        UserDto userDto = accountMapper.findUserByAccount(accountDto);
+
+        sqlSession.close();
+
+        return userDto;
+    }
+
+
 
     public int registAccountUser(AccountUserDto accountUser) {
         SqlSession sqlSession = getSqlSession();
