@@ -4,15 +4,38 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.swms.user.model.dao.AccountMapper">
 
+
     <!-- 아이디 조회 -->
-    <select id="selectById" parameterType="string" resultType="string">
+    <select id="selectByAccount" parameterType="string" resultType="string">
         select
-            id
+             account
         from
             tbl_user
         where
-            id = #{id}
+            account = #{account}
     </select>
 
+    <!-- 신규 유저 등록 -->
+    <insert id="insertAccountUser" parameterType="com.swms.user.model.dto.AccountUserDto" useGeneratedKeys="true" keyProperty="userId">
+        insert into
+        tbl_user
+            (
+            account
+            , password
+            , user_name
+            , auth
+            , phone
+            , address
+            )
+        values
+            (
+            #{account}
+            , #{password}
+            , #{userName}
+            , #{auth}
+            , #{phone}
+            , #{address}
+            )
+    </insert>
 
 </mapper>

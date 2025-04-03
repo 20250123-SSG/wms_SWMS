@@ -11,14 +11,14 @@ public class AccountView {
 
     public void signup() {
         // 아이디
-        String id;
+        String account;
         while (true) {
             System.out.println("\n~~~ 등록할 회원 정보를 작성해주세요 ~~~");
             System.out.println("\n 아이디는 20자 이내여야 합니다.");
             System.out.println("> 아이디: ");
-            id = sc.nextLine();
+            account = sc.nextLine();
 
-            boolean result = userController.checkIdDuplication(id);
+            boolean result = userController.checkAccountDuplication(account);
 
             if (!result) break;
 
@@ -64,7 +64,8 @@ public class AccountView {
         System.out.println("> 주소: ");
         String address = sc.nextLine();
 
-        userController.signup(id, password, userName, Integer.parseInt(auth), phone, address);
+        int result = userController.signup(account, password, userName, Integer.parseInt(auth), phone, address);
+        signupResult("회원가입", result);
     }
 
     public void login() {
@@ -86,5 +87,10 @@ public class AccountView {
         System.out.printf("~~~ %s는 없는 권한 입니다. 다시 입력해주세요 ~~~", auth);
         System.out.println();
     }
+
+    public static void signupResult(String type, int result){
+        System.out.println("📢 " + type + " " +  (result > 0 ? "이 완료되었습니다. 로그인을 시도해주세요" : "이 되지 않았습니다.") );
+    }
+
 }
 
