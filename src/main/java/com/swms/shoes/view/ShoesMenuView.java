@@ -1,6 +1,8 @@
 package com.swms.shoes.view;
 
 import com.swms.shoes.controller.ShoesController;
+import com.swms.shoes.model.dto.ShoesDetailDto;
+import com.swms.shoes.model.dto.ShoesDto;
 
 import java.util.*;
 
@@ -27,7 +29,7 @@ public class ShoesMenuView {
             map.put("ascDesc", sorting.get(1));
             map.put("offset", 0);
 
-            shoesController.selectShoesList(map);
+
 
             pagination();
 
@@ -117,7 +119,7 @@ public class ShoesMenuView {
     public void pagination(){
         int offset = 0;
         while(true){
-
+            List<ShoesDto> pageShoesList = shoesController.selectShoesList(map);
             System.out.println("""
                 \n
                 1. 이전페이지
@@ -126,8 +128,7 @@ public class ShoesMenuView {
                 
                 0. 프로그램 종료
                 ---------------------------------------------------
-                >> 입력 : 
-                """);
+                >> 입력 : """);
 
             String input = sc.nextLine();
 
@@ -135,16 +136,16 @@ public class ShoesMenuView {
                 case "1":
                     offset -= 10;
                     map.put("offset", offset);
-                    shoesController.selectShoesList(map);
                     break;
                 case "2":
                     offset += 10;
                     map.put("offset", offset);
-                    shoesController.selectShoesList(map);
                     break;
                 case "3":
                     System.out.println("상세조회할 상품의 번호를 입력하세요.");
-                    shoesController.selectShoesDetail(sc.nextLine()); // 상품상세보기
+                    //TODO: shoesDTO에 shoes_id를 추가하는게 좋을 듯. 우선은 이름으로 진행
+                    ShoesDto shoes = pageShoesList.get(Integer.parseInt(sc.nextLine())); // 상품상세보기
+                    shoesController.selectShoesDetail(shoes.getShoesName());
                     break;
                 case "0":
                     System.exit(0);

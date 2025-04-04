@@ -5,12 +5,23 @@
 <mapper namespace="com.swms.shoes.model.dao.ShoesMapper">
 
     <resultMap id="shoesListResultMap" type="ShoesDto">
-        <result column="shoes_id" property="shoesId"/>
+        <id column="shoes_id" property="shoesId"/>
         <result column="shoes_type_id" property="shoesTypeId"/>
         <result column="brand_id" property="brandId"/>
         <result column="shoes_name" property="shoesName"/>
         <result column="shoes_price" property="shoesPrice"/>
         <result column="size" property="size"/>
+    </resultMap>
+
+    <resultMap id="SizeListResultMap" type="ShoesDetailDto">
+        <result column="brand_name" property="brandName"/>
+        <result column="shoes_type" property="shoesType"/>
+        <result column="shoes_name" property="shoesName"/>
+        <result column="shoes_price" property="shoesPrice"/>
+
+        <collection property="sizeList" ofType="int">
+            <result column="size"/>
+        </collection>
     </resultMap>
 
     <select id="searchBrandName" parameterType="_int" resultType="String">
@@ -47,5 +58,22 @@
         </if>
         LIMIT 10 OFFSET #{offset}
     </select>
+
+    <select id="selectShoesDetail" parameterType="String" resultMap="SizeListResultMap">
+        SELECT
+            brand_name
+            , shoes_type
+            , shoes_name
+            , shoes_price
+            , size
+        FROM
+            tbl_shoes
+                JOIN tbl_brand USING(brand_id)
+                JOIN tbl_shoes_type USING(shoes_type_id)
+        WHERE
+            shoes_name =  #{shoesName}
+    </select>
+
+
 
 </mapper>
