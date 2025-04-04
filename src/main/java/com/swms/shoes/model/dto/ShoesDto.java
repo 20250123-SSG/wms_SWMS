@@ -15,14 +15,5 @@ public class ShoesDto {
     private String shoesName;
     private String shoesPrice;
     private Integer size;
-
-    // 맨처음 brand와
-
-
-    public ShoesDto(String shoesName, String shoesPrice) {
-        this.shoesName = shoesName;
-        this.shoesPrice = shoesPrice;
-    }
-
 }
 
