@@ -13,24 +13,11 @@ import static com.swms.common.Template.getSqlSession;
 public class ShoesService {
     private ShoesMapper shoesMapper;
 
-//    public String searchBrandName(int brandId) {
-//        SqlSession sqlSession = getSqlSession();
-//        shoesMapper = sqlSession.getMapper(ShoesMapper.class);
-//        String brandName = shoesMapper.searchBrandName(brandId);
-//        return brandName;
-//    }
-//
-//    public String searchTypeName(int typeId) {
-//        SqlSession sqlSession = getSqlSession();
-//        shoesMapper = sqlSession.getMapper(ShoesMapper.class);
-//        String typeName = shoesMapper.searchTypeName(typeId);
-//        return typeName;
-//    }
-    // TODO: session 닫아주기
     public List<ShoesDto> selectShoesList(Map<String, Object> map) {
         SqlSession sqlSession = getSqlSession();
         shoesMapper = sqlSession.getMapper(ShoesMapper.class);
         List<ShoesDto> list = shoesMapper.selectShoesList(map);
+        sqlSession.close();
         return list;
     }
 
@@ -38,6 +25,7 @@ public class ShoesService {
         SqlSession sqlSession = getSqlSession();
         shoesMapper = sqlSession.getMapper(ShoesMapper.class);
         ShoesDetailDto shoes = shoesMapper.selectShoesDetail(shoesName);
+        sqlSession.close();
         return shoes;
     }
 }

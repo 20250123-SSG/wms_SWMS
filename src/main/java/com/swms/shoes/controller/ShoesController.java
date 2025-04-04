@@ -16,17 +16,6 @@ public class ShoesController {
     // 타입 목록 조회
     public void /*List<String>*/ selectTypeList(){}
 
-    // 사용자가 입력한 브랜드의 이름 조회
-//    public String searchBrandName(int brandId) {
-//        String brandName = shoesService.searchBrandName(brandId);
-//        return brandName;
-//    }
-//    // 사용자가 입력한 종류의 이름 조회
-//    public String searchTypeName(int typeId) {
-//        String typeName = shoesService.searchTypeName(typeId); // 서비스 반환 데이터
-//        return typeName;
-//    }
-
     //TODO: 페이지네이션 offset범위 제한
     public List<ShoesDto> selectShoesList(Map<String, Object> map) {
         List<ShoesDto> list = shoesService.selectShoesList(map);
@@ -34,9 +23,10 @@ public class ShoesController {
         return list;
     }
 
-    public void selectShoesDetail(String shoesName) {
+    public ShoesDetailDto selectShoesDetail(String shoesName) {
         ShoesDetailDto shoes = shoesService.selectShoesDetail(shoesName);
         ShoesResultView.displayShoes(shoes);
+        return shoes;
     }
 
 
