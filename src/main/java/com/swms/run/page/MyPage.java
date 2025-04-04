@@ -46,6 +46,7 @@ public class MyPage {
                 case "2":
                     break;
                 case "3":
+                    userView.updateMoney(userDto);
                     break;
                 case "4":
                     break;

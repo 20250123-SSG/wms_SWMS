@@ -7,6 +7,7 @@ import java.util.List;
 public interface UserMapper {
 
     int updateAddress(UserDto userDto);
-
+    //돈 돈 돈 돈
+    int updateMoney(UserDto userDto);
 
 }

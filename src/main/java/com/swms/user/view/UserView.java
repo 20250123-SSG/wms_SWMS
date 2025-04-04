@@ -19,4 +19,13 @@ public class UserView {
 
     }
 
+    public void updateMoney(UserDto userMoney) {
+        System.out.println("\n~~~ 충전할 금액을 입력해주세요~~~");
+        System.out.println("> 금액: ");
+        int money = sc.nextInt();
+
+        userController.updateMoney(userMoney, money);
+
+    }
+
 }

@@ -15,4 +15,15 @@ public class UserController {
 
         ResultView.updateResult("주소", result);
     }
+
+    public void updateMoney(UserDto userMoney, int money) {
+
+        int result = userService.updateMoney(userMoney, money);
+
+        ResultView.updateResult("금액", result);
+    }
+
+
 }
+
+
