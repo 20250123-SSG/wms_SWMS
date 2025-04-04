@@ -1,6 +1,8 @@
 package com.swms.shoes.view;
 
 import com.swms.shoes.controller.ShoesController;
+import com.swms.shoes.model.dto.ShoesDetailDto;
+import com.swms.shoes.model.dto.ShoesDto;
 
 import java.util.*;
 
@@ -9,15 +11,16 @@ public class ShoesMenuView {
     private Scanner sc = new Scanner(System.in);
     private Map<String, Object> map = new HashMap<>();
 
+
+    private ShoesOptionView optionView = new ShoesOptionView(); // type, brand, sorting 선택
+
+    // TODO: 뷰 나누기...
     public void NavigationView() {
 
         while (true) {
-            System.out.println("====================================");
-            System.out.println("XYZ-Mart에 방문해주셔서 감사합니다.");
-
-            String type = inputType(); // 1. 신발종류 선택
-            String brand = inputBrand(); // 2. 브랜드 선택
-            List<String> sorting = inputSorting(); // 3. 정렬 선택
+            String type = optionView.inputType(); // 1. 신발종류 선택
+            String brand = optionView.inputBrand(); // 2. 브랜드 선택
+            List<String> sorting = optionView.inputSorting(); // 3. 정렬 선택
 
 
             //map으로 조회조건 넘기기
@@ -27,97 +30,35 @@ public class ShoesMenuView {
             map.put("ascDesc", sorting.get(1));
             map.put("offset", 0);
 
-            shoesController.selectShoesList(map);
+            // 4. 조회옵션으로 신발목록 출력 (페이지네이션)
+            List<ShoesDto> pageShoesList = selectShoesList();  //ShoesDetailDto shoes =
 
-            pagination();
+            // 5. 상세조회
+            ShoesDetailDto shoes = selectShoesDetail(pageShoesList);
+
+            // 6. 사용자동작선택 (구매/장바구니/좋아요)
+            String action = userActionView();
+            switch (action) {
+                case "1":
+                    break; // 구매하기 (shoes활용)
+                case "2":
+                    break; // 장바구니
+                case "3":
+                    break; // 좋아요
+            }
 
         }
         // 받은 아이디에 선택에 맞게 조회 뿌리기
     }
 
 
-    public String inputType() {
-        System.out.print("""
-                ====================================
-                찾으시는 상품의 종류를 선택해주세요.
-               
-                1. 스니커즈
-                2. 런닝화
-                3. 구두
-                4. 샌들
-                5. 부츠 
-                
-                0. 프로그램 종료
-                ====================================
-                >> 입력 :\t""");
 
-        String input = sc.nextLine();
 
-        if("0".equals(input)){
-            System.exit(0);
-        }
 
-        return input;
-    }
-
-    public String inputBrand() {
-        System.out.print("""
-                ====================================
-                찾으시는 브랜드를 선택해주세요.
-                
-                1. 나이키
-                2. 아디다스
-                3. 뉴발란스
-                4. 크록스
-                5. 반스
-                
-                0. 프로그램 종료
-                ========================
-                >> 입력 :\t""");
-
-        String input = sc.nextLine();
-
-        if("0".equals(input)){
-            System.exit(0);
-        }
-
-        return input;
-    }
-
-    public List<String> inputSorting() {
-        List<String> sortingOption = new ArrayList<>();
-        System.out.print("""
-                
-                ---------------------------------------------------
-                정렬 옵션을 선택해주세요.
-                1. 최신순   2. 낮은가격순   3. 높은가격순  \s
-                
-                0. 프로그램 종료 \s
-                ---------------------------------------------------
-                >> 입력 :\t""");
-
-        switch (sc.nextLine()) {
-            case "1":
-                sortingOption = List.of("shoes_id", "ASC");
-                break;
-            case "2":
-                sortingOption = List.of("shoes_price", "ASC");
-                break;
-            case "3":
-                sortingOption = List.of("shoes_price", "DESC");
-                break;
-            case "0":
-                System.exit(0);
-                break;
-
-        }
-        return sortingOption;
-    }
-
-    public void pagination(){
+    public List<ShoesDto> selectShoesList(){
         int offset = 0;
         while(true){
-
+            List<ShoesDto> pageShoesList = shoesController.selectShoesList(map);
             System.out.println("""
                 \n
                 1. 이전페이지
@@ -126,8 +67,7 @@ public class ShoesMenuView {
                 
                 0. 프로그램 종료
                 ---------------------------------------------------
-                >> 입력 : 
-                """);
+                >> 입력 : """);
 
             String input = sc.nextLine();
 
@@ -135,20 +75,42 @@ public class ShoesMenuView {
                 case "1":
                     offset -= 10;
                     map.put("offset", offset);
-                    shoesController.selectShoesList(map);
                     break;
                 case "2":
                     offset += 10;
                     map.put("offset", offset);
-                    shoesController.selectShoesList(map);
                     break;
                 case "3":
-                    System.out.println("상세조회할 상품의 번호를 입력하세요.");
-                    shoesController.selectShoesDetail(sc.nextLine()); // 상품상세보기
-                    break;
+                    return pageShoesList;
                 case "0":
                     System.exit(0);
             }
         }
+    }
+
+    public ShoesDetailDto selectShoesDetail(List<ShoesDto> pageShoesList){
+        System.out.println("상세조회할 상품의 번호를 입력하세요.");
+        //TODO: shoesDTO에 shoes_id를 추가하는게 좋을 듯. 우선은 이름으로 진행
+        ShoesDto shoesInfo = pageShoesList.get(Integer.parseInt(sc.nextLine())); // 상품상세보기
+        ShoesDetailDto shoes = shoesController.selectShoesDetail(shoesInfo.getShoesName());
+        return shoes;
+    }
+
+    public String userActionView(){
+        System.out.println(
+                        """
+                        \n
+                        ----------------------------------
+                        원하시는 기능을 선택하세요.
+                        
+                        1. 구매하기
+                        2. 장바구니 
+                        3. 좋아요 
+                        
+                        0. 뒤로가기
+                        ----------------------------------
+                        >> 입력 : 
+                        """);
+        return sc.nextLine();
     }
 }
