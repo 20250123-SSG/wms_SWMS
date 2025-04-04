@@ -29,7 +29,8 @@
     <!-- 유저 정보 조회 -->
     <select id="findUserByAccount" parameterType="AccountDto" resultType="UserDto">
         select
-            user_name
+            user_id
+          , user_name
           , auth
           , phone
           , address

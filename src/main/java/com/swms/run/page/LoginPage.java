@@ -1,6 +1,7 @@
 package com.swms.run.page;
 
 import com.swms.common.AnsiColor;
+import com.swms.common.Logo;
 import com.swms.user.model.dto.UserDto;
 import com.swms.user.view.AccountView;
 
@@ -11,15 +12,7 @@ public class LoginPage {
     private static Scanner sc = new Scanner(System.in);
 
     public static UserDto loginPage() {
-        System.out.println(AnsiColor.BLUE + "   ┌=========================================┐");
-        System.out.println(AnsiColor.BLUE + "   │  ███████╗██╗    ██╗███╗   ███╗███████╗  │" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BLUE + "   │  ██╔════╝██║    ██║████╗ ████║██╔════╝  │" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BLUE + "   │  ███████╗██║ █╗ ██║██╔████╔██║█████╗    │" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BLUE + "   │  ╚════██║██║███╗██║██║╚██╔╝██║██╔══╝    │" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BLUE + "   │  ███████║╚███╔███╔╝██║ ╚═╝ ██║███████╗  │" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BLUE + "   │  ╚══════╝ ╚══╝╚══╝ ╚═╝     ╚═╝╚══════╝  │" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BLUE + "   └=========================================┘");
-        System.out.println(AnsiColor.BLUE + "                  \uD83D\uDC5F\uD83E\uDD7E\uD83D\uDC5E\uD83D\uDC60\uD83D\uDC62\uD83E\uDD7F" + AnsiColor.RESET);
+        Logo.printLogo();
         System.out.println(AnsiColor.BLUE + "  ┌─────────────────────────────────────────────┐" + AnsiColor.RESET);
         System.out.println(AnsiColor.BLUE + "  │ " + AnsiColor.GREEN + "     Shoes Warehouse Management System " + AnsiColor.BLUE + "     │" + AnsiColor.RESET);
         System.out.println(AnsiColor.BLUE + "  └─────────────────────────────────────────────┘" + AnsiColor.RESET);
