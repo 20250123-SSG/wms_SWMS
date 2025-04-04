@@ -6,23 +6,27 @@ import com.swms.user.model.dto.UserDto;
 
 import java.util.Scanner;
 
-public class MainPage {
+public class AdminPage {
     private static Scanner sc = new Scanner(System.in);
 
-    public static void mianPage(UserDto userDto) {
+    public static void adminPage(UserDto userDto) {
+        if(userDto.getUserId() != 0){
+            System.out.println(AnsiColor.BRIGHT_RED + "   접속 권한이 없습니다.");
+            return;
+        }
         while (true) {
             Logo.printLogo();
             System.out.println(AnsiColor.BLUE + "  ┌─────────────────────────────────────────────┐" + AnsiColor.RESET);
             System.out.println(AnsiColor.BLUE + "  │ " + AnsiColor.GREEN + "     Shoes Warehouse Management System " + AnsiColor.BLUE + "     │" + AnsiColor.RESET);
             System.out.println(AnsiColor.BLUE + "  └─────────────────────────────────────────────┘" + AnsiColor.RESET);
             System.out.println();
-            System.out.println(AnsiColor.GREEN + "               1. 마이페이지" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               2. 신발 조회 및 구매" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               1. 상품 등록 / 수정" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               2. 상품 재고 확인 / 입고" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               3. 전체 매출 확인" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               4. 온라인 매출 확인" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               5. 지점별 매출 확인" + AnsiColor.RESET);
             System.out.println();
-            System.out.println(AnsiColor.GREEN + "               8. 점장 메뉴" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               9. 관리자 메뉴" + AnsiColor.RESET);
-            System.out.println();
-            System.out.println(AnsiColor.GREEN + "               0. 프로그램 종료" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               0. 뒤로가기" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + AnsiColor.RESET);
 
@@ -33,16 +37,9 @@ public class MainPage {
             String menu = sc.nextLine();
             switch (menu) {
                 case "1":
-                    MyPage.myPage(userDto);
                     break;
                 case "2":
 
-                case "8":
-                    StoreManagerPage.storeMangerPage(userDto);
-                    break;
-                case "9":
-                    AdminPage.adminPage(userDto);
-                    break;
                 case "0":
                     return;
                 default:
