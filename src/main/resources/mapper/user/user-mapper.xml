@@ -27,11 +27,11 @@
     <!-- 전화번호 수정 -->
     <update id="updatePhone" parameterType="UserDto">
         update
-        tbl_user
+            tbl_user
         set
-        phone = #{phone}
+            phone = #{phone}
         where
-        user_id = #{userId}
+            user_id = #{userId}
     </update>
 
 

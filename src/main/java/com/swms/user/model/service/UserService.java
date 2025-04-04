@@ -1,8 +1,12 @@
 package com.swms.user.model.service;
 
+import com.swms.user.model.dao.ShoppingCartMapper;
 import com.swms.user.model.dao.UserMapper;
+import com.swms.user.model.dto.ShoppingCartDto;
 import com.swms.user.model.dto.UserDto;
 import org.apache.ibatis.session.SqlSession;
+
+import java.util.List;
 
 import static com.swms.common.Template.getSqlSession;
 
@@ -78,4 +82,5 @@ public class UserService {
         return result;
 
     }
+
 }
