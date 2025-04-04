@@ -30,5 +30,27 @@ public class UserService {
 
         return result;
     }
+    //돈 돈 돈 돈 돈 돈 돈 돈 돈 돈 돈 돈 돈 돈 돈 돈 돈 돈
+    public int updateMoney(UserDto userDto, int money) {
+        SqlSession sqlSession = getSqlSession();
+        userMapper = sqlSession.getMapper(UserMapper.class);
 
+
+        int result = 0;
+        try {
+            userDto.setMoney(userDto.getMoney() + money);
+            System.out.println(userDto);
+            result = userMapper.updateMoney(userDto);
+            sqlSession.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+
+        return result;
+
+    }
 }

@@ -14,4 +14,15 @@
             user_id = #{userId}
     </update>
 
+    <!-- 돈충전 -->
+    <update id="updateMoney" parameterType="UserDto">
+        update
+            tbl_user
+        set
+            money = #{money}
+        where
+            user_id = #{userId}
+    </update>
+
+
 </mapper>
