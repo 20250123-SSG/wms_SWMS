@@ -2,54 +2,40 @@ package com.swms.shoes.view;
 
 import com.swms.shoes.controller.ShoesController;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class ShoesMenuView {
     private ShoesController shoesController = new ShoesController();
     private Scanner sc = new Scanner(System.in);
+    private Map<String, Object> map = new HashMap<>();
 
     public void NavigationView() {
+
         while (true) {
             System.out.println("====================================");
             System.out.println("XYZ-Mart에 방문해주셔서 감사합니다.");
 
-            // 1. 신발종류 선택
-            int typeId = Integer.parseInt(inputType());
-            // 2. 브랜드 선택
-            int brandId = Integer.parseInt(inputBrand());
-            // 3. 정렬 선택
-            String sortingOption = selectSortingOption();
+            String type = inputType(); // 1. 신발종류 선택
+            String brand = inputBrand(); // 2. 브랜드 선택
+            List<String> sorting = inputSorting(); // 3. 정렬 선택
 
 
-            switch (sortingOption) {
-                case "1":
-                    shoesController.sortingByLatest(brandId, typeId);
-                    break;
-                case "2":
-                    shoesController.sortingByPriceASC(brandId, typeId);
-                    break;
-                case "3":
-                    shoesController.sortingByPriceDESC(brandId, typeId);
-                    break;
-                case "0":
-                    System.exit(0);
+            //map으로 조회조건 넘기기
+            map.put("type", Integer.parseInt(type));
+            map.put("brand", Integer.parseInt(brand));
+            map.put("sortBy", sorting.get(0));
+            map.put("ascDesc", sorting.get(1));
+            map.put("offset", 0);
 
-                // 4. 선택에 따른 결과 뿌려주기
+            shoesController.selectShoesList(map);
 
-                // 5. 1) 페이지 앞으로가기 (1페이지에선 동작 x) 2) 뒤로가기 3) 상세조회(선택)
+            pagination();
 
-                // 받은 아이디에 선택에 맞게 조회 뿌리기
-
-
-                //shoesController.searchTypeName(typeId); // 선택한 type 조회
-                //shoesController.searchBrandName(brandId); // 선택한 brand 조회
-
-
-            }
         }
+        // 받은 아이디에 선택에 맞게 조회 뿌리기
     }
 
-    // TODO : 전체 옵션은 시간되면
+
     public String inputType() {
         System.out.print("""
                 ====================================
@@ -98,9 +84,10 @@ public class ShoesMenuView {
         return input;
     }
 
-    public String selectSortingOption() {
+    public List<String> inputSorting() {
+        List<String> sortingOption = new ArrayList<>();
         System.out.print("""
-               
+                
                 ---------------------------------------------------
                 정렬 옵션을 선택해주세요.
                 1. 최신순   2. 낮은가격순   3. 높은가격순  \s
@@ -108,8 +95,60 @@ public class ShoesMenuView {
                 0. 프로그램 종료 \s
                 ---------------------------------------------------
                 >> 입력 :\t""");
-        return sc.nextLine();
 
+        switch (sc.nextLine()) {
+            case "1":
+                sortingOption = List.of("shoes_id", "ASC");
+                break;
+            case "2":
+                sortingOption = List.of("shoes_price", "ASC");
+                break;
+            case "3":
+                sortingOption = List.of("shoes_price", "DESC");
+                break;
+            case "0":
+                System.exit(0);
+                break;
+
+        }
+        return sortingOption;
     }
 
+    public void pagination(){
+        int offset = 0;
+        while(true){
+
+            System.out.println("""
+                \n
+                1. 이전페이지
+                2. 다음페이지
+                3. 상품상세보기 
+                
+                0. 프로그램 종료
+                ---------------------------------------------------
+                >> 입력 : 
+                """);
+
+            String input = sc.nextLine();
+
+            switch(input){
+                case "1":
+                    offset -= 10;
+                    map.put("offset", offset);
+                    shoesController.selectShoesList(map);
+                    break;
+                case "2":
+                    offset += 10;
+                    map.put("offset", offset);
+                    shoesController.selectShoesList(map);
+                    break;
+                case "3":
+                    System.out.println("상세조회할 상품의 번호를 입력하세요.");
+                    shoesController.selectShoesDetail(sc.nextLine()); // 상품상세보기
+                    break;
+                case "0":
+                    System.exit(0);
+            }
+        }
+    }
 }

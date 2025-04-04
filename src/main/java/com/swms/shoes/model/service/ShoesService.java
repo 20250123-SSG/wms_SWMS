@@ -2,10 +2,10 @@ package com.swms.shoes.model.service;
 
 import com.swms.shoes.model.dao.ShoesMapper;
 import com.swms.shoes.model.dto.ShoesDto;
-import com.swms.shoes.model.dto.ShoesOptionDto;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.swms.common.Template.getSqlSession;
 
@@ -26,31 +26,10 @@ public class ShoesService {
         return typeName;
     }
 
-
-    // 상품조회관련 - 정렬 & 상품명 검색
-    //인자 : 1. 가격, 아이디, 브랜드
-    // 2. asc, desc
-    // TODO : 추후 생각 더 해보기
-    public List<ShoesDto> sortingByLatest(ShoesOptionDto selectOption) {
+    public List<ShoesDto> selectShoesList(Map<String, Object> map) {
         SqlSession sqlSession = getSqlSession();
         shoesMapper = sqlSession.getMapper(ShoesMapper.class);
-        List<ShoesDto> list = shoesMapper.sortingByLatest(selectOption);
+        List<ShoesDto> list = shoesMapper.selectShoesList(map);
         return list;
     }
-
-    public List<ShoesDto> sortingByPriceASC(ShoesOptionDto selectOption) {
-        SqlSession sqlSession = getSqlSession();
-        shoesMapper = sqlSession.getMapper(ShoesMapper.class);
-        List<ShoesDto> list = shoesMapper.sortingByPriceASC(selectOption);
-        return list;
-    }
-
-    public List<ShoesDto> sortingByPriceDESC(ShoesOptionDto selectOption) {
-        SqlSession sqlSession = getSqlSession();
-        shoesMapper = sqlSession.getMapper(ShoesMapper.class);
-        List<ShoesDto> list = shoesMapper.sortingByPriceDESC(selectOption);
-        return list;
-    }
-
-
 }

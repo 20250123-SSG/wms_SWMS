@@ -4,8 +4,6 @@ import com.swms.shoes.model.dto.ShoesDto;
 
 import java.util.List;
 
-import static com.swms.shoes.controller.ShoesController.brandName;
-
 public class ShoesResultView {
 
     // 조회된 신발 10개씩 보여주는 view

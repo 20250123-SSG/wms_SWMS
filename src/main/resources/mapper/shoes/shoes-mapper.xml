@@ -32,45 +32,20 @@
     </select>
 
 
-
-    <!--  ========= 정렬별 조회하기 ============ -->
-
-    <select id="sortingByLatest" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
+    <select id="selectShoesList" parameterType="map" resultMap="shoesListResultMap">
         SELECT DISTINCT
             shoes_name
             , shoes_price
         FROM
             tbl_shoes
         WHERE
-            shoes_type_id = #{shoesTypeId}
-        AND brand_id = #{brandId}
-
-    </select>
-
-    <select id="sortingByPriceASC" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
-        SELECT DISTINCT
-            shoes_name
-            , shoes_price
-        FROM
-            tbl_shoes
-        WHERE
-            shoes_type_id = #{shoesTypeId}
-        AND brand_id = #{brandId}
-        ORDER BY
-            shoes_price;
-    </select>
-
-    <select id="sortingByPriceDESC" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
-        SELECT DISTINCT
-            shoes_name
-            , shoes_price
-        FROM
-            tbl_shoes
-        WHERE
-            shoes_type_id = #{shoesTypeId}
-        AND brand_id = #{brandId}
-        ORDER BY
-            shoes_price DESC;
+            shoes_type_id = #{type}
+        AND brand_id = #{brand}
+        <if test="sortBy != 'shoes_id'">
+            ORDER BY
+            ${sortBy} ${ascDesc}
+        </if>
+        LIMIT 10 OFFSET #{offset}
     </select>
 
 </mapper>
