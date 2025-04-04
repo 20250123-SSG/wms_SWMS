@@ -43,7 +43,7 @@ public class MyPage {
                 case "1":
                     userView.updateAddress(userDto);
                     break;
-                case "2":
+                case "2":userView.updatePhone(userDto);
                     break;
                 case "3":
                     userView.updateMoney(userDto);

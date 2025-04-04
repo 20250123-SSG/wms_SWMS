@@ -24,5 +24,15 @@
             user_id = #{userId}
     </update>
 
+    <!-- 전화번호 수정 -->
+    <update id="updatePhone" parameterType="UserDto">
+        update
+        tbl_user
+        set
+        phone = #{phone}
+        where
+        user_id = #{userId}
+    </update>
+
 
 </mapper>

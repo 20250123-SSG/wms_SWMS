@@ -10,4 +10,6 @@ public interface UserMapper {
     //돈 돈 돈 돈
     int updateMoney(UserDto userDto);
 
+    int updatePhone(UserDto userDto);
+
 }

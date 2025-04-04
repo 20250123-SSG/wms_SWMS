@@ -55,4 +55,27 @@ public class UserService {
         return result;
 
     }
+
+    public int updatePhone(UserDto userDto, String phone) {
+        SqlSession sqlSession = getSqlSession();
+        userMapper = sqlSession.getMapper(UserMapper.class);
+
+
+        int result = 0;
+        try {
+            userDto.setPhone(phone);
+            System.out.println(userDto);
+            result = userMapper.updatePhone(userDto);
+            sqlSession.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+
+        return result;
+
+    }
 }

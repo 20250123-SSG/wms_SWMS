@@ -28,4 +28,13 @@ public class UserView {
 
     }
 
+    public void updatePhone(UserDto user) {
+        System.out.println("\n~~~ 수정할 전화번호를 입력해주세요~~~");
+        System.out.println("> 전화번호: ");
+        String phone = sc.nextLine();
+
+        userController.updatePhone(user, phone);
+
+    }
+
 }

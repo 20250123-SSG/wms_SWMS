@@ -23,6 +23,13 @@ public class UserController {
         ResultView.updateResult("금액", result);
     }
 
+    public void updatePhone(UserDto userPhone, String phone) {
+
+        int result = userService.updatePhone(userPhone, phone);
+
+        ResultView.updateResult("전화번호", result);
+    }
+
 
 }
 
