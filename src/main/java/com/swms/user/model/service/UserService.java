@@ -18,9 +18,11 @@ public class UserService {
         int result = 0;
         try {
             userDto.setAddress(address);
+            System.out.println(userDto.getUserId());
+            System.out.println(userDto.getAddress());
+
             result = userMapper.updateAddress(userDto);
             sqlSession.commit();
-
         } catch (Exception e) {
             e.printStackTrace();
             sqlSession.rollback();

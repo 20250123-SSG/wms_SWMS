@@ -23,7 +23,7 @@ public class MyPage {
             System.out.println(AnsiColor.BLUE + "   └=========================================┘");
             System.out.println(AnsiColor.BLUE + "                  \uD83D\uDC5F\uD83E\uDD7E\uD83D\uDC5E\uD83D\uDC60\uD83D\uDC62\uD83E\uDD7F" + AnsiColor.RESET);
             System.out.println(AnsiColor.BLUE + "  ┌─────────────────────────────────────────────┐" + AnsiColor.RESET);
-            System.out.println(AnsiColor.BLUE + "  │ " + AnsiColor.GREEN + "     Shoes Warehouse Management System " + AnsiColor.BLUE + "     │" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BLUE + "  │ " + AnsiColor.GREEN + "                 My page               " + AnsiColor.BLUE + "     │" + AnsiColor.RESET);
             System.out.println(AnsiColor.BLUE + "  └─────────────────────────────────────────────┘" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_PURPLE + " ─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_WHITE + "  🏷️ 이름 : " + userDto.getUserName() + AnsiColor.RESET);
