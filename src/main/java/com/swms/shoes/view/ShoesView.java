@@ -1,6 +1,5 @@
 package com.swms.shoes.view;
 
-
 import com.swms.shoes.controller.ShoesController;
 import com.swms.shoes.model.dto.ShoesDetailDto;
 import com.swms.shoes.model.dto.ShoesDto;
@@ -15,9 +14,8 @@ public class ShoesView {
     private Scanner sc = new Scanner(System.in);
 
     public List<ShoesDto> selectShoesList(Map<String, Object> map){
-        int offset = 0;
+        List<ShoesDto> pageShoesList = shoesController.selectShoesList(map);
         while(true){
-            List<ShoesDto> pageShoesList = shoesController.selectShoesList(map);
             System.out.print("""
                 \n
                 1. 이전페이지
@@ -32,22 +30,20 @@ public class ShoesView {
 
             switch(input){
                 case "1":
-                    offset -= 10;
-                    map.put("offset", offset);
+                    pageShoesList = shoesController.pageDown(map);
                     break;
                 case "2":
-                    offset += 10;
-                    map.put("offset", offset);
+                    pageShoesList = shoesController.pageUp(map);
                     break;
                 case "3":
-                    return pageShoesList;
+                    selectShoesDetail(pageShoesList);
                 case "0":
                     System.exit(0);
             }
         }
     }
 
-
+    // TODO: 데이터처리 controller에서 하도록 변경하기
     public ShoesDetailDto selectShoesDetail(List<ShoesDto> pageShoesList){
         System.out.print("""
                         상세조회할 상품의 번호를 입력하세요.

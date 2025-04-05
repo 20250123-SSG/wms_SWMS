@@ -74,6 +74,12 @@
             shoes_name =  #{shoesName}
     </select>
 
-
-
+    <select id="getDisplayShoesCount" parameterType="map" resultType="_int">
+        SELECT COUNT(DISTINCT shoes_name, shoes_price)
+        FROM
+            tbl_shoes
+        WHERE
+            shoes_type_id = #{type}
+        AND brand_id = #{brand}
+    </select>
 </mapper>

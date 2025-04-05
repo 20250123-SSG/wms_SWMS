@@ -21,7 +21,7 @@ public class ShoesResultView {
 
         int index = 1;
         for (ShoesDto shoes : list){
-
+            // TODO : 1~10보다 11~19, 21~30이 더 예쁠거 같음
             System.out.printf("%d%s\t\t%s\n", index++, String.format("%20s", shoes.getShoesName()), String.format("%8s", shoes.getShoesPrice()));
         }
     }
@@ -46,5 +46,13 @@ public class ShoesResultView {
                             --------------------------------------------""");
         shoes.getSizeList().forEach(size -> System.out.printf("%dmm \t", size));
         System.out.println();
+    }
+
+    public static void displaySOP() {
+        System.out.println("첫 페이지입니다.");
+    }
+
+    public static void displayEOP() {
+        System.out.println("마지막 페이지입니다.");
     }
 }

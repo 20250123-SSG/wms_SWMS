@@ -12,4 +12,6 @@ public interface ShoesMapper {
     List<ShoesDto> selectShoesList(Map<String, Object> map);
 
     ShoesDetailDto selectShoesDetail(String shoesName);
+
+    int getDisplayShoesCount(Map<String, Object> map);
 }

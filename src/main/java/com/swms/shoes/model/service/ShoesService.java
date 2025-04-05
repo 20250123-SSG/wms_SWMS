@@ -28,4 +28,12 @@ public class ShoesService {
         sqlSession.close();
         return shoes;
     }
+
+    public int getDisplayShoesCount(Map<String, Object> map) {
+        SqlSession sqlSession = getSqlSession();
+        shoesMapper = sqlSession.getMapper(ShoesMapper.class);
+        int countShoes = shoesMapper.getDisplayShoesCount(map);
+        sqlSession.close();
+        return countShoes;
+    }
 }
