@@ -9,7 +9,6 @@
         <result column="user_id" property="userId"/>
         <result column="cart_date" property="cartDate"/>
 
-
     </resultMap>
 
     <resultMap id="shoesListResultMap" type="ShoesDto">
@@ -24,17 +23,20 @@
 
     <!--장바구니 확인-->
 
-    <select id="checkShoppingCart" resultMap="shoesListResultMap">
+    <select id="checkShoppingCart"  resultMap="shoesListResultMap" >
         SELECT
-            shoes_name AS '신발'
-            ,shoes_price AS '가격'
+            shoes_name
+            ,shoes_price
             ,size
         FROM
             tbl_cart c
-            JOIN tbl_user u ON c.user_id = u.user_id
-            JOIN tbl_shoes s ON c.shoes_id = s.shoes_id
+            JOIN tbl_shoes s ON c.shoes_id =  s.shoes_id
+
 
         WHERE
-            c.user_id = u.user_id AND c.shoes_id = s.shoes_id
+           c.user_id = #{user_id}
+            <!--지금 유저 아이디 연동이 안 됨 월욜에 가서 해결해야겠음-->
+
     </select>
+
 </mapper>
