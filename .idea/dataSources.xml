@@ -5,7 +5,7 @@
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://ssg-7.iptime.org/twodb</jdbc-url>
+      <jdbc-url>jdbc:mysql://ssg-7.iptime.org:3306/twodb</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -15,6 +15,19 @@
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="@localhost" uuid="0841d314-e581-40d6-998b-89f782e7f3cc">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.resource.type" value="Deployment" />
+        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="@localhost [2]" uuid="a3b79b2f-f47e-4ad6-b787-f756e0c04358">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

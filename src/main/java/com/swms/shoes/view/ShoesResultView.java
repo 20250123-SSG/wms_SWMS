@@ -43,8 +43,7 @@ public class ShoesResultView {
         System.out.println("""
                             --------------------------------------------
                             현재 구매가능한 사이즈
-                            --------------------------------------------
-                            """);
+                            --------------------------------------------""");
         shoes.getSizeList().forEach(size -> System.out.printf("%dmm \t", size));
         System.out.println();
     }
