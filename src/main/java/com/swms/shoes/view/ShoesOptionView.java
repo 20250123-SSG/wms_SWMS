@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+// 옵션 선택 뷰
 public class ShoesOptionView {
     private Scanner sc = new Scanner(System.in);
     public String inputType() {
