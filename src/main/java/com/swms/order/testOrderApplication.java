@@ -15,11 +15,13 @@ public class testOrderApplication {
         // **창고에서 수량있는지 확인**
         onlineOrderController.checkWarehouseStock(shoesDto);
         // 주문서 출력
+        onlineOrderController.orderPrintView(userDto, shoesDto);
 
         // [구매] 트랜젝션
         // 금액체크 & 차감
         onlineOrderController.checkMoney(userDto, shoesDto);
         // 창고에서 제품 delete
+        onlineOrderController.updateShoesQuantity(shoesDto);
         //구매내역등록
         onlineOrderController.insertOnlineOrder(userDto, shoesDto);
     }

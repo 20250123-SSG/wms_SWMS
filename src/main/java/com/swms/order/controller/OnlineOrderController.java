@@ -53,4 +53,13 @@ public class OnlineOrderController {
             // 구매가능 뷰 출력
         }
     }
+
+    public void orderPrintView(UserDto userDto, ShoesDto shoesDto) {
+        // 주문서 출력하는 뷰
+    }
+
+    public void updateShoesQuantity(ShoesDto shoesDto) {
+        int shoesId = shoesDto.getShoesId();
+        int result = onlineOrderService.updateShoesQuantity(shoesId);
+    }
 }

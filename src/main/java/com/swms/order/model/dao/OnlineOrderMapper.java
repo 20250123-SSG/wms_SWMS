@@ -10,4 +10,6 @@ public interface OnlineOrderMapper {
     int insertOnlineOrderDetail(OnlineOrderDetailDto orderDetail);
 
     int checkWarehouseStock(int shoesId);
+
+    int updateShoesQuantity(int shoesId);
 }
