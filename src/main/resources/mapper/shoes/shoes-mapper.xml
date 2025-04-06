@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.swms.shoes.model.dao.ShoesMapper">
 
-    <resultMap id="shoesListResultMap" type="ShoesDto">
+    <resultMap id="shoesListResultMap" type="ShoesSelectDto">
         <id column="shoes_id" property="shoesId"/>
         <result column="shoes_type_id" property="shoesTypeId"/>
         <result column="brand_id" property="brandId"/>
@@ -13,15 +13,11 @@
         <result column="size" property="size"/>
     </resultMap>
 
-    <resultMap id="SizeListResultMap" type="ShoesDetailDto">
+    <resultMap id="SizeListResultMap" type="ShoesDto">
         <result column="brand_name" property="brandName"/>
         <result column="shoes_type" property="shoesType"/>
         <result column="shoes_name" property="shoesName"/>
         <result column="shoes_price" property="shoesPrice"/>
-
-        <collection property="sizeList" ofType="int">
-            <result column="size"/>
-        </collection>
     </resultMap>
 
     <select id="searchBrandName" parameterType="_int" resultType="String">
@@ -60,19 +56,32 @@
     </select>
 
     <select id="selectShoesDetail" parameterType="String" resultMap="SizeListResultMap">
-        SELECT
+        SELECT DISTINCT
             brand_name
             , shoes_type
             , shoes_name
             , shoes_price
-            , size
         FROM
             tbl_shoes
                 JOIN tbl_brand USING(brand_id)
                 JOIN tbl_shoes_type USING(shoes_type_id)
         WHERE
             shoes_name =  #{shoesName}
+
     </select>
+    <select id="selectShoesSizeList" parameterType="String" resultType="String">
+        SELECT
+            size
+        FROM
+        tbl_shoes
+        JOIN tbl_brand USING(brand_id)
+        JOIN tbl_shoes_type USING(shoes_type_id)
+        WHERE
+        shoes_name =  #{shoesName}
+
+    </select>
+
+
 
     <select id="getDisplayShoesCount" parameterType="map" resultType="_int">
         SELECT COUNT(DISTINCT shoes_name, shoes_price)
@@ -81,5 +90,18 @@
         WHERE
             shoes_type_id = #{type}
         AND brand_id = #{brand}
+    </select>
+
+    <select id="getShoesId" parameterType="ShoesDto" resultType="_int">
+        SELECT DISTINCT
+        shoes_id
+        FROM
+        tbl_shoes
+        JOIN tbl_brand USING(brand_id)
+        JOIN tbl_shoes_type USING(shoes_type_id)
+        WHERE
+        shoes_name =  #{shoesName}
+        AND size = #{size}
+        LIMIT 1
     </select>
 </mapper>

@@ -8,11 +8,12 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class ShoesDto {
+public class ShoesSelectDto {
     private Integer shoesId;
-    private String brandName;
-    private String shoesType;
+    private Integer shoesTypeId;
+    private Integer brandId;
     private String shoesName;
-    private int shoesPrice;
-    private String size;
+    private String shoesPrice;
+    private Integer size;
 }
+
