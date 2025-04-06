@@ -2,10 +2,9 @@ package com.swms.shoes.controller;
 
 import com.swms.shoes.model.dto.ShoesDetailDto;
 import com.swms.shoes.model.dto.ShoesDto;
+import com.swms.shoes.model.dto.ShoesSelectDto;
 import com.swms.shoes.model.service.ShoesService;
 import com.swms.shoes.view.ShoesResultView;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -19,27 +18,31 @@ public class ShoesController {
 
     private ShoesService shoesService = new ShoesService();
 
+
+
     // TODO : 시간되면 브랜드, 타입 목록 조회
     // 브랜드 목록 조회
     public void /*List<String>*/ selectBrandList(){}
     // 타입 목록 조회
     public void /*List<String>*/ selectTypeList(){}
 
-    //TODO: 페이지네이션 offset범위 제한
-    public List<ShoesDto> selectShoesList(Map<String, Object> map) {
-        List<ShoesDto> list = shoesService.selectShoesList(map);
+
+    public List<ShoesSelectDto> selectShoesList(Map<String, Object> map) {
+        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
         ShoesResultView.displayShoesList(list);
         return list;
     }
 
-    public ShoesDetailDto selectShoesDetail(String shoesName) {
-        ShoesDetailDto shoes = shoesService.selectShoesDetail(shoesName);
+    public ShoesDto selectShoesDetail(String shoesName) {
+        ShoesDto shoes = shoesService.selectShoesDetail(shoesName);
+        List<String> sizeList = shoesService.selectShoesSizeList(shoesName);
         ShoesResultView.displayShoes(shoes);
+        ShoesResultView.displayShoesSizeList(sizeList);
         return shoes;
     }
 
     // 다음페이지
-    public List<ShoesDto> pageUp(Map<String, Object> map) {
+    public List<ShoesSelectDto> pageUp(Map<String, Object> map) {
 
         // 페이지네이션 데이터처리
         if (totalShoes == 0) {
@@ -52,12 +55,12 @@ public class ShoesController {
         }
         map.put("offset", offset);
 
-        List<ShoesDto> list = shoesService.selectShoesList(map);
+        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
         ShoesResultView.displayShoesList(list);
         return list;
     }
 
-    public List<ShoesDto> pageDown(Map<String, Object> map) {
+    public List<ShoesSelectDto> pageDown(Map<String, Object> map) {
 
         int offset = (int)map.get("offset") + DOWN;
         if (offset < 0) {
@@ -66,9 +69,18 @@ public class ShoesController {
         }
         map.put("offset", offset);
 
-        List<ShoesDto> list = shoesService.selectShoesList(map);
+        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
         ShoesResultView.displayShoesList(list);
         return list;
+    }
+
+
+    // 구매할 상품 하나에 대한 정보를 가져온다. (Shoes_id)
+    public int getShoesId(ShoesDto shoes, String size) {
+        shoes.setSize(size);
+        int shoesId = shoesService.getShoesId(shoes);
+        shoes.setShoesId(shoesId);
+        return shoesId;
     }
 }
 

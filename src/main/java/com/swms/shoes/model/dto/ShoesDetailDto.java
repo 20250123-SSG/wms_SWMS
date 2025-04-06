@@ -8,11 +8,6 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@Builder
-public class ShoesDetailDto {
-    private String brandName;
-    private String shoesType;
-    private String shoesName;
-    private int shoesPrice;
+public class ShoesDetailDto extends ShoesDto {
     private List<Integer> sizeList;
 }
