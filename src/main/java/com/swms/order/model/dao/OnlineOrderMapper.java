@@ -8,4 +8,8 @@ public interface OnlineOrderMapper {
     int insertOnlineOrder(OnlineOrderDto order);
 
     int insertOnlineOrderDetail(OnlineOrderDetailDto orderDetail);
+
+    int checkWarehouseStock(int shoesId);
+
+    int updateShoesQuantity(int shoesId);
 }

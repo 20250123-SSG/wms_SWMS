@@ -45,6 +45,7 @@ public class ShoesMenuView {
                     // Order 연결하기
                     String size = inputSize();
                     int shoesId= shoesController.getShoesId(shoes, size);
+                    //창고에 해당 shoesId로 수량체크
                     ShoesOrderDto shoesOrderDto = new ShoesOrderDto( shoesId, shoes, size);
                     // shoes_id가 존재하는 구매할 하나의 신발을 order로 넘겨주기
                     break; // 구매하기 (shoes활용)

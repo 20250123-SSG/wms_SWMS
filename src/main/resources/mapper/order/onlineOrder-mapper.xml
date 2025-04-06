@@ -22,4 +22,29 @@
         VALUES ( #{orderId}, #{shoesId}, #{quantity} )
     </insert>
 
+    <select id="checkWarehouseStock" parameterType="_int" resultType="_int">
+        SELECT
+            quantity
+        FROM
+            tbl_online_warehouse
+        WHERE
+            shoes_id = #{shoesId}
+    </select>
+
+    <select id="deleteShoesWareHouse" parameterType="_int" resultType="_int">
+        SELECT
+        quantity
+        FROM
+        tbl_online_warehouse
+        WHERE
+        shoes_id = #{shoesId}
+    </select>
+
+    <update id="updateShoesQuantity" parameterType="_int">
+        UPDATE
+            tbl_online_warehouse
+        SET quantity = quantity - 1
+        WHERE shoes_id = #{shoesId}
+    </update>
+
 </mapper>
