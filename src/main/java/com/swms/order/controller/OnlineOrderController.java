@@ -31,4 +31,26 @@ public class OnlineOrderController {
             OnlineOrderView.displayInsertOnlineOrder(result);
         }
     }
+
+    public int checkMoney(UserDto user, ShoesDto shoes) {
+        int money = user.getMoney();
+        int price = shoes.getShoesPrice();
+        int result = onlineOrderService.checkMoney(money, price); //잔액부족시 : 1
+        if (result == 1) {
+            // 잔액부족, 충전하라는 view
+        } else {
+            user.setMoney(money - price);
+        }
+        return result;
+    }
+
+    public void checkWarehouseStock(ShoesDto shoesDto) {
+        int shoesId = shoesDto.getShoesId();
+        int quantity = onlineOrderService.checkWarehouseStock(shoesId);
+        if (quantity == 0) {
+            //구매불가 뷰 출력
+        } else {
+            // 구매가능 뷰 출력
+        }
+    }
 }

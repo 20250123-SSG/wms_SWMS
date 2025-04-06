@@ -102,6 +102,6 @@
         WHERE
         shoes_name =  #{shoesName}
         AND size = #{size}
-        LIMIT 1
     </select>
+
 </mapper>

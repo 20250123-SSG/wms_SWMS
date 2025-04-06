@@ -51,6 +51,22 @@ public class OnlineOrderService {
         return result;
     }
 
+    public int checkMoney(int money, int price) {
+        if (money >= price) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public int checkWarehouseStock(int shoesId) {
+        SqlSession sqlSession = getSqlSession();
+        onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
+        int quantity = onlineOrderMapper.checkWarehouseStock(shoesId);
+        sqlSession.close();
+        return quantity;
+    }
+
     // 온라인 주문 상세내역에 생성시키기 (Online_order_detail_id(자동), order_id(자동?), shoes_id, quantity)
     // UserDto + ShoesDto 로 주문서만들기
     // ShoesDto 활용해서 온라인 창고에서 -1 (id 포함하도록 수정해야함)

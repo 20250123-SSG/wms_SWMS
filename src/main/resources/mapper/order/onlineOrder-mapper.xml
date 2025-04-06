@@ -22,4 +22,13 @@
         VALUES ( #{orderId}, #{shoesId}, #{quantity} )
     </insert>
 
+    <select id="checkWarehouseStock" parameterType="_int" resultType="_int">
+        SELECT
+            quantity
+        FROM
+            tbl_online_warehouse
+        WHERE
+            shoes_id = #{shoesId}
+    </select>
+
 </mapper>
