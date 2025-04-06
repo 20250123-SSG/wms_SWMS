@@ -1,6 +1,7 @@
 package com.swms.order.model.service;
 
 import com.swms.order.model.dao.OnlineOrderMapper;
+import com.swms.order.model.dto.OnlineOrderDetailDto;
 import com.swms.order.model.dto.OnlineOrderDto;
 import com.swms.shoes.model.dao.ShoesMapper;
 import com.swms.shoes.model.dto.ShoesDto;
@@ -22,6 +23,23 @@ public class OnlineOrderService {
         int result = 0;
         try {
             result = onlineOrderMapper.insertOnlineOrder(order);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally{
+            sqlSession.close();
+        }
+
+        return result;
+    }
+
+    public int insertOnlineOrderDetail(OnlineOrderDetailDto orderDetail) {
+        SqlSession sqlSession = getSqlSession();
+        onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
+        int result = 0;
+        try {
+            result = onlineOrderMapper.insertOnlineOrderDetail(orderDetail);
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
