@@ -1,5 +1,7 @@
 package com.swms.store.model.dao;
 
-public interface StoreMapper {
+import com.swms.store.model.dto.StoreDto;
 
+public interface StoreMapper {
+    StoreDto findByUserId(int userId);
 }
