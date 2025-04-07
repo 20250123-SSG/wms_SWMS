@@ -5,7 +5,10 @@ import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
 import com.swms.shoes.model.service.ShoesService;
 import com.swms.shoes.view.ShoesResultView;
+import com.swms.user.model.dto.CartDto;
+import com.swms.user.model.dto.UserDto;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -76,11 +79,21 @@ public class ShoesController {
 
 
     // 구매할 상품 하나에 대한 정보를 가져온다. (Shoes_id)
-    public int getShoesId(ShoesDto shoes, String size) {
+    public int getShoes(ShoesDto shoes, String size) {
         shoes.setSize(size);
         int shoesId = shoesService.getShoesId(shoes);
         shoes.setShoesId(shoesId);
         return shoesId;
+    }
+
+    public void insertToCart(UserDto user, ShoesDto shoes) {
+        CartDto cart = new CartDto();
+
+        cart.setUserId(user.getUserId());
+        cart.setShoesId(shoes.getShoesId());
+        System.out.println(cart);
+
+        int result = shoesService.insertToCart(cart);
     }
 }
 
