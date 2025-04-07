@@ -23,11 +23,36 @@ public class PurchaseOrderController {
 
     }
 
-    public List<PurchaseOrderDto> selectAllPurchaseOrder(int page){
+    public List<PurchaseOrderDto> selectAllPurchaseOrder(int page) {
 
         return purchaseOrderService.selectAllPurchaseOrder(page);
 
     }
 
+    public PurchaseOrderDto selectWarehouseById(int purchaseOrderId) {
+
+        return purchaseOrderService.selectWarehouseById(purchaseOrderId);
+    }
+
+    public int approvePurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
+
+        OfflineWarehouseDto offlineWarehouseDto = OfflineWarehouseDto.builder()
+                .storeId(purchaseOrderDto.getStoreId())
+                .shoesId(purchaseOrderDto.getShoesId())
+                .quantity(purchaseOrderDto.getQuantity()) // 주입한 수량만큼 기존 데이터에 더함
+                .build();
+
+        // 상태 완료 처리
+        purchaseOrderDto.setStatus("발주완료");
+
+        return purchaseOrderService.approvePurchaseOrder(purchaseOrderDto, offlineWarehouseDto);
+    }
+
+    public int rejectPurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
+        // 상태 완료 처리
+        purchaseOrderDto.setStatus("발주취소");
+
+        return purchaseOrderService.updatePurchaseOrder(purchaseOrderDto);
+    }
 }
 

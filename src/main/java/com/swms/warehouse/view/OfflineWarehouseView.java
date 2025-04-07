@@ -124,7 +124,6 @@ public class OfflineWarehouseView {
             } else {
                 message = "발주 등록이 실패 되었습니다.";
             }
-
         }
     }
 

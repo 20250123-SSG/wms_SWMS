@@ -32,6 +32,8 @@ public class PurchaseOrderView {
                 for (PurchaseOrderDto dto : list) {
                     System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
                     System.out.println(AnsiColor.BRIGHT_WHITE + "  🆔 발주 ID : " + dto.getPurchaseOrderId() + AnsiColor.RESET);
+                    System.out.println(AnsiColor.BRIGHT_WHITE + "  🆔 신발 ID : " + dto.getShoesId() + AnsiColor.RESET);
+                    System.out.println(AnsiColor.BRIGHT_WHITE + "  📝 발주 상태 : " + dto.getStatus() + AnsiColor.RESET);
                     System.out.println(AnsiColor.BRIGHT_WHITE + "  🏪 매장 : " + dto.getStoreName() + AnsiColor.RESET);
                     System.out.println(AnsiColor.BRIGHT_WHITE + "  👟 모델명 : " + dto.getShoesName() + AnsiColor.RESET);
                     System.out.println(AnsiColor.BRIGHT_WHITE + "  🏷️ 브랜드 : " + dto.getBrandName() + AnsiColor.RESET);
@@ -69,10 +71,10 @@ public class PurchaseOrderView {
                     page--;
                     break;
                 case "3":
-
+                    approvePurchaseOrder();
                     break;
                 case "4":
-
+                    rejectPurchaseOrder();
                     break;
                 case "0":
                     return;
@@ -84,4 +86,72 @@ public class PurchaseOrderView {
 
     }
 
+    public void approvePurchaseOrder() {
+        int purchaseOrderId;
+        PurchaseOrderDto purchaseOrderDto;
+
+        while (true) {
+            System.out.println(AnsiColor.GREEN + "승인할 발주 ID를 입력하세요" + AnsiColor.RESET);
+            System.out.print("""
+                    > 입력:""");
+            purchaseOrderId = sc.nextInt();
+            sc.nextLine(); // 줄바꿈 제거용
+
+
+            purchaseOrderDto = purchaseOrderController.selectWarehouseById(purchaseOrderId);
+
+            if (purchaseOrderDto == null) {
+                System.out.println(AnsiColor.RED + "존재하지 않는 발주 ID 입니다. 다시 입력해주세요." + AnsiColor.RESET);
+                continue;
+            }
+
+            if (!purchaseOrderDto.getStatus().equals("승인요청")){
+                message = "이미 처리된 발주 입니다.";
+            }
+
+            int result = purchaseOrderController.approvePurchaseOrder(purchaseOrderDto);
+
+            if (result == 1) {
+                message = "발주 승인이 완료 되었습니다.";
+                break;
+            } else {
+                message = "발주 승인이 실패 되었습니다.";
+            }
+        }
+    }
+
+    public void rejectPurchaseOrder() {
+        int purchaseOrderId;
+        PurchaseOrderDto purchaseOrderDto;
+
+        while (true) {
+            System.out.println(AnsiColor.GREEN + "취소할 발주 ID를 입력하세요" + AnsiColor.RESET);
+            System.out.print("""
+                    > 입력:""");
+            purchaseOrderId = sc.nextInt();
+            sc.nextLine(); // 줄바꿈 제거용
+
+
+            purchaseOrderDto = purchaseOrderController.selectWarehouseById(purchaseOrderId);
+
+            if (purchaseOrderDto == null) {
+                System.out.println(AnsiColor.RED + "존재하지 않는 발주 ID 입니다. 다시 입력해주세요." + AnsiColor.RESET);
+                continue;
+            }
+
+            if (!purchaseOrderDto.getStatus().equals("승인요청")){
+                message = "이미 처리된 발주 입니다.";
+                break;
+            }
+
+            int result = purchaseOrderController.rejectPurchaseOrder(purchaseOrderDto);
+
+            if (result == 1) {
+                message = "발주가 취소 완료 되었습니다.";
+                break;
+            } else {
+                message = "발주 취소가 실패 되었습니다.";
+            }
+        }
+    }
 }

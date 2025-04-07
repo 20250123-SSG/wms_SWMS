@@ -1,7 +1,7 @@
 package com.swms.warehouse.model.service;
 
 
-
+import com.swms.warehouse.model.dao.OfflineWarehouseMapper;
 import com.swms.warehouse.model.dao.PurchaseOrderMapper;
 import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
@@ -16,6 +16,7 @@ public class PurchaseOrderService {
 
 
     private PurchaseOrderMapper purchaseOrderMapper;
+    private OfflineWarehouseMapper offlineWarehouseMapper;
 
 
     public int createPurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
@@ -38,18 +39,74 @@ public class PurchaseOrderService {
         return result;
     }
 
-        public List<PurchaseOrderDto> selectAllPurchaseOrder(int page) {
-            SqlSession sqlSession = getSqlSession();
-            purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+    public List<PurchaseOrderDto> selectAllPurchaseOrder(int page) {
+        SqlSession sqlSession = getSqlSession();
+        purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
 
-            int size = 5;
-            int offset = (page - 1) * size;
+        int size = 5;
+        int offset = (page - 1) * size;
 
-            List<PurchaseOrderDto> list =
-                    purchaseOrderMapper.selectAllPurchaseOrder(size, offset);
+        List<PurchaseOrderDto> list =
+                purchaseOrderMapper.selectAllPurchaseOrder(size, offset);
 
+        sqlSession.close();
+        return list;
+    }
+
+    public PurchaseOrderDto selectWarehouseById(int purchaseOrderId) {
+        SqlSession sqlSession = getSqlSession();
+        purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+
+
+        PurchaseOrderDto purchaseOrderDto =
+                purchaseOrderMapper.selectPurchaseOrderById(purchaseOrderId);
+
+        sqlSession.close();
+        return purchaseOrderDto;
+    }
+
+    public int approvePurchaseOrder(PurchaseOrderDto purchaseOrderDto, OfflineWarehouseDto offlineWarehouseDto) {
+        SqlSession sqlSession = getSqlSession();
+        purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+        offlineWarehouseMapper = sqlSession.getMapper(OfflineWarehouseMapper.class);
+
+        int result = 0;
+        try {
+            int warehouseResult = offlineWarehouseMapper.updateQuantityByStoreAndShoesById(offlineWarehouseDto);
+            // 없는 경우 생성
+            if(warehouseResult == 0){
+                offlineWarehouseMapper.upsertOfflineWarehouseQuantity(offlineWarehouseDto);
+            }
+
+            result = purchaseOrderMapper.updateStatusAndCompletionDate(purchaseOrderDto);
+
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw e;
+        } finally {
             sqlSession.close();
-            return list;
         }
+        return result;
+    }
+
+    public int updatePurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
+        int result = 0;
+        SqlSession sqlSession = getSqlSession();
+        purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+
+        try {
+            result = purchaseOrderMapper.updateStatusAndCompletionDate(purchaseOrderDto);
+
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw e;
+        } finally {
+            sqlSession.close();
+        }
+
+        return result;
+    }
 
 }

@@ -11,4 +11,14 @@ public interface PurchaseOrderMapper {
     List<PurchaseOrderDto> selectAllPurchaseOrder(
             @Param("limit") int limit,
             @Param("offset") int offset);
+
+    PurchaseOrderDto selectPurchaseOrderById(
+            @Param("purchaseOrderId") int purchaseOrderId
+    );
+
+    int updateStatusAndCompletionDate(PurchaseOrderDto purchaseOrderDto);
+
+    int deletePurchaseOrderById(PurchaseOrderDto purchaseOrderDto);
+
+
 }
