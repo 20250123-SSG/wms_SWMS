@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 @Builder
 public class CartDto {
-    private int cartId;
+    private Integer cartId;
     private int userId;
     private int shoesId;
     private String cartDate;

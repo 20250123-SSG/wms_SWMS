@@ -61,8 +61,17 @@ public class ShoesService {
         SqlSession sqlSession = getSqlSession();
         shoesMapper = sqlSession.getMapper(ShoesMapper.class);
 
-        int result = shoesMapper.insertToCart(cart);
-        sqlSession.close();
+        int result = 0;
+        try {
+            result = shoesMapper.insertToCart(cart);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
         return result;
     }
 }

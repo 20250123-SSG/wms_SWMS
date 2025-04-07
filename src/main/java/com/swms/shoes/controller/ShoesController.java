@@ -91,6 +91,7 @@ public class ShoesController {
 
         cart.setUserId(user.getUserId());
         cart.setShoesId(shoes.getShoesId());
+        System.out.println(cart);
 
         int result = shoesService.insertToCart(cart);
     }

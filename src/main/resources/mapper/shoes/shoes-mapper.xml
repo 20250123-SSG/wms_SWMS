@@ -105,13 +105,12 @@
     </select>
 
     <insert id="insertToCart" parameterType="CartDto"  useGeneratedKeys="true" keyProperty="cartId">
-
         INSERT INTO
                 tbl_cart(
                         user_id
                         , shoes_id
                         )
-        VALUES ( #{userId}, #{shoesId} )
+        VALUES (#{userId}, #{shoesId})
     </insert>
 
 
