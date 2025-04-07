@@ -19,7 +19,7 @@
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDetailDto" alias="OnlineOrderDetailDto"/>
         <typeAlias type="com.swms.store.model.dto.StoreDto" alias="StoreDto"/>
         <typeAlias type="com.swms.warehouse.model.dto.OnlineWarehouseDto" alias="OnlineWarehouseDto"/>
-
+        <typeAlias type="com.swms.warehouse.model.dto.OfflineWarehouseDto" alias="OfflineWarehouseDto"/>
     </typeAliases>
 
     <environments default="dev">
@@ -42,7 +42,8 @@
         <mapper resource="mapper/warehouse/onlineWarehouse-mapper.xml"/>
         <mapper resource="mapper/shoes/shoesManagement-mapper.xml"/>
         <mapper resource="mapper/store/store-mapper.xml"/>
-        <mapper resource="mapper/"
+        <mapper resource="mapper/warehouse/offlineWarehouse-mapper.xml"/>
+        <mapper resource="mapper/warehouse/onlineWarehouse-mapper.xml"/>
     </mappers>
 
 </configuration>
