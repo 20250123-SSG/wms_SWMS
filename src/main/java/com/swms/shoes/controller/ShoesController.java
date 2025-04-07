@@ -95,6 +95,13 @@ public class ShoesController {
 
         int result = shoesService.insertToCart(cart);
     }
+
+    // 상품명 검색
+    public void searchByShoesName(String shoesName) {
+        List<ShoesDto> searchList = shoesService.searchByShoesName(shoesName);
+        // 검색결과(List) 출력하는 뷰
+        // ShoesResultView.display~~(searchList);
+    }
 }
 
 
