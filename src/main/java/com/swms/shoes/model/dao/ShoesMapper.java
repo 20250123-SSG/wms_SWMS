@@ -22,4 +22,6 @@ public interface ShoesMapper {
     int getShoesId(ShoesDto shoes);
 
     int insertToCart(CartDto cart);
+
+    List<ShoesDto> searchByShoesName(String shoesName);
 }

@@ -74,4 +74,11 @@ public class ShoesService {
 
         return result;
     }
+
+    public List<ShoesDto> searchByShoesName(String shoesName) {
+        SqlSession sqlSession = getSqlSession();
+        shoesMapper = sqlSession.getMapper(ShoesMapper.class);
+        List<ShoesDto> searchList = shoesMapper.searchByShoesName(shoesName);
+        return searchList;
+    }
 }

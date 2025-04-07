@@ -113,5 +113,19 @@
         VALUES (#{userId}, #{shoesId})
     </insert>
 
+    <select id="searchByShoesName" parameterType="String" resultType="ShoesDto">
+        SELECT DISTINCT
+            brand_name
+            , shoes_type
+            , shoes_name
+            , shoes_price
+        FROM
+            tbl_shoes
+                JOIN tbl_brand USING(brand_id)
+                JOIN tbl_shoes_type USING(shoes_type_id)
+        WHERE
+            shoes_name LIKE CONCAT('%', #{shoesName}, '%')
+    </select>
+
 
 </mapper>
