@@ -31,24 +31,11 @@
     <!-- 기존 신발 수정 -->
     <update id="updateShoes" parameterType="shoesDto">
         update
-        tbl_shoes
-            (
-             shoes_id
-            ,shoes_type_id
-            ,brand_id
-            ,shoes_name
-            ,shoes_price
-            ,size
-            )
-        values
-            (
-             #{shoesId}
-            ,#{shoesTypeId}
-            ,#{brandId}
-            ,#{shoesName}
-            ,#{shoesPrice}
-            ,#{size}
-            )
+            tbl_shoes
+        set
+            shoes_name = #{shoesName}
+            ,shoes_price = #{shoesPrice}
+            ,size = #{size}
         where
             shoes_id = #{shoesId}
     </update>
