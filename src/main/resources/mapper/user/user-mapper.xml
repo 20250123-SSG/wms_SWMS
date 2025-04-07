@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swms.user.model.dao.UserMapper">
+
+    <!-- 기존 메뉴 수정 -->
+    <update id="updateAddress" parameterType="UserDto">
+        update
+            tbl_user
+        set
+            address = #{address}
+        where
+            user_id = #{userId}
+    </update>
+
+    <!-- 돈충전 -->
+    <update id="updateMoney" parameterType="UserDto">
+        update
+            tbl_user
+        set
+            money = #{money}
+        where
+            user_id = #{userId}
+    </update>
+
+    <!-- 전화번호 수정 -->
+    <update id="updatePhone" parameterType="UserDto">
+        update
+            tbl_user
+        set
+            phone = #{phone}
+        where
+            user_id = #{userId}
+    </update>
+
+
+</mapper>

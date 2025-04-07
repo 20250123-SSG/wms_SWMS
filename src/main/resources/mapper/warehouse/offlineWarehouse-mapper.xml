@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swms.warehouse.model.dao.OfflineWarehouseMapper">
+
+    <select id="selectOfflineWarehouseByStoreId" resultType="OfflineWarehouseDto">
+        SELECT
+            ow.offline_warehouse_id,
+            ow.store_id,
+            ow.shoes_id,
+            ow.quantity,
+            s.shoes_name,
+            s.shoes_price,
+            s.size,
+            s.shoes_type_id,
+            s.brand_id,
+            st.shoes_type,
+            b.brand_name
+        FROM tbl_offline_warehouse ow
+            JOIN tbl_shoes s ON ow.shoes_id = s.shoes_id
+            JOIN tbl_shoes_type st ON s.shoes_type_id = st.shoes_type_id
+            JOIN tbl_brand b ON s.brand_id = b.brand_id
+        WHERE ow.store_id = #{storeId}
+        ORDER BY ow.offline_warehouse_id DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="selectWarehouseById" resultType="OfflineWarehouseDto">
+        SELECT
+            offline_warehouse_id
+          , store_id
+          , shoes_id
+          , quantity
+        FROM tbl_offline_warehouse
+        WHERE offline_warehouse_id = #{offlineWarehouseId}
+    </select>
+
+</mapper>
