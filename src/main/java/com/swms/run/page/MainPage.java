@@ -16,11 +16,11 @@ public class MainPage {
             System.out.println(AnsiColor.BLUE + "  │ " + AnsiColor.GREEN + "     Shoes Warehouse Management System " + AnsiColor.BLUE + "     │" + AnsiColor.RESET);
             System.out.println(AnsiColor.BLUE + "  └─────────────────────────────────────────────┘" + AnsiColor.RESET);
             System.out.println();
-            System.out.println(AnsiColor.GREEN + "               1. 마이페이지" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               1. 마이 페이지" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               2. 신발 조회 및 구매" + AnsiColor.RESET);
             System.out.println();
-            System.out.println(AnsiColor.GREEN + "               8. 점장 메뉴" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               9. 관리자 메뉴" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               8. 점장 페이지" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               9. 관리자 페이지" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               0. 프로그램 종료" + AnsiColor.RESET);
             System.out.println();
