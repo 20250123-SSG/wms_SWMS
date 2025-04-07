@@ -26,4 +26,16 @@ public class OfflineWarehouseService {
         sqlSession.close();
         return list;
     }
+
+    public OfflineWarehouseDto selectWarehouseById(int offlineWarehouseId) {
+        SqlSession sqlSession = getSqlSession();
+        offlineWarehouseMapper = sqlSession.getMapper(OfflineWarehouseMapper.class);
+
+
+        OfflineWarehouseDto OfflineWarehouseDto =
+                offlineWarehouseMapper.selectWarehouseById(offlineWarehouseId);
+
+        sqlSession.close();
+        return OfflineWarehouseDto;
+    }
 }

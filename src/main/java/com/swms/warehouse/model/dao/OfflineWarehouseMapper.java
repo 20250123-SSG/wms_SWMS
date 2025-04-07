@@ -14,4 +14,9 @@ public interface OfflineWarehouseMapper {
             @Param("limit") int limit,
             @Param("offset") int offset
     );
+
+    OfflineWarehouseDto selectWarehouseById(
+            @Param("offlineWarehouseId") int offlineWarehouseId
+    );
+
 }

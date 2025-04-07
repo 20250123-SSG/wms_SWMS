@@ -1,6 +1,5 @@
 package com.swms.warehouse.view;
 
-import com.swms.user.controller.AccountController;
 import com.swms.warehouse.controller.OnlineWarehouseController;
 
 import java.util.Scanner;

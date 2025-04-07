@@ -26,4 +26,14 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <select id="selectWarehouseById" resultType="OfflineWarehouseDto">
+        SELECT
+            offline_warehouse_id
+          , store_id
+          , shoes_id
+          , quantity
+        FROM tbl_offline_warehouse
+        WHERE offline_warehouse_id = #{offlineWarehouseId}
+    </select>
+
 </mapper>
