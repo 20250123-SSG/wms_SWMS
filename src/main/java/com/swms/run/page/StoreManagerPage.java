@@ -6,15 +6,17 @@ import com.swms.store.controller.StoreController;
 import com.swms.store.model.dto.StoreDto;
 import com.swms.store.model.service.StoreService;
 import com.swms.user.model.dto.UserDto;
+import com.swms.warehouse.view.OfflineWarehouseView;
 
 import java.util.Scanner;
 
 public class StoreManagerPage {
     private static Scanner sc = new Scanner(System.in);
+    private static OfflineWarehouseView offlineWarehouseView = new OfflineWarehouseView();
 
     public static void storeMangerPage(UserDto userDto) {
         if(userDto.getUserId() == 1){
-            System.out.println(AnsiColor.BRIGHT_RED + "   접속 권한이 없습니다.");
+            System.out.println(AnsiColor.BRIGHT_RED + "  점장만 접속 가능합니다.");
             return;
         }
 
@@ -34,9 +36,7 @@ public class StoreManagerPage {
             System.out.println(AnsiColor.BRIGHT_CYAN + " ─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               1. 상품 재고" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               2. 상품 발주" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               3. 판매 하기" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               4. 매출 확인" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               2. 매출 확인" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               0. 뒤로가기" + AnsiColor.RESET);
             System.out.println();
@@ -49,14 +49,10 @@ public class StoreManagerPage {
             String menu = sc.nextLine();
             switch (menu) {
                 case "1":
+                    offlineWarehouseView.offlineWarehouse(storeDto.getStoreId());
                     break;
                 case "2":
                     break;
-                case "3":
-                    break;
-                case "4":
-                    break;
-
                 case "0":
                     return;
                 default:
