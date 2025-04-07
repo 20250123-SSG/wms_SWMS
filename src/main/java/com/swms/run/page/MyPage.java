@@ -2,14 +2,18 @@ package com.swms.run.page;
 
 import com.swms.common.AnsiColor;
 import com.swms.common.Logo;
+import com.swms.user.controller.ShoppingCartController;
 import com.swms.user.model.dto.UserDto;
 import com.swms.user.view.AccountView;
+import com.swms.user.view.ShoppingCartView;
 import com.swms.user.view.UserView;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MyPage {
     private static UserView userView = new UserView();
+    private static ShoppingCartController shoppingCartController = new ShoppingCartController();
     private static Scanner sc = new Scanner(System.in);
 
     public static void myPage(UserDto userDto) {
@@ -49,6 +53,7 @@ public class MyPage {
                     userView.updateMoney(userDto);
                     break;
                 case "4":
+                    shoppingCartController.selectCartList(userDto);
                     break;
                 case "0":
                     System.out.println("뒤로 갑니다.");
@@ -60,4 +65,7 @@ public class MyPage {
 
 
     }
+
+
+
 }

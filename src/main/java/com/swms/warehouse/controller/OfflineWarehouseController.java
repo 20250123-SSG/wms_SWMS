@@ -1,16 +1,24 @@
 package com.swms.warehouse.controller;
 
+import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import com.swms.warehouse.model.service.OfflineWarehouseService;
-import com.swms.warehouse.model.service.OnlineWarehouseService;
+
+import java.util.List;
 
 public class OfflineWarehouseController {
-    private OfflineWarehouseService offlineWarehouseService;
+    private OfflineWarehouseService offlineWarehouseService = new OfflineWarehouseService();
 
 
-    public void selectOfflineWarehouse(int page){
 
-        offlineWarehouseService.selectAllOnlineWarehouse(page);
+    public List<OfflineWarehouseDto> selectAllStoreWarehouse(int page, int storeId){
 
+        return offlineWarehouseService.selectAllStoreWarehouse(page, storeId);
+
+    }
+
+    public OfflineWarehouseDto existsWarehouseById(int warehouseId){
+
+        return offlineWarehouseService.selectWarehouseById(warehouseId);
     }
 
 }

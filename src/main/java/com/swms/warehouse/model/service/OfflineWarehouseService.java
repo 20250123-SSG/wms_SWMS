@@ -13,16 +13,29 @@ public class OfflineWarehouseService {
 
     private OfflineWarehouseMapper offlineWarehouseMapper;
 
-    public List<OfflineWarehouseDto> selectAllOnlineWarehouse(int page) {
+    public List<OfflineWarehouseDto> selectAllStoreWarehouse(int page, int storeId) {
         SqlSession sqlSession = getSqlSession();
         offlineWarehouseMapper = sqlSession.getMapper(OfflineWarehouseMapper.class);
 
-        int size = 10;
+        int size = 5;
         int offset = (page - 1) * size;
 
-        List<OfflineWarehouseDto> list = offlineWarehouseMapper.selectAllOfflineWarehouse(size, offset);
+        List<OfflineWarehouseDto> list =
+                offlineWarehouseMapper.selectOfflineWarehouseByStoreId(storeId, size, offset);
 
         sqlSession.close();
         return list;
+    }
+
+    public OfflineWarehouseDto selectWarehouseById(int offlineWarehouseId) {
+        SqlSession sqlSession = getSqlSession();
+        offlineWarehouseMapper = sqlSession.getMapper(OfflineWarehouseMapper.class);
+
+
+        OfflineWarehouseDto OfflineWarehouseDto =
+                offlineWarehouseMapper.selectWarehouseById(offlineWarehouseId);
+
+        sqlSession.close();
+        return OfflineWarehouseDto;
     }
 }
