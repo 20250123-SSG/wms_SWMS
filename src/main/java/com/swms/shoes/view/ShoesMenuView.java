@@ -1,85 +1,115 @@
 package com.swms.shoes.view;
 
 import com.swms.shoes.controller.ShoesController;
-import com.swms.shoes.model.dto.ShoesDto;
-import com.swms.shoes.model.dto.ShoesOrderDto;
-import com.swms.shoes.model.dto.ShoesSelectDto;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class ShoesMenuView {
     private ShoesController shoesController = new ShoesController();
     private Scanner sc = new Scanner(System.in);
 
-    private ShoesOptionView optionView = new ShoesOptionView(); // type, brand, sorting 선택
-    private ShoesView shoesView = new ShoesView();
-
-
     public void NavigationView() {
-
         while (true) {
-            String type = optionView.inputType(); // 1. 신발종류 선택
-            String brand = optionView.inputBrand(); // 2. 브랜드 선택
-            List<String> sorting = optionView.inputSorting(); // 3. 정렬 선택
+            System.out.println("====================================");
+            System.out.println("XYZ-Mart에 방문해주셔서 감사합니다.");
 
-            //searchOptionMap으로 조회조건 넘기기
-            Map<String, Object> searchOptionMap = new HashMap<>();
-
-            searchOptionMap.put("type", Integer.parseInt(type));
-            searchOptionMap.put("brand", Integer.parseInt(brand));
-            searchOptionMap.put("sortBy", sorting.get(0));
-            searchOptionMap.put("ascDesc", sorting.get(1));
-            searchOptionMap.put("offset", 0);
+            // 1. 신발종류 선택
+            int typeId = Integer.parseInt(inputType());
+            // 2. 브랜드 선택
+            int brandId = Integer.parseInt(inputBrand());
+            // 3. 정렬 선택
+            String sortingOption = selectSortingOption();
 
 
-
-            // 4. 조회옵션으로 신발목록 출력 (페이지네이션)
-            List<ShoesSelectDto> shoesList = shoesView.selectShoesList(searchOptionMap);
-            // 5. 상세조회
-            ShoesDto shoes = shoesView.selectShoesDetail(shoesList);
-
-            // 6. 사용자동작선택 (구매/장바구니/좋아요)
-            String action = userActionView();
-            switch (action) {
+            switch (sortingOption) {
                 case "1":
-                    // Order 연결하기
-                    String size = inputSize();
-                    int shoesId= shoesController.getShoesId(shoes, size);
-                    //창고에 해당 shoesId로 수량체크
-                    ShoesOrderDto shoesOrderDto = new ShoesOrderDto( shoesId, shoes, size);
-                    // shoes_id가 존재하는 구매할 하나의 신발을 order로 넘겨주기
-                    break; // 구매하기 (shoes활용)
+                    shoesController.sortingByLatest(brandId, typeId);
+                    break;
                 case "2":
-                    break; // 장바구니
+                    shoesController.sortingByPriceASC(brandId, typeId);
+                    break;
                 case "3":
-                    break; // 좋아요
+                    shoesController.sortingByPriceDESC(brandId, typeId);
+                    break;
+                case "0":
+                    System.exit(0);
+
+                // 4. 선택에 따른 결과 뿌려주기
+
+                // 5. 1) 페이지 앞으로가기 (1페이지에선 동작 x) 2) 뒤로가기 3) 상세조회(선택)
+
+                // 받은 아이디에 선택에 맞게 조회 뿌리기
+
+
+                //shoesController.searchTypeName(typeId); // 선택한 type 조회
+                //shoesController.searchBrandName(brandId); // 선택한 brand 조회
+
+
             }
-
         }
-        // 받은 아이디에 선택에 맞게 조회 뿌리기
     }
 
+    // TODO : 전체 옵션은 시간되면
+    public String inputType() {
+        System.out.print("""
+                ====================================
+                찾으시는 상품의 종류를 선택해주세요.
+               
+                1. 스니커즈
+                2. 런닝화
+                3. 구두
+                4. 샌들
+                5. 부츠 
+                
+                0. 프로그램 종료
+                ====================================
+                >> 입력 :\t""");
 
-    public String userActionView(){
-        System.out.println(
-                        """
-                        \n
-                        ----------------------------------
-                        원하시는 기능을 선택하세요.
-                        
-                        1. 구매하기
-                        2. 장바구니 
-                        3. 좋아요 
-                        
-                        0. 뒤로가기
-                        ----------------------------------
-                        >> 입력 : 
-                        """);
+        String input = sc.nextLine();
+
+        if("0".equals(input)){
+            System.exit(0);
+        }
+
+        return input;
+    }
+
+    public String inputBrand() {
+        System.out.print("""
+                ====================================
+                찾으시는 브랜드를 선택해주세요.
+                
+                1. 나이키
+                2. 아디다스
+                3. 뉴발란스
+                4. 크록스
+                5. 반스
+                
+                0. 프로그램 종료
+                ========================
+                >> 입력 :\t""");
+
+        String input = sc.nextLine();
+
+        if("0".equals(input)){
+            System.exit(0);
+        }
+
+        return input;
+    }
+
+    public String selectSortingOption() {
+        System.out.print("""
+               
+                ---------------------------------------------------
+                정렬 옵션을 선택해주세요.
+                1. 최신순   2. 낮은가격순   3. 높은가격순  \s
+                
+                0. 프로그램 종료 \s
+                ---------------------------------------------------
+                >> 입력 :\t""");
         return sc.nextLine();
+
     }
-    public String inputSize(){
-        System.out.print("구매하시려는 사이즈를 입력해주세요 (ex. 230): ");
-        String size = sc.nextLine();
-        return size;
-    }
+
 }

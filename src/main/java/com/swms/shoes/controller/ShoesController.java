@@ -1,24 +1,19 @@
 package com.swms.shoes.controller;
 
-import com.swms.shoes.model.dto.ShoesDetailDto;
 import com.swms.shoes.model.dto.ShoesDto;
-import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.shoes.model.dto.ShoesOptionDto;
 import com.swms.shoes.model.service.ShoesService;
 import com.swms.shoes.view.ShoesResultView;
 
 import java.util.List;
-import java.util.Map;
 
+
+// 입력 및 출력 view와 연결되는 곳
 public class ShoesController {
-    private int totalShoes = 0;
-
-    public static final int OFFSET = 10;
-    public static final int UP = +OFFSET;
-    public static final int DOWN = -OFFSET;
+    public static String brandName;
+    public static String TypeName;
 
     private ShoesService shoesService = new ShoesService();
-
-
 
     // TODO : 시간되면 브랜드, 타입 목록 조회
     // 브랜드 목록 조회
@@ -26,61 +21,52 @@ public class ShoesController {
     // 타입 목록 조회
     public void /*List<String>*/ selectTypeList(){}
 
+    // 사용자가 입력한 브랜드의 이름 조회
+    public String searchBrandName(int brandId) {
+        String brandName = shoesService.searchBrandName(brandId);
+        return brandName;
+    }
+    // 사용자가 입력한 종류의 이름 조회
+    public String searchTypeName(int typeId) {
+        String typeName = shoesService.searchTypeName(typeId); // 서비스 반환 데이터
+        return typeName;
+    }
 
-    public List<ShoesSelectDto> selectShoesList(Map<String, Object> map) {
-        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
+
+
+    // TODO : 페이지네이션 적용 (resultView 단에서 해야할수도?)
+    // 상품조회관련 - (1~3)정렬 & 상품명 검색
+    public void sortingByLatest(int brandId, int typeId) {
+        ShoesOptionDto selectOption =  new ShoesOptionDto(brandId, typeId);
+        List<ShoesDto> list = shoesService.sortingByLatest(selectOption);
+        System.out.println("(for test) 최신순정렬완료");
         ShoesResultView.displayShoesList(list);
-        return list;
     }
 
-    public ShoesDto selectShoesDetail(String shoesName) {
-        ShoesDto shoes = shoesService.selectShoesDetail(shoesName);
-        List<String> sizeList = shoesService.selectShoesSizeList(shoesName);
-        ShoesResultView.displayShoes(shoes);
-        ShoesResultView.displayShoesSizeList(sizeList);
-        return shoes;
-    }
-
-    // 다음페이지
-    public List<ShoesSelectDto> pageUp(Map<String, Object> map) {
-
-        // 페이지네이션 데이터처리
-        if (totalShoes == 0) {
-            totalShoes = shoesService.getDisplayShoesCount(map);// 출력해야하는 상품목록줄 수
-        }
-        int offset = (int)map.get("offset") + UP;
-        if (offset >= totalShoes) {
-            offset = totalShoes - OFFSET;
-            ShoesResultView.displayEOP();
-        }
-        map.put("offset", offset);
-
-        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
+    public void sortingByPriceASC(int brandId, int typeId) {
+        ShoesOptionDto selectOption =  new ShoesOptionDto(brandId, typeId);
+        List<ShoesDto> list = shoesService.sortingByPriceASC(selectOption);
+        System.out.println("(for test) 낮은가격순정렬완료");
         ShoesResultView.displayShoesList(list);
-        return list;
     }
 
-    public List<ShoesSelectDto> pageDown(Map<String, Object> map) {
-
-        int offset = (int)map.get("offset") + DOWN;
-        if (offset < 0) {
-            offset = 0;
-            ShoesResultView.displaySOP();
-        }
-        map.put("offset", offset);
-
-        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
+    public void sortingByPriceDESC(int brandId, int typeId) {
+        ShoesOptionDto selectOption =  new ShoesOptionDto(brandId, typeId);
+        List<ShoesDto> list = shoesService.sortingByPriceDESC(selectOption);
+        System.out.println("(for test) 높은가격순정렬완료");
         ShoesResultView.displayShoesList(list);
-        return list;
     }
 
+    /*
+    INSERT, UPDATE, DELETE는 반환값이 1 이상이면 정상 동작했다는 것을 확인할 수 있었으나,
+    ORDER BY는 정렬만 할 뿐, 반환값으로 정렬되었는지 확인할 수 없다.
+    정렬확인을 위해 쓰레기 데이터를 추가해줘야하나..
+    시간되면 생각해보기
+     */
 
-    // 구매할 상품 하나에 대한 정보를 가져온다. (Shoes_id)
-    public int getShoesId(ShoesDto shoes, String size) {
-        shoes.setSize(size);
-        int shoesId = shoesService.getShoesId(shoes);
-        shoes.setShoesId(shoesId);
-        return shoesId;
+
+
+    public void searchShoesName() {
     }
 }
 

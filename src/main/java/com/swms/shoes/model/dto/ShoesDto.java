@@ -10,9 +10,19 @@ import lombok.*;
 @Builder
 public class ShoesDto {
     private Integer shoesId;
-    private String brandName;
-    private String shoesType;
+    private Integer shoesTypeId;
+    private Integer brandId;
     private String shoesName;
-    private int shoesPrice;
-    private String size;
+    private String shoesPrice;
+    private Integer size;
+
+    // 맨처음 brand와
+
+
+    public ShoesDto(String shoesName, String shoesPrice) {
+        this.shoesName = shoesName;
+        this.shoesPrice = shoesPrice;
+    }
+
 }
+

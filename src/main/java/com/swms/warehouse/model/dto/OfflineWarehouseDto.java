@@ -10,7 +10,6 @@ import lombok.*;
 @Builder
 public class OfflineWarehouseDto {
     private int offlineWarehouseId;
-    private int storeId;
     private int shoesId;
     private int quantity;
 }
