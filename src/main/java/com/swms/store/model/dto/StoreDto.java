@@ -9,7 +9,9 @@ import lombok.*;
 @ToString
 @Builder
 public class StoreDto {
-    private int onlineWarehouseId;
-    private int shoesId;
-    private int quantity;
+    private int storeId;
+    private int userId;
+    private String storeName;
+    private String storePhone;
+    private String storeAddress;
 }

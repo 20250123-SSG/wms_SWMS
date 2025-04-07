@@ -17,6 +17,7 @@
         <typeAlias type="com.swms.shoes.model.dto.ShoesDto" alias="ShoesDto"/>
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDto" alias="OnlineOrderDto"/>
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDetailDto" alias="OnlineOrderDetailDto"/>
+        <typeAlias type="com.swms.store.model.dto.StoreDto" alias="StoreDto"/>
 
     </typeAliases>
 
@@ -37,6 +38,7 @@
         <mapper resource="mapper/user/user-mapper.xml"/>
         <mapper resource="mapper/shoes/shoes-mapper.xml"/>
         <mapper resource="mapper/order/onlineOrder-mapper.xml"/>
+        <mapper resource="mapper/store/store-mapper.xml"/>
     </mappers>
 
 </configuration>
