@@ -20,6 +20,7 @@
         <typeAlias type="com.swms.store.model.dto.StoreDto" alias="StoreDto"/>
         <typeAlias type="com.swms.warehouse.model.dto.OnlineWarehouseDto" alias="OnlineWarehouseDto"/>
         <typeAlias type="com.swms.warehouse.model.dto.OfflineWarehouseDto" alias="OfflineWarehouseDto"/>
+        <typeAlias type="com.swms.user.model.dto.ShoppingCartDto" alias="ShoppingCartDto"/>
     </typeAliases>
 
     <environments default="dev">
@@ -44,6 +45,7 @@
         <mapper resource="mapper/store/store-mapper.xml"/>
         <mapper resource="mapper/warehouse/offlineWarehouse-mapper.xml"/>
         <mapper resource="mapper/warehouse/onlineWarehouse-mapper.xml"/>
+        <mapper resource="mapper/user/shopping-cart.xml"/>
     </mappers>
 
 </configuration>
