@@ -36,4 +36,14 @@
         WHERE offline_warehouse_id = #{offlineWarehouseId}
     </select>
 
+    <!-- 수량 수정 -->
+    <update id="updateQuantity" parameterType="OfflineWarehouseDto">
+        update
+            tbl_offline_warehouse
+        set
+            quantity = #{quantity}
+        where
+            offline_warehouse_id = #{offlineWarehouseId}
+    </update>
+
 </mapper>
