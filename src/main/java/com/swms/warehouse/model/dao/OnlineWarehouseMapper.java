@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface OnlineWarehouseMapper {
-
     int checkWarehouseStock(int shoesId);
     int updateShoesQuantity(int shoesId);
 

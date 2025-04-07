@@ -16,4 +16,9 @@ public class OfflineWarehouseController {
 
     }
 
+    public OfflineWarehouseDto existsWarehouseById(int warehouseId){
+
+        return offlineWarehouseService.selectWarehouseById(warehouseId);
+    }
+
 }

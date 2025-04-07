@@ -104,4 +104,28 @@
         AND size = #{size}
     </select>
 
+    <insert id="insertToCart" parameterType="CartDto"  useGeneratedKeys="true" keyProperty="cartId">
+        INSERT INTO
+                tbl_cart(
+                        user_id
+                        , shoes_id
+                        )
+        VALUES (#{userId}, #{shoesId})
+    </insert>
+
+    <select id="searchByShoesName" parameterType="String" resultType="ShoesDto">
+        SELECT DISTINCT
+            brand_name
+            , shoes_type
+            , shoes_name
+            , shoes_price
+        FROM
+            tbl_shoes
+                JOIN tbl_brand USING(brand_id)
+                JOIN tbl_shoes_type USING(shoes_type_id)
+        WHERE
+            shoes_name LIKE CONCAT('%', #{shoesName}, '%')
+    </select>
+
+
 </mapper>

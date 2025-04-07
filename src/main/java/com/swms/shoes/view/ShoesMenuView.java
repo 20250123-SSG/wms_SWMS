@@ -4,6 +4,7 @@ import com.swms.shoes.controller.ShoesController;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesOrderDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.user.model.dto.UserDto;
 
 import java.util.*;
 
@@ -40,16 +41,17 @@ public class ShoesMenuView {
 
             // 6. 사용자동작선택 (구매/장바구니/좋아요)
             String action = userActionView();
+            String size = inputSize();
+            shoesController.getShoes(shoes, size); // 사이즈 선택하고, 해당 shoes_id구해서 shoesDto에 set하는 함수
+
             switch (action) {
                 case "1":
-                    // Order 연결하기
-                    String size = inputSize();
-                    int shoesId= shoesController.getShoesId(shoes, size);
-                    //창고에 해당 shoesId로 수량체크
-                    ShoesOrderDto shoesOrderDto = new ShoesOrderDto( shoesId, shoes, size);
-                    // shoes_id가 존재하는 구매할 하나의 신발을 order로 넘겨주기
+                    // 구매단으로shoes 넘기기
                     break; // 구매하기 (shoes활용)
                 case "2":
+                    UserDto user = new UserDto(4, "qwer","2","010-9378-8677", "rewq", 215000);
+
+                    shoesController.insertToCart(user, shoes);
                     break; // 장바구니
                 case "3":
                     break; // 좋아요
@@ -73,13 +75,14 @@ public class ShoesMenuView {
                         
                         0. 뒤로가기
                         ----------------------------------
-                        >> 입력 : 
-                        """);
+                        >> 입력 : """);
         return sc.nextLine();
     }
     public String inputSize(){
+        //size 한번더 출력해주면 좋을 듯
         System.out.print("구매하시려는 사이즈를 입력해주세요 (ex. 230): ");
         String size = sc.nextLine();
         return size;
     }
+
 }

@@ -18,9 +18,12 @@
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDto" alias="OnlineOrderDto"/>
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDetailDto" alias="OnlineOrderDetailDto"/>
         <typeAlias type="com.swms.store.model.dto.StoreDto" alias="StoreDto"/>
+        <typeAlias type="com.swms.store.model.dto.OfflineSaleDto" alias="OfflineSaleDto"/>
+        <typeAlias type="com.swms.warehouse.model.dto.PurchaseOrderDto" alias="PurchaseOrderDto"/>
         <typeAlias type="com.swms.warehouse.model.dto.OnlineWarehouseDto" alias="OnlineWarehouseDto"/>
         <typeAlias type="com.swms.warehouse.model.dto.OfflineWarehouseDto" alias="OfflineWarehouseDto"/>
         <typeAlias type="com.swms.user.model.dto.ShoppingCartDto" alias="ShoppingCartDto"/>
+        <typeAlias type="com.swms.user.model.dto.CartDto" alias="CartDto"/>
     </typeAliases>
 
     <environments default="dev">
@@ -40,12 +43,13 @@
         <mapper resource="mapper/user/user-mapper.xml"/>
         <mapper resource="mapper/shoes/shoes-mapper.xml"/>
         <mapper resource="mapper/order/onlineOrder-mapper.xml"/>
-        <mapper resource="mapper/warehouse/onlineWarehouse-mapper.xml"/>
-        <mapper resource="mapper/shoes/shoesManagement-mapper.xml"/>
         <mapper resource="mapper/store/store-mapper.xml"/>
+        <mapper resource="mapper/store/offlineSale-mapper.xml"/>
+        <mapper resource="mapper/warehouse/purchaseOrder-mapper.xml"/>
         <mapper resource="mapper/warehouse/offlineWarehouse-mapper.xml"/>
         <mapper resource="mapper/warehouse/onlineWarehouse-mapper.xml"/>
         <mapper resource="mapper/user/shopping-cart.xml"/>
+        <mapper resource="mapper/shoes/shoesManagement-mapper.xml"/>
     </mappers>
 
 </configuration>
