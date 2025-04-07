@@ -69,6 +69,12 @@ public class OfflineWarehouseView {
                     }
                     page --;
                     break;
+                case "3":
+                    createPurchaseOrder();
+                    break;
+                case "4":
+                    createSale();
+                    break;
                 case "0":
                     return;
                 default:
@@ -76,5 +82,37 @@ public class OfflineWarehouseView {
             }
 
         }
+
     }
+    public void createPurchaseOrder(){
+        int warehouseId;
+        while (true) {
+            System.out.println(AnsiColor.GREEN + "발주 등록할 창고 ID를 입력하세요" + AnsiColor.RESET);
+            System.out.print("""
+                    > 입력:""");
+            warehouseId = sc.nextInt();
+            boolean result = offlineWarehouseController.existsWarehouseById(warehouseId);
+
+            if(!result){
+                System.out.println(AnsiColor.RED + "존재하지 않는 창고 ID를 입력하세요" + AnsiColor.RESET);
+                continue;
+            }
+            break;
+        }
+
+        System.out.println(AnsiColor.GREEN + "발주할 수량을 입력하세요" + AnsiColor.RESET);
+
+        System.out.print("""
+                    > 입력:""");
+        String quantity = sc.nextLine();
+
+
+
+
+
+
+
+    }
+
+    public void createSale(){}
 }
