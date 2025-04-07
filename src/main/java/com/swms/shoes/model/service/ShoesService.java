@@ -4,6 +4,7 @@ import com.swms.shoes.model.dao.ShoesMapper;
 import com.swms.shoes.model.dto.ShoesDetailDto;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.user.model.dto.CartDto;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -53,5 +54,15 @@ public class ShoesService {
         int shoesId = shoesMapper.getShoesId(shoes);
         sqlSession.close();
         return shoesId;
+    }
+
+    public int insertToCart(CartDto cart) {
+
+        SqlSession sqlSession = getSqlSession();
+        shoesMapper = sqlSession.getMapper(ShoesMapper.class);
+
+        int result = shoesMapper.insertToCart(cart);
+        sqlSession.close();
+        return result;
     }
 }

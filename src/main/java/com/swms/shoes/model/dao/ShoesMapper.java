@@ -3,6 +3,7 @@ package com.swms.shoes.model.dao;
 import com.swms.shoes.model.dto.ShoesDetailDto;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.user.model.dto.CartDto;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +20,6 @@ public interface ShoesMapper {
     List<String> selectShoesSizeList(String shoesName);
 
     int getShoesId(ShoesDto shoes);
+
+    int insertToCart(CartDto cart);
 }

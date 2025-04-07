@@ -37,11 +37,14 @@ public class ShoesView {
                     pageShoesList = shoesController.pageUp(map);
                     break;
                 case "3":
-                    selectShoesDetail(pageShoesList);
+                    return pageShoesList;
                 case "0":
                     System.exit(0);
             }
+
         }
+
+
     }
 
     // TODO: 데이터처리 controller에서 하도록 변경하기

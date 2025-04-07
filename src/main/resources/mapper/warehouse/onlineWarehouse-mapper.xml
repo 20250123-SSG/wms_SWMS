@@ -12,7 +12,7 @@
         shoes_id = #{shoesId}
     </select>
 
-    <resultMap id="onlineWarehouseResultMap" type="com.example.OnlineWarehouseDto">
+    <resultMap id="onlineWarehouseResultMap" type="OnlineWarehouseDto">
         <id property="onlineWarehouseId" column="online_warehouse_id"/>
         <result property="shoesId" column="shoes_id"/>
         <result property="quantity" column="quantity"/>
