@@ -53,6 +53,7 @@ public class MyPage {
                     userView.updateMoney(userDto);
                     break;
                 case "4":
+                    //UserView.selectCartList 출력하는 기능 (UserD)
                     shoppingCartController.selectCartList(userDto);
                     break;
                 case "0":

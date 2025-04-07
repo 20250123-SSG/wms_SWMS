@@ -26,6 +26,7 @@
     <select id="checkShoppingCart" parameterType="UserDto" resultMap="shoesListResultMap" >
         SELECT
             shoes_name
+            ,c.shoes_id
             ,shoes_price
             ,size
         FROM
@@ -39,11 +40,13 @@
 
     </select>
 
-    <delete id="deleteShoes" parameterType="_int">
-        delete
-            from tbl_cart
-        where
-            shoes_name = #{shoesName}
+    <delete id="deleteCart" parameterType="_int">
+        DELETE FROM tbl_cart
+        WHERE shoes_id = #{shoesId}
+    </delete>
+    <delete id="buyCart" parameterType="_int">
+        DELETE FROM tbl_cart
+        WHERE shoes_id = #{shoesId}
     </delete>
 
 </mapper>
