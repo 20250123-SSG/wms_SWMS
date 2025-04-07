@@ -15,5 +15,4 @@ public class OnlineOrderDto {
     private int userId;
     private int totalPrice;
     private String size;
-    // UserDto + ShoesDto
 }
