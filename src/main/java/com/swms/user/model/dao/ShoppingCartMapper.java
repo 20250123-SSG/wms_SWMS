@@ -14,4 +14,5 @@ public interface ShoppingCartMapper {
     List<ShoesDto> checkShoppingCart(UserDto userDto);
 
 
+    int deleteShoes(int id);
 }

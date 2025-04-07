@@ -12,11 +12,11 @@ public class ShoesManagementController {
     public void registShoes(Map<String, String> requestParam) {
         ShoesDto menu = ShoesDto.builder()
                 .shoesId(Integer.valueOf(requestParam.get("id")))
-                .shoesTypeId(Integer.valueOf(requestParam.get("typeid")))
-                .brandId(Integer.valueOf(requestParam.get("brand")))
+                .shoesType(requestParam.get("typeid"))
+                .brandName(requestParam.get("brand"))
                 .shoesName(requestParam.get("name"))
-                .shoesPrice(requestParam.get("price"))
-                .size(Integer.parseInt(requestParam.get("size")))
+                .shoesPrice(Integer.parseInt(requestParam.get("price")))
+                .size(requestParam.get("size"))
                 .build();
 
         int result = shoesManagementService.registShoes(menu);
@@ -28,8 +28,8 @@ public class ShoesManagementController {
         ShoesDto menu = ShoesDto.builder()
                 .shoesId(Integer.valueOf(requestParam.get("id")))
                 .shoesName(requestParam.get("name"))
-                .shoesPrice(requestParam.get("price"))
-                .size(Integer.parseInt(requestParam.get("size")))
+                .shoesPrice(Integer.parseInt(requestParam.get("price")))
+                .size(requestParam.get("size"))
                 .build();
 
         int result = shoesManagementService.modifyShoes(menu);

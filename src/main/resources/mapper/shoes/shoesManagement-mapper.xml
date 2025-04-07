@@ -45,4 +45,5 @@
         where
             shoes_id = #{shoesId}
     </delete>
+    <!--보내기-->
 </mapper>
