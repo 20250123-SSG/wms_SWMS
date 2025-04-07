@@ -5,4 +5,16 @@
 <mapper namespace="com.swms.store.model.dao.StoreMapper">
 
 
+
+    <select id="findByUserId" parameterType="int" resultType="StoreDto">
+        SELECT
+            store_id AS storeId,
+            user_id AS userId,
+            store_name AS storeName,
+            store_phone AS storePhone,
+            store_address AS storeAddress
+        FROM store
+            WHERE user_id = #{userId}
+    </select>
+
 </mapper>
