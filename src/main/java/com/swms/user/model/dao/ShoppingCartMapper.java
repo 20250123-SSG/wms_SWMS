@@ -1,5 +1,6 @@
 package com.swms.user.model.dao;
 
+import com.swms.order.model.dto.OnlineOrderDto;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.user.model.dto.UserDto;
 
@@ -13,5 +14,6 @@ public interface ShoppingCartMapper {
 
     int deleteCart(int shoesid);
 
-    int buyCart(int buyName);
+//    int buyCart(int buyName);
+    int insertOnlineOrder(OnlineOrderDto order);
 }

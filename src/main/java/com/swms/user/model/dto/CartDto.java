@@ -13,4 +13,5 @@ public class CartDto {
     private int userId;
     private int shoesId;
     private String cartDate;
+    
 }

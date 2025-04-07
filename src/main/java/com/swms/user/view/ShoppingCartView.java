@@ -4,11 +4,14 @@ import com.swms.order.controller.OnlineOrderController;
 import com.swms.order.model.service.OnlineOrderService;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.user.controller.ShoppingCartController;
+import com.swms.user.model.dto.AccountUserDto;
+import com.swms.user.model.dto.CartDto;
 import com.swms.user.model.dto.UserDto;
 
 
 import java.util.List;
 import java.util.Scanner;
+
 
 public class ShoppingCartView {
 
@@ -42,13 +45,16 @@ public class ShoppingCartView {
                 String menu = sc.nextLine();
                 switch (menu) {
                     case "1":
-                        shoppingCartController.buyCart((buyShoesId("구매할 신발ID")));
-                        //insertOnlineOrder();
-//                        UserDto userDto = new UserDto();
-//                        ShoesDto shoesDto = new ShoesDto();
-//
-                        //onlineOrderService.onlineOrder(); break;
+                        //shoppingCartController.buyCart((buyShoesId("구매할 신발ID")));
+                        UserDto user = new UserDto();
+                        user.setUserId(user.getUserId()); // 예시 값 설정
+                        int price = user.getMoney();
 
+                        shoppingCartController.createOrder(user ,price);
+//                        UserDto userDto = new UserDto(4, "qwer", 1, "010-9378-8677", "rewq", 215000);
+//                        ShoesDto shoesDto = new ShoesDto(1, "나이키", "스니커즈", "에어 포스 1", 129000, "270");
+//
+//                        onlineOrderService.onlineOrder(userDto , shoesDto); break;
                     case "2":
 
                         shoppingCartController.removeCart(inputId("삭제할 상품 아이디"));
@@ -68,11 +74,11 @@ public class ShoppingCartView {
         return sc.nextLine();
 
     }
-    public String buyShoesId(String type) {
-        System.out.printf("> %s 입력: ", type);
-        return sc.nextLine();
-
-    }
+//    public String buyShoesId(String type) {
+//        System.out.printf("> %s 입력: ", type);
+//        return sc.nextLine();
+//
+//    }
 //    public String insertOnlineOrder() {
 //
 //

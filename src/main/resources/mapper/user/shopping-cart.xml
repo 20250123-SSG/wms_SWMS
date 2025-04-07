@@ -21,6 +21,7 @@
     </resultMap>
 
 
+
     <!--장바구니 확인-->
 
     <select id="checkShoppingCart" parameterType="UserDto" resultMap="shoesListResultMap" >
@@ -48,5 +49,20 @@
         DELETE FROM tbl_cart
         WHERE shoes_id = #{shoesId}
     </delete>
+
+    <insert id="insertOnlineOrder" parameterType="com.swms.order.model.dto.OnlineOrderDto"
+            useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO
+            tbl_online_order
+                (
+                user_id
+                ,total_price
+                )
+        VALUES
+                (
+                #{userId}
+                ,#{totalPrice})
+    </insert>
+
 
 </mapper>

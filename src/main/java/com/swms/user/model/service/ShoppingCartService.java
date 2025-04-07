@@ -1,5 +1,6 @@
 package com.swms.user.model.service;
 
+import com.swms.order.model.dto.OnlineOrderDto;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.user.model.dao.ShoppingCartMapper;
 import com.swms.user.model.dto.UserDto;
@@ -41,26 +42,51 @@ public class ShoppingCartService {
         return result;
 
     }
-
-    public int buyCart(String buyName) {
-
+    public int createOrder(UserDto user, int price) {
+        // MyBatis SqlSession 받아오기 (예시)
         SqlSession sqlSession = getSqlSession();
         shoppingCartMapper = sqlSession.getMapper(ShoppingCartMapper.class);
 
-        int result = 0;
+        OnlineOrderDto orderDto = OnlineOrderDto.builder()
+                .userId(user.getUserId())
+                .totalPrice(price)
+                .build();
         try {
-            result = shoppingCartMapper.buyCart(Integer.parseInt(buyName));
+
+            shoppingCartMapper.insertOnlineOrder(orderDto);
             sqlSession.commit();
+
+            // orderDto.getOrderId()로 새로 생성된 PK 값 확인 가능
+            System.out.println("생성된 orderId = " + orderDto.getOrderId());
+
+            return orderDto.getOrderId();  // 정상적으로 삽입된 행 수
         } catch (Exception e) {
-            e.printStackTrace();
             sqlSession.rollback();
-        }finally{
+            throw new RuntimeException("주문 생성 실패", e);
+        } finally {
             sqlSession.close();
         }
-
-        return result;
-
     }
-
-
 }
+
+//    public int buyCart(String buyName) {
+//
+//        SqlSession sqlSession = getSqlSession();
+//        shoppingCartMapper = sqlSession.getMapper(ShoppingCartMapper.class);
+//
+//        int result = 0;
+//        try {
+//            result = shoppingCartMapper.buyCart(Integer.parseInt(buyName));
+//            sqlSession.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            sqlSession.rollback();
+//        }finally{
+//            sqlSession.close();
+//        }
+//
+//        return result;
+//
+//    }
+
+

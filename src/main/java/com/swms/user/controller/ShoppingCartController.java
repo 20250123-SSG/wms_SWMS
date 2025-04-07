@@ -26,12 +26,21 @@ public class ShoppingCartController {
         ResultView.displayResult("신발 삭제", result);
 
     }
-
-    public void buyCart(String buyName) {
-
-        String result = String.valueOf(shoppingCartService.buyCart(buyName));
-        ResultView.displayResult("신발 구매", Integer.parseInt(result));
-
+    public void createOrder(UserDto user, int price){
+        int result = shoppingCartService.createOrder(user,price);
+        ResultView.displayResult("주문 등록", result);
     }
+
+
+
+//    public void buyCart(String buyName) {
+//
+//        String result = String.valueOf(shoppingCartService.buyCart(buyName));
+//        ResultView.displayResult("신발 구매", Integer.parseInt(result));
+//
+//    }
+
+
+
 
 }
