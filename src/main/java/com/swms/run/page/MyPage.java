@@ -53,7 +53,7 @@ public class MyPage {
                     userView.updateMoney(userDto);
                     break;
                 case "4":
-                    shoppingCartController.selectCartList();
+                    shoppingCartController.selectCartList(userDto);
                     break;
                 case "0":
                     System.out.println("뒤로 갑니다.");

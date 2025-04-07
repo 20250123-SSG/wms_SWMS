@@ -1,8 +1,8 @@
-package com.swms.user.model.dao;
+package com.swms.shoes.model.dao;
 
 import com.swms.shoes.model.dto.ShoesDto;
 
-public interface AdminMapper {
+public interface ShoesManagementMapper {
     int insertShoes(ShoesDto menu);
     int updateShoes(ShoesDto menu);
     int deleteShoes(int id);

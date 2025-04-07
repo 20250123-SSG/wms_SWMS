@@ -8,9 +8,9 @@ import java.util.List;
 public interface UserMapper {
 
     int updateAddress(UserDto userDto);
-    //돈 돈 돈 돈
+    //돈 충전 시스템입니다.
     int updateMoney(UserDto userDto);
-    // 전화번호
+    // 전화번호 수정 시스템입니다.
     int updatePhone(UserDto userDto);
 
 

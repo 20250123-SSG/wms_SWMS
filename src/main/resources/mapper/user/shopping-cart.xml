@@ -23,7 +23,7 @@
 
     <!--장바구니 확인-->
 
-    <select id="checkShoppingCart"  resultMap="shoesListResultMap" >
+    <select id="checkShoppingCart" parameterType="UserDto" resultMap="shoesListResultMap" >
         SELECT
             shoes_name
             ,shoes_price
@@ -34,8 +34,8 @@
 
 
         WHERE
-           c.user_id = #{user_id}
-            <!--지금 유저 아이디 연동이 안 됨 월욜에 가서 해결해야겠음-->
+           c.user_id = #{userId}
+
 
     </select>
 

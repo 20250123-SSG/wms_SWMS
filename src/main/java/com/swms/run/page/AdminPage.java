@@ -3,13 +3,13 @@ package com.swms.run.page;
 import com.swms.common.AnsiColor;
 import com.swms.common.Logo;
 import com.swms.user.model.dto.UserDto;
-import com.swms.user.view.AdminView;
+import com.swms.shoes.view.ShoesManagementView;
 
 import java.util.Scanner;
 
 public class AdminPage {
     private static Scanner sc = new Scanner(System.in);
-    private static AdminView adminView = new AdminView();
+    private static ShoesManagementView shoesManagementView = new ShoesManagementView();
     public static void adminPage(UserDto userDto) {
         if(userDto.getUserId() != 5){
             System.out.println(AnsiColor.BRIGHT_RED + "   접속 권한이 없습니다.");
@@ -38,7 +38,7 @@ public class AdminPage {
             String menu = sc.nextLine();
             switch (menu) {
                 case "1":
-                    adminView.ShoesManagementView();
+                    shoesManagementView.ShoesManagementView();
                     break;
                 case "2":
 

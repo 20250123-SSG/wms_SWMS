@@ -34,7 +34,7 @@
         <mapper resource="mapper/user/user-mapper.xml"/>
         <mapper resource="mapper/shoes/shoes-mapper.xml"/>
         <mapper resource="mapper/user/shopping-cart.xml"/>
-        <mapper resource="mapper/user/admin-mapper.xml"/>
+        <mapper resource="mapper/shoes/shoesManagement-mapper.xml"/>
     </mappers>
 
 

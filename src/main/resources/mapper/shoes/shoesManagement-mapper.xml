@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swms.user.model.dao.AdminMapper">
+<mapper namespace="com.swms.shoes.model.dao.ShoesManagementMapper">
 
     <!-- 신규 신발 등록 -->
     <insert id="insertShoes" parameterType="ShoesDto" useGeneratedKeys="true" >
@@ -49,6 +49,8 @@
             ,#{shoesPrice}
             ,#{size}
             )
+        where
+            shoes_id = #{shoesId}
     </update>
     <delete id="deleteShoes" parameterType="_int">
         delete

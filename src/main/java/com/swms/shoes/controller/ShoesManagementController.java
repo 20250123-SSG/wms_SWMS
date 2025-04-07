@@ -1,16 +1,13 @@
-package com.swms.user.controller;
+package com.swms.shoes.controller;
 
 import com.swms.shoes.model.dto.ShoesDto;
-import com.swms.user.model.dto.UserDto;
-import com.swms.user.model.service.AccountService;
-import com.swms.user.model.service.AdminService;
-import com.swms.user.view.AdminView;
+import com.swms.shoes.model.service.ShoesManagementService;
 import com.swms.user.view.ResultView;
 
 import java.util.Map;
 
-public class AdminController {
-    private AdminService admintService = new AdminService();
+public class ShoesManagementController {
+    private ShoesManagementService admintService = new ShoesManagementService();
 
     public void registShoes(Map<String, String> requestParam) {
         // 요청시 전달된 데이터 => MenuDto 옮기기

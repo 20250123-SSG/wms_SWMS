@@ -1,15 +1,13 @@
-package com.swms.user.view;
+package com.swms.shoes.view;
 
-import com.swms.user.controller.AccountController;
-import com.swms.user.controller.AdminController;
-import com.swms.user.model.dto.UserDto;
+import com.swms.shoes.controller.ShoesManagementController;
 
 import java.util.Map;
 import java.util.Scanner;
 
-public class AdminView {
+public class ShoesManagementView {
 
-    private AdminController adminController = new AdminController();
+    private ShoesManagementController shoesManagementController = new ShoesManagementController();
     private Scanner sc = new Scanner(System.in);
 
     public void ShoesManagementView(){
@@ -19,6 +17,7 @@ public class AdminView {
                     1. 상품 등록
                     2. 상품 수정
                     3. 상품 삭제
+                    0. 뒤로가기
                     =============================
                     > 입력:""");
 
@@ -26,7 +25,7 @@ public class AdminView {
             switch(menu){
                 case "1": registShoesForm(); break;
                 case "2": modifyShoesForm(); break;
-                case "3": adminController.removeShoes(inputId("삭제할 신발 아이디")); break;
+                case "3": shoesManagementController.removeShoes(inputId("삭제할 신발 아이디")); break;
                 case "0": return;
                 default : System.out.println("메뉴를 잘못 입력하셨습니다.");
             }
@@ -63,7 +62,7 @@ public class AdminView {
                 "size", size
         );
 
-        adminController.registShoes(requestParam);
+        shoesManagementController.registShoes(requestParam);
     }
 
     // 기존 메뉴 수정용 폼 제공 화면
@@ -91,7 +90,7 @@ public class AdminView {
                 "size", size
         );
 
-        adminController.modifyShoes(requestParam);
+        shoesManagementController.modifyShoes(requestParam);
     }
 
 }
