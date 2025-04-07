@@ -3,12 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.swms.warehouse.model.dao.OnlineWarehouseMapper">
+    <select id="checkWarehouseStock" parameterType="_int" resultType="_int">
+        SELECT
+        quantity
+        FROM
+        tbl_online_warehouse
+        WHERE
+        shoes_id = #{shoesId}
+    </select>
+
+    <update id="updateShoesQuantity" parameterType="_int">
+        UPDATE
+        tbl_online_warehouse
+        SET quantity = quantity - 1
+        WHERE shoes_id = #{shoesId}
+    </update>
 
     <resultMap id="onlineWarehouseResultMap" type="OnlineWarehouseDto">
         <id property="onlineWarehouseId" column="online_warehouse_id"/>
         <result property="shoesId" column="shoes_id"/>
         <result property="quantity" column="quantity"/>
     </resultMap>
+
 
     <!-- 전체 조회 -->
     <select id="selectAllOnlineWarehouse" resultMap="onlineWarehouseResultMap">

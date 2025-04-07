@@ -13,3 +13,4 @@ public class OnlineOrderDetailDto {
     private int shoesId;
     private int quantity;
 }
+
