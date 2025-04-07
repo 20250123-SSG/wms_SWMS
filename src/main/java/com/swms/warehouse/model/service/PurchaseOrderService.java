@@ -1,9 +1,9 @@
 package com.swms.warehouse.model.service;
 
 
-import com.swms.warehouse.model.dao.OnlineWarehouseMapper;
+
 import com.swms.warehouse.model.dao.PurchaseOrderMapper;
-import com.swms.warehouse.model.dto.OnlineWarehouseDto;
+import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
 import org.apache.ibatis.session.SqlSession;
 
@@ -37,4 +37,19 @@ public class PurchaseOrderService {
 
         return result;
     }
+
+        public List<PurchaseOrderDto> selectAllPurchaseOrder(int page) {
+            SqlSession sqlSession = getSqlSession();
+            purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+
+            int size = 5;
+            int offset = (page - 1) * size;
+
+            List<PurchaseOrderDto> list =
+                    purchaseOrderMapper.selectAllPurchaseOrder(size, offset);
+
+            sqlSession.close();
+            return list;
+        }
+
 }

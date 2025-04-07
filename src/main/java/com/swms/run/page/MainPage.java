@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class MainPage {
     private static Scanner sc = new Scanner(System.in);
+    private static String message = null;
 
     public static void mianPage(UserDto userDto) {
         while (true) {
@@ -25,7 +26,10 @@ public class MainPage {
             System.out.println(AnsiColor.GREEN + "               0. 프로그램 종료" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + AnsiColor.RESET);
-
+            if (message != null) {
+                System.out.println(AnsiColor.BRIGHT_RED + "                " + message + AnsiColor.RESET);
+                message = null;
+            }
 
             System.out.print("""
                     > 입력:""");
@@ -41,7 +45,7 @@ public class MainPage {
                     StoreManagerPage.storeMangerPage(userDto);
                     break;
                 case "9":
-                    AdminPage.adminPage(userDto);
+                    message = AdminPage.adminPage(userDto);
                     break;
                 case "0":
                     return;

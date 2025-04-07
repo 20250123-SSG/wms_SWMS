@@ -1,7 +1,10 @@
 package com.swms.warehouse.controller;
 
+import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
 import com.swms.warehouse.model.service.PurchaseOrderService;
+
+import java.util.List;
 
 public class PurchaseOrderController {
     private PurchaseOrderService purchaseOrderService = new PurchaseOrderService();
@@ -17,6 +20,12 @@ public class PurchaseOrderController {
 
         return purchaseOrderService.createPurchaseOrder(purchaseOrderDto);
 
+
+    }
+
+    public List<PurchaseOrderDto> selectAllPurchaseOrder(int page){
+
+        return purchaseOrderService.selectAllPurchaseOrder(page);
 
     }
 

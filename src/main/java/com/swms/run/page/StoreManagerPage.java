@@ -15,7 +15,7 @@ public class StoreManagerPage {
     private static OfflineWarehouseView offlineWarehouseView = new OfflineWarehouseView();
 
     public static void storeMangerPage(UserDto userDto) {
-        if(userDto.getUserId() == 1){
+        if(userDto.getAuth() != 2){
             System.out.println(AnsiColor.BRIGHT_RED + "  점장만 접속 가능합니다.");
             return;
         }

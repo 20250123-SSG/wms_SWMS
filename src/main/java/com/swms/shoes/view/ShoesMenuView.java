@@ -49,7 +49,7 @@ public class ShoesMenuView {
                     // 구매단으로shoes 넘기기
                     break; // 구매하기 (shoes활용)
                 case "2":
-                    UserDto user = new UserDto(4, "qwer","2","010-9378-8677", "rewq", 215000);
+                    UserDto user = new UserDto(4, "qwer",2,"010-9378-8677", "rewq", 215000);
 
                     shoesController.insertToCart(user, shoes);
                     break; // 장바구니

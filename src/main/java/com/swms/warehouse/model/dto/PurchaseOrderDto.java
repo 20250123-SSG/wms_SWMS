@@ -14,6 +14,11 @@ public class PurchaseOrderDto {
     private int purchaseOrderId;
     private int storeId;
     private int shoesId;
+    private String storeName;
+    private String brandName;
+    private String shoesType;
+    private String shoesName;
+    private int size;
     private int quantity;
     private LocalDateTime requestDate;
     private String status;
