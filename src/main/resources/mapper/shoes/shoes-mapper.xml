@@ -4,13 +4,20 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.swms.shoes.model.dao.ShoesMapper">
 
-    <resultMap id="shoesListResultMap" type="ShoesDto">
-        <result column="shoes_id" property="shoesId"/>
+    <resultMap id="shoesListResultMap" type="ShoesSelectDto">
+        <id column="shoes_id" property="shoesId"/>
         <result column="shoes_type_id" property="shoesTypeId"/>
         <result column="brand_id" property="brandId"/>
         <result column="shoes_name" property="shoesName"/>
         <result column="shoes_price" property="shoesPrice"/>
         <result column="size" property="size"/>
+    </resultMap>
+
+    <resultMap id="SizeListResultMap" type="ShoesDto">
+        <result column="brand_name" property="brandName"/>
+        <result column="shoes_type" property="shoesType"/>
+        <result column="shoes_name" property="shoesName"/>
+        <result column="shoes_price" property="shoesPrice"/>
     </resultMap>
 
     <select id="searchBrandName" parameterType="_int" resultType="String">
@@ -32,45 +39,69 @@
     </select>
 
 
-
-    <!--  ========= 정렬별 조회하기 ============ -->
-
-    <select id="sortingByLatest" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
+    <select id="selectShoesList" parameterType="map" resultMap="shoesListResultMap">
         SELECT DISTINCT
             shoes_name
             , shoes_price
         FROM
             tbl_shoes
         WHERE
-            shoes_type_id = #{shoesTypeId}
-        AND brand_id = #{brandId}
+            shoes_type_id = #{type}
+        AND brand_id = #{brand}
+        <if test="sortBy != 'shoes_id'">
+            ORDER BY
+            ${sortBy} ${ascDesc}
+        </if>
+        LIMIT 10 OFFSET #{offset}
+    </select>
+
+    <select id="selectShoesDetail" parameterType="String" resultMap="SizeListResultMap">
+        SELECT DISTINCT
+            brand_name
+            , shoes_type
+            , shoes_name
+            , shoes_price
+        FROM
+            tbl_shoes
+                JOIN tbl_brand USING(brand_id)
+                JOIN tbl_shoes_type USING(shoes_type_id)
+        WHERE
+            shoes_name =  #{shoesName}
+
+    </select>
+    <select id="selectShoesSizeList" parameterType="String" resultType="String">
+        SELECT
+            size
+        FROM
+        tbl_shoes
+        JOIN tbl_brand USING(brand_id)
+        JOIN tbl_shoes_type USING(shoes_type_id)
+        WHERE
+        shoes_name =  #{shoesName}
 
     </select>
 
-    <select id="sortingByPriceASC" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
-        SELECT DISTINCT
-            shoes_name
-            , shoes_price
+
+
+    <select id="getDisplayShoesCount" parameterType="map" resultType="_int">
+        SELECT COUNT(DISTINCT shoes_name, shoes_price)
         FROM
             tbl_shoes
         WHERE
-            shoes_type_id = #{shoesTypeId}
-        AND brand_id = #{brandId}
-        ORDER BY
-            shoes_price;
+            shoes_type_id = #{type}
+        AND brand_id = #{brand}
     </select>
 
-    <select id="sortingByPriceDESC" parameterType="com.swms.shoes.model.dto.ShoesOptionDto" resultMap="shoesListResultMap">
+    <select id="getShoesId" parameterType="ShoesDto" resultType="_int">
         SELECT DISTINCT
-            shoes_name
-            , shoes_price
+        shoes_id
         FROM
-            tbl_shoes
+        tbl_shoes
+        JOIN tbl_brand USING(brand_id)
+        JOIN tbl_shoes_type USING(shoes_type_id)
         WHERE
-            shoes_type_id = #{shoesTypeId}
-        AND brand_id = #{brandId}
-        ORDER BY
-            shoes_price DESC;
+        shoes_name =  #{shoesName}
+        AND size = #{size}
     </select>
 
 </mapper>
