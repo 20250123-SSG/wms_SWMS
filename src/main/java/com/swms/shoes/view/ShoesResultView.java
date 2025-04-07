@@ -59,6 +59,10 @@ public class ShoesResultView {
         System.out.println("마지막 페이지입니다.");
     }
 
+    public static void displayShoesOrder(int result) {
+
+    }
+
 //    public static void displayOnlineOrder(ShoesDetailDto shoes, String size, UserDto user) {
 //        System.out.println("\n🛒 구매 정보 확인");
 //        System.out.println("구매자: " + user.getName()); // 예시

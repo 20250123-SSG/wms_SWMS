@@ -7,6 +7,7 @@ import com.swms.shoes.model.dao.ShoesMapper;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
 import com.swms.user.model.dto.UserDto;
+import com.swms.warehouse.model.dao.OnlineWarehouseMapper;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -16,67 +17,52 @@ import static com.swms.common.Template.getSqlSession;
 public class OnlineOrderService {
 
     private OnlineOrderMapper onlineOrderMapper;
-    // 온라인 주문 테이블에 생성되어야함(order_id(자동생성), user_id(UserDto넘겨줘야함),price(ShoesDto넘겨줘야함),order_date(자동발생)
-    public int insertOnlineOrder(OnlineOrderDto order) {
+    private OnlineWarehouseMapper onlineWarehouseMapper;
+
+
+    // 구매 트랜젝션
+    public int onlineOrder(UserDto userDto, ShoesDto shoesDto) {
         SqlSession sqlSession = getSqlSession();
         onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
-        int result = 0;
-        try {
-            result = onlineOrderMapper.insertOnlineOrder(order);
-            sqlSession.commit();
+        onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);
+
+        // TODO : 예외발생시 반환값처리
+        try{
+            // 창고 수량 체크 (shoes >> warehouse로 변경)
+            int quantity = onlineWarehouseMapper.checkWarehouseStock(shoesDto.getShoesId());
+            // 금액체크
+            int available =  (userDto.getMoney() >= shoesDto.getShoesPrice()) ? 0 : 1;
+            // 창고에서 재고 차감
+            int update = onlineWarehouseMapper.updateShoesQuantity(shoesDto.getShoesId());
+            //사용자 금액 차감
+            userDto.setMoney(userDto.getMoney() - shoesDto.getShoesPrice());
+            // 구매내역등록
+            OnlineOrderDto orderDto = OnlineOrderDto.builder()
+                    .userId(userDto.getUserId())
+                    .totalPrice(shoesDto.getShoesPrice())
+                    .size(shoesDto.getSize())
+                    .build();
+            try {
+                int insertOrder = onlineOrderMapper.insertOnlineOrder(orderDto);
+                sqlSession.commit();
+            }catch (Exception e) {
+                e.printStackTrace();
+                sqlSession.rollback();
+            }
+            OnlineOrderDetailDto orderDetail = OnlineOrderDetailDto.builder()
+                    .orderId(orderDto.getOrderId())
+                    .shoesId(shoesDto.getShoesId())
+                    .quantity(1)
+                    .build();
+
+            int insertOrderDetail = onlineOrderMapper.insertOnlineOrderDetail(orderDetail);
+
         } catch (Exception e) {
-            e.printStackTrace();
-            sqlSession.rollback();
+            throw new RuntimeException(e);
         } finally{
             sqlSession.close();
         }
-
-        return result;
+        int finalresult = 0; //  TODO: 결과값 반환
+        return finalresult;
     }
-
-    public int insertOnlineOrderDetail(OnlineOrderDetailDto orderDetail) {
-        SqlSession sqlSession = getSqlSession();
-        onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
-        int result = 0;
-        try {
-            result = onlineOrderMapper.insertOnlineOrderDetail(orderDetail);
-            sqlSession.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            sqlSession.rollback();
-        } finally{
-            sqlSession.close();
-        }
-
-        return result;
-    }
-
-    public int checkMoney(int money, int price) {
-        if (money >= price) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    public int checkWarehouseStock(int shoesId) {
-        SqlSession sqlSession = getSqlSession();
-        onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
-        int quantity = onlineOrderMapper.checkWarehouseStock(shoesId);
-        sqlSession.close();
-        return quantity;
-    }
-
-    public int updateShoesQuantity(int shoesId) {
-        SqlSession sqlSession = getSqlSession();
-        onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
-        int result = onlineOrderMapper.updateShoesQuantity(shoesId);
-        sqlSession.close();
-        return result;
-    }
-
-    // 온라인 주문 상세내역에 생성시키기 (Online_order_detail_id(자동), order_id(자동?), shoes_id, quantity)
-    // UserDto + ShoesDto 로 주문서만들기
-    // ShoesDto 활용해서 온라인 창고에서 -1 (id 포함하도록 수정해야함)
-    // UserDto의 money가 shoes_price 보다 큰지 확인
 }
