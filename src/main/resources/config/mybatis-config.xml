@@ -18,6 +18,7 @@
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDto" alias="OnlineOrderDto"/>
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDetailDto" alias="OnlineOrderDetailDto"/>
         <typeAlias type="com.swms.store.model.dto.StoreDto" alias="StoreDto"/>
+        <typeAlias type="com.swms.warehouse.model.dto.PurchaseOrderDto" alias="PurchaseOrderDto"/>
         <typeAlias type="com.swms.warehouse.model.dto.OnlineWarehouseDto" alias="OnlineWarehouseDto"/>
         <typeAlias type="com.swms.warehouse.model.dto.OfflineWarehouseDto" alias="OfflineWarehouseDto"/>
     </typeAliases>
@@ -40,6 +41,7 @@
         <mapper resource="mapper/shoes/shoes-mapper.xml"/>
         <mapper resource="mapper/order/onlineOrder-mapper.xml"/>
         <mapper resource="mapper/store/store-mapper.xml"/>
+        <mapper resource="mapper/warehouse/purchaseOrder-mapper.xml"/>
         <mapper resource="mapper/warehouse/offlineWarehouse-mapper.xml"/>
         <mapper resource="mapper/warehouse/onlineWarehouse-mapper.xml"/>
     </mappers>

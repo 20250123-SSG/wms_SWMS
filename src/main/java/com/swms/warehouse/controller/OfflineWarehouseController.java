@@ -16,16 +16,9 @@ public class OfflineWarehouseController {
 
     }
 
-    public boolean existsWarehouseById(int warehouseId){
+    public OfflineWarehouseDto existsWarehouseById(int warehouseId){
 
-        OfflineWarehouseDto dto = offlineWarehouseService.selectWarehouseById(warehouseId);
-
-        if (dto == null) {
-            System.out.println("데이터가 없습니다.");
-            return false;
-        }else {
-            return true;
-        }
+        return offlineWarehouseService.selectWarehouseById(warehouseId);
     }
 
 }
