@@ -14,8 +14,9 @@ public class StoreService {
         SqlSession sqlSession = getSqlSession();
         storeMapper = sqlSession.getMapper(StoreMapper.class);
 
+        StoreDto result = storeMapper.findByUserId(userId);
         sqlSession.close();
 
-        return storeMapper.findByUserId(userId);
+        return result;
     }
 }

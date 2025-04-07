@@ -38,6 +38,7 @@
         <mapper resource="mapper/user/user-mapper.xml"/>
         <mapper resource="mapper/shoes/shoes-mapper.xml"/>
         <mapper resource="mapper/order/onlineOrder-mapper.xml"/>
+        <mapper resource="mapper/store/store-mapper.xml"/>
     </mappers>
 
 </configuration>
