@@ -2,8 +2,10 @@ package com.swms.user.view;
 
 import com.swms.user.controller.AccountController;
 import com.swms.user.controller.UserController;
+import com.swms.user.model.dto.ShoppingCartDto;
 import com.swms.user.model.dto.UserDto;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class UserView {
@@ -36,5 +38,7 @@ public class UserView {
         userController.updatePhone(user, phone);
 
     }
+
+
 
 }
