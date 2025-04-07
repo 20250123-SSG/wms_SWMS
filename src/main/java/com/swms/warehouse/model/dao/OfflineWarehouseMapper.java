@@ -19,4 +19,8 @@ public interface OfflineWarehouseMapper {
             @Param("offlineWarehouseId") int offlineWarehouseId
     );
 
+    int updateQuantity(
+            OfflineWarehouseDto offlineWarehouseDto
+    );
+
 }
