@@ -12,6 +12,11 @@
         shoes_id = #{shoesId}
     </select>
 
+    <resultMap id="onlineWarehouseResultMap" type="com.example.OnlineWarehouseDto">
+        <id property="onlineWarehouseId" column="online_warehouse_id"/>
+        <result property="shoesId" column="shoes_id"/>
+        <result property="quantity" column="quantity"/>
+    </resultMap>
     <update id="updateShoesQuantity" parameterType="_int">
         UPDATE
         tbl_online_warehouse
@@ -19,4 +24,16 @@
         WHERE shoes_id = #{shoesId}
     </update>
 
+    <!-- 전체 조회 -->
+    <select id="selectAllOnlineWarehouse" resultMap="onlineWarehouseResultMap">
+        select
+            online_warehouse_id
+          , shoes_id
+          , quantity
+        from
+            tbl_online_warehouse
+        order by
+            online_warehouse_id desc
+            limit #{limit} offset #{offset}
+    </select>
 </mapper>
