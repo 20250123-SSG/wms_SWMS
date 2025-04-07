@@ -2,6 +2,9 @@ package com.swms.run.page;
 
 import com.swms.common.AnsiColor;
 import com.swms.common.Logo;
+import com.swms.store.controller.StoreController;
+import com.swms.store.model.dto.StoreDto;
+import com.swms.store.model.service.StoreService;
 import com.swms.user.model.dto.UserDto;
 
 import java.util.Scanner;
@@ -15,14 +18,23 @@ public class StoreManagerPage {
             return;
         }
 
+        StoreController storeController = new StoreController();
+        StoreDto storeDto = storeController.getStoreByUserId(userDto.getUserId());
+
         while (true) {
             Logo.printLogo();
             System.out.println(AnsiColor.BLUE + "  ┌─────────────────────────────────────────────┐" + AnsiColor.RESET);
             System.out.println(AnsiColor.BLUE + "  │ " + AnsiColor.GREEN + "     Shoes Warehouse Management System " + AnsiColor.BLUE + "     │" + AnsiColor.RESET);
             System.out.println(AnsiColor.BLUE + "  └─────────────────────────────────────────────┘" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_CYAN + " ─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + "  🏪 매장 이름 : " + storeDto.getStoreName() + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + "  🆔 매장 ID : " + storeDto.getStoreId() + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + "  📞 매장 전화 : " + storeDto.getStorePhone() + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + "  📍 매장 주소 : " + storeDto.getStoreAddress() + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_CYAN + " ─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               1. 상품 재고" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               2. 상품 입고" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               2. 상품 발주" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               3. 판매 하기" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               4. 매출 확인" + AnsiColor.RESET);
             System.out.println();
@@ -39,6 +51,11 @@ public class StoreManagerPage {
                 case "1":
                     break;
                 case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
 
                 case "0":
                     return;

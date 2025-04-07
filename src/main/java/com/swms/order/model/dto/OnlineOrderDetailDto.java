@@ -1,5 +1,4 @@
-package com.swms.warehouse.model.dto;
-
+package com.swms.order.model.dto;
 import lombok.*;
 
 @NoArgsConstructor
@@ -8,9 +7,9 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class OfflineWarehouseDto {
-    private int offlineWarehouseId;
-    private int storeId;
+public class OnlineOrderDetailDto {
+    private int onlineOrderDetailId;
+    private int orderId;
     private int shoesId;
     private int quantity;
 }
