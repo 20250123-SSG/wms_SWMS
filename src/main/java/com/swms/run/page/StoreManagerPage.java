@@ -37,6 +37,7 @@ public class StoreManagerPage {
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               1. 상품 재고" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               2. 매출 확인" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               3. 판매 내역" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               0. 뒤로가기" + AnsiColor.RESET);
             System.out.println();
@@ -52,6 +53,8 @@ public class StoreManagerPage {
                     offlineWarehouseView.offlineWarehouse(storeDto.getStoreId());
                     break;
                 case "2":
+                    break;
+                case "3":
                     break;
                 case "0":
                     return;
