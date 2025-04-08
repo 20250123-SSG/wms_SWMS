@@ -39,7 +39,7 @@
     </select>
 
 
-    <select id="selectShoesList" parameterType="map" resultMap="shoesListResultMap">
+    <select id="selectShoesList" parameterType="ShoesSelectOptionDto" resultMap="shoesListResultMap">
         SELECT DISTINCT
             shoes_name
             , shoes_price
@@ -52,7 +52,7 @@
             ORDER BY
             ${sortBy} ${ascDesc}
         </if>
-        LIMIT 10 OFFSET #{offset}
+        LIMIT 5 OFFSET #{offset}
     </select>
 
     <select id="selectShoesDetail" parameterType="String" resultMap="SizeListResultMap">

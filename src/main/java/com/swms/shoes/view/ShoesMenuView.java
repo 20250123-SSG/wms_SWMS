@@ -5,6 +5,7 @@ import com.swms.shoes.controller.ShoesController;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesOrderDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.shoes.model.dto.ShoesSelectOptionDto;
 import com.swms.user.model.dto.UserDto;
 
 import java.util.*;
@@ -18,30 +19,27 @@ public class ShoesMenuView {
     private ShoesView shoesView = new ShoesView();
 
 
-    public void NavigationView() {
+    public void MainView(UserDto userDto) {
 
         while (true) {
+            ShoesSelectOptionDto ShoesSelectOptionDto = new ShoesSelectOptionDto();
+
             String type = optionView.inputType(); // 1. 신발종류 선택
+            ShoesSelectOptionDto.setType(Integer.parseInt(type));
+
             String brand = optionView.inputBrand(); // 2. 브랜드 선택
+            ShoesSelectOptionDto.setBrand(Integer.parseInt(brand));
+
             List<String> sorting = optionView.inputSorting(); // 3. 정렬 선택
+            ShoesSelectOptionDto.setSortBy(sorting.get(0));
+            ShoesSelectOptionDto.setAscDesc(sorting.get(1));
 
-            //searchOptionMap으로 조회조건 넘기기
-            Map<String, Object> searchOptionMap = new HashMap<>();
-
-            searchOptionMap.put("type", Integer.parseInt(type));
-            searchOptionMap.put("brand", Integer.parseInt(brand));
-            searchOptionMap.put("sortBy", sorting.get(0));
-            searchOptionMap.put("ascDesc", sorting.get(1));
-            searchOptionMap.put("offset", 0);
-
-
-
-            // 4. 조회옵션으로 신발목록 출력 (페이지네이션)
-            List<ShoesSelectDto> shoesList = shoesView.selectShoesList(searchOptionMap);
+            // 4. 조회옵션으로 신발목록 출력
+            List<ShoesSelectDto> shoesList = shoesView.selectShoesList(ShoesSelectOptionDto);
             // 5. 상세조회
             ShoesDto shoes = shoesView.selectShoesDetail(shoesList);
 
-            // 6. 사용자동작선택 (구매/장바구니/좋아요)
+            // 6. 사용자동작선택 (구매/장바구니)
             String action = userActionView();
             String size = inputSize();
             String quantity = inputQuantity();
@@ -50,17 +48,13 @@ public class ShoesMenuView {
             switch (action) {
                 case "1":
                     // 구매단으로shoes 넘기기
-                    UserDto user = new UserDto(4, "qwer",2,"010-9378-8677", "rewq", 215000);
-                    onlineOrderController.checkMoney(user, shoes);
-                    onlineOrderController.checkWarehouseStock(user, shoes);
-                    onlineOrderController.onlineOrder(user, shoes);
+                    onlineOrderController.checkMoney(userDto, shoes);
+                    onlineOrderController.checkWarehouseStock(userDto, shoes);
+                    onlineOrderController.onlineOrder(userDto, shoes);
                     break; // 구매하기 (shoes활용)
                 case "2":
-                    UserDto user2 = new UserDto(4, "qwer",2,"010-9378-8677", "rewq", 215000);
-                    shoesController.insertToCart(user2, shoes);
+                    shoesController.insertToCart(userDto, shoes);
                     break; // 장바구니
-                case "3":
-                    break; // 좋아요
             }
 
         }
@@ -77,7 +71,6 @@ public class ShoesMenuView {
                         
                         1. 구매하기
                         2. 장바구니 
-                        3. 좋아요 
                         
                         0. 뒤로가기
                         ----------------------------------

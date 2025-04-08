@@ -1,9 +1,11 @@
 package com.swms.shoes.view;
 
+import com.swms.common.AnsiColor;
 import com.swms.shoes.controller.ShoesController;
 import com.swms.shoes.model.dto.ShoesDetailDto;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.shoes.model.dto.ShoesSelectOptionDto;
 
 import java.util.List;
 import java.util.Map;
@@ -13,31 +15,52 @@ import java.util.Scanner;
 public class ShoesView {
     private ShoesController shoesController = new ShoesController();
     private Scanner sc = new Scanner(System.in);
+    private String message = null;
 
-    public List<ShoesSelectDto> selectShoesList(Map<String, Object> map){
-        List<ShoesSelectDto> pageShoesList = shoesController.selectShoesList(map);
-        while(true){
+    public List<ShoesSelectDto> selectShoesList(ShoesSelectOptionDto shoesSelectOptionDto) {
+        int page = 1;
+
+        while (true) {
+            List<ShoesSelectDto> list = shoesController.selectShoesList(shoesSelectOptionDto, page);
+
+            if (list.isEmpty()) {
+                if (page > 1) {
+                    --page;
+                    list = shoesController.selectShoesList(shoesSelectOptionDto, page);
+                    message = "⚠\uFE0F 마지막 페이지 입니다.";
+                } else {
+                    message = "⚠\uFE0F 신발 정보가 없습니다.";
+                }
+            }
+            System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
+            if (message != null) {
+                System.out.println(AnsiColor.BRIGHT_RED + "                " + message + AnsiColor.RESET);
+                message = null;
+            }
+            System.out.println(AnsiColor.BRIGHT_YELLOW + "                현재 페이지 : " + page + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "                1. 다음 페이지" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "                2. 이전 페이지" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "                3. 재고 상품상세보기" + AnsiColor.RESET);
+            System.out.println();
+            System.out.println(AnsiColor.GREEN + "                0. 뒤로 가기" + AnsiColor.RESET);
             System.out.print("""
-                \n
-                1. 이전페이지
-                2. 다음페이지
-                3. 상품상세보기 
-                
-                0. 프로그램 종료
-                ---------------------------------------------------
-                >> 입력 : """);
+                    >> 입력 : """);
 
             String input = sc.nextLine();
 
-            switch(input){
+            switch (input) {
                 case "1":
-                    pageShoesList = shoesController.pageDown(map);
+                    page++;
                     break;
                 case "2":
-                    pageShoesList = shoesController.pageUp(map);
+                    if (page == 1) {
+                        message = "⚠\uFE0F 첫 페이지 입니다.";
+                        break;
+                    }
+                    page--;
                     break;
                 case "3":
-                    return pageShoesList;
+                    return list;
                 case "0":
                     System.exit(0);
             }
@@ -48,13 +71,13 @@ public class ShoesView {
     }
 
     // TODO: 데이터처리 controller에서 하도록 변경하기
-    public ShoesDto selectShoesDetail(List<ShoesSelectDto> pageShoesList){
+    public ShoesDto selectShoesDetail(List<ShoesSelectDto> pageShoesList) {
         System.out.print("""
-                        상세조회할 상품의 번호를 입력하세요.
-                        >> 입력 : """);
+                상세조회할 상품의 번호를 입력하세요.
+                >> 입력 : """);
         //TODO: shoesDTO에 shoes_id를 추가하는게 좋을 듯. 우선은 이름으로 진행
 
-        ShoesSelectDto shoesInfo = pageShoesList.get(Integer.parseInt(sc.nextLine())-1); // 상품상세보기
+        ShoesSelectDto shoesInfo = pageShoesList.get(Integer.parseInt(sc.nextLine()) - 1); // 상품상세보기
         ShoesDto shoes = shoesController.selectShoesDetail(shoesInfo.getShoesName());
         return shoes;
     }

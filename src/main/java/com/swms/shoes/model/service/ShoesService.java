@@ -4,6 +4,7 @@ import com.swms.shoes.model.dao.ShoesMapper;
 import com.swms.shoes.model.dto.ShoesDetailDto;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.shoes.model.dto.ShoesSelectOptionDto;
 import com.swms.user.model.dto.CartDto;
 import org.apache.ibatis.session.SqlSession;
 
@@ -17,10 +18,14 @@ public class ShoesService {
 
 
 
-    public List<ShoesSelectDto> selectShoesList(Map<String, Object> map) {
+    public List<ShoesSelectDto> selectShoesList(ShoesSelectOptionDto shoesSelectOptionDto, int page) {
+        int limit = 5;
+        int offset = (page - 1) * limit;
+        shoesSelectOptionDto.setOffset(offset);
+
         SqlSession sqlSession = getSqlSession();
         shoesMapper = sqlSession.getMapper(ShoesMapper.class);
-        List<ShoesSelectDto> list = shoesMapper.selectShoesList(map);
+        List<ShoesSelectDto> list = shoesMapper.selectShoesList(shoesSelectOptionDto);
         sqlSession.close();
         return list;
     }

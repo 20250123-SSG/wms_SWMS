@@ -15,6 +15,7 @@
         <typeAlias type="com.swms.user.model.dto.UserDto" alias="UserDto"/>
         <typeAlias type="com.swms.shoes.model.dto.ShoesSelectDto" alias="ShoesSelectDto"/>
         <typeAlias type="com.swms.shoes.model.dto.ShoesDto" alias="ShoesDto"/>
+        <typeAlias type="com.swms.shoes.model.dto.ShoesSelectOptionDto" alias="ShoesSelectOptionDto"/>
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDto" alias="OnlineOrderDto"/>
         <typeAlias type="com.swms.order.model.dto.OnlineOrderDetailDto" alias="OnlineOrderDetailDto"/>
         <typeAlias type="com.swms.order.model.dto.OnlineOrderStatsDto" alias="OnlineOrderStatsDto"/>
