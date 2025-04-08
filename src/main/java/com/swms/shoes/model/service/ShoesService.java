@@ -53,10 +53,10 @@ public class ShoesService {
         return countShoes;
     }
 
-    public int getShoesId(ShoesDto shoes) {
+    public ShoesDto getShoesId(ShoesDto shoes) {
         SqlSession sqlSession = getSqlSession();
         shoesMapper = sqlSession.getMapper(ShoesMapper.class);
-        Integer shoesId = shoesMapper.getShoesId(shoes);
+        ShoesDto shoesId = shoesMapper.getShoesId(shoes);
         sqlSession.close();
         return shoesId;
     }

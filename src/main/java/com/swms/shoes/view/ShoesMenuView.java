@@ -42,29 +42,35 @@ public class ShoesMenuView {
             // 6. 사용자동작선택 (구매/장바구니)
             String action = userActionView();
             String size = inputSize();
-            String quantity = inputQuantity();
-            ShoesDto orderShoes = shoesController.getShoes(shoes, size, quantity); // 사이즈 선택하고, 해당 shoes_id구해서 shoesDto에 set하는 함수
+
+            // 창고포함 신발 정보 들고오기
+            ShoesDto orderShoes = shoesController.getShoes(shoes, size); // 사이즈 선택하고, 해당 shoes_id구해서 shoesDto에 set하는 함수
+
+            String buyQuantity = inputQuantity(orderShoes.getQuantity());
+
 
             switch (action) {
                 case "1":
                     // 구매단으로shoes 넘기기
-                    onlineOrderController.checkMoney(userDto, shoes);
-                    onlineOrderController.checkWarehouseStock(userDto, shoes);
-                    onlineOrderController.onlineOrder(userDto, shoes);
+                    onlineOrderController.checkMoney(userDto, orderShoes);
+                    onlineOrderController.checkWarehouseStock(userDto, orderShoes);
+                    onlineOrderController.onlineOrder(userDto, orderShoes);
                     break; // 구매하기 (shoes활용)
                 case "2":
-                    shoesController.insertToCart(userDto, shoes);
+                    shoesController.insertToCart(userDto, orderShoes);
                     break; // 장바구니
             }
 
         }
+
+
         // 받은 아이디에 선택에 맞게 조회 뿌리기
     }
 
 
-    public String userActionView(){
+    public String userActionView() {
         System.out.println(
-                        """
+                """
                         \n
                         ----------------------------------
                         원하시는 기능을 선택하세요.
@@ -77,18 +83,31 @@ public class ShoesMenuView {
                         >> 입력 : """);
         return sc.nextLine();
     }
-    public String inputSize(){
+
+    public String inputSize() {
         //size 한번더 출력해주면 좋을 듯
         System.out.print("구매하시려는 사이즈를 입력해주세요 (ex. 230): ");
         String size = sc.nextLine();
         return size;
     }
-    public String inputQuantity(){
-        //size 한번더 출력해주면 좋을 듯
-        System.out.print("구매하려는 수량를 입력해주세요 : ");
-        String quantity = sc.nextLine();
-        return quantity;
-    }
 
+    public String inputQuantity(int warehouseQuantity) {
+
+
+        while (true) {
+            System.out.print("구매하려는 수량를 입력해주세요 : ");
+            String quantity = sc.nextLine();
+
+            System.out.println("구매 가능한 수량은 " + warehouseQuantity + "개 입니다.");
+
+            if (warehouseQuantity < Integer.parseInt(quantity)) {
+                System.out.println("❗ 구매 가능한 수량보다 많이 입력하였습니다. 다시 입력해주세요.");
+            } else {
+
+                return quantity;
+            }
+
+        }
+    }
 
 }

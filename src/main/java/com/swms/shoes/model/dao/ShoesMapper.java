@@ -22,7 +22,8 @@ public interface ShoesMapper {
 
     List<String> selectShoesSizeList(String shoesName);
 
-    int getShoesId(ShoesDto shoes);
+    // 신발 사이즈, 신발 이름으로 찾음
+    ShoesDto getShoesId(ShoesDto shoes);
 
     int insertToCart(CartDto cart);
 

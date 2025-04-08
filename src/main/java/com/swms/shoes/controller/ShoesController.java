@@ -47,13 +47,12 @@ public class ShoesController {
 
 
     // 구매할 상품 하나에 대한 정보를 가져온다. (Shoes_id)
-    public ShoesDto getShoes(ShoesDto shoes, String size,String quantity) {
-        int shoesId = shoesService.getShoesId(shoes);
-        shoes.setShoesId(shoesId);
+    public ShoesDto getShoes(ShoesDto shoes, String size) {
         shoes.setSize(size);
-        shoes.setQuantity(Integer.parseInt(quantity));
 
-        return shoes;
+        ShoesDto shoesDto = shoesService.getShoesId(shoes);
+
+        return shoesDto;
     }
 
     public void insertToCart(UserDto user, ShoesDto shoes) {

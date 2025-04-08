@@ -63,24 +63,12 @@ CREATE TABLE `tbl_offline_sale` (
     INDEX `idx_offline_sale_shoes` (`shoes_id`)
 );
 
-CREATE TABLE `tbl_like` (
-    `like_id` INT NOT NULL AUTO_INCREMENT,
-    `user_id` INT NOT NULL,
-    `shoes_id` INT NOT NULL,
-    `like_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`like_id`),
-    FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`),
-    FOREIGN KEY (`shoes_id`) REFERENCES `tbl_shoes` (`shoes_id`),
-    INDEX `idx_like_user` (`user_id`),
-    INDEX `idx_like_shoes` (`shoes_id`)
-);
-
-CREATE TABLE `tbl_offline_stock` (
-    `offline_stock_id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_offline_warehouse` (
+    `offline_warehouse_id` INT NOT NULL AUTO_INCREMENT,
     `store_id` INT NOT NULL,
     `shoes_id` INT NOT NULL,
     `quantity` INT NOT NULL,
-    PRIMARY KEY (`offline_stock_id`),
+    PRIMARY KEY (`offline_warehouse_id`),
     FOREIGN KEY (`store_id`) REFERENCES `tbl_store` (`store_id`),
     FOREIGN KEY (`shoes_id`) REFERENCES `tbl_shoes` (`shoes_id`),
     INDEX `idx_offline_stock_store` (`store_id`),
