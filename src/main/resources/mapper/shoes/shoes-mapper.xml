@@ -73,11 +73,12 @@
         SELECT
             size
         FROM
-        tbl_shoes
+            tbl_shoes
         JOIN tbl_brand USING(brand_id)
         JOIN tbl_shoes_type USING(shoes_type_id)
+        RIGHT JOIN tbl_online_warehouse USING(shoes_id)
         WHERE
-        shoes_name =  #{shoesName}
+            shoes_name =   #{shoesName}
 
     </select>
 
