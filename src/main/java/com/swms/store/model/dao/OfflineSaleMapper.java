@@ -16,11 +16,11 @@ public interface OfflineSaleMapper {
             @Param("offset") int offset
     );
 
-    List<OfflineSaleStatsDto> selectDailySales(@Param("storeId") int storeId,
+    List<OfflineSaleStatsDto> selectDailySales(@Param("storeId") Integer storeId,
                                                @Param("limit") int limit,
                                                @Param("offset") int offset);
 
-    List<OfflineSaleStatsDto> selectMonthlySales(@Param("storeId") int storeId,
+    List<OfflineSaleStatsDto> selectMonthlySales(@Param("storeId") Integer storeId,
                                                  @Param("limit") int limit,
                                                  @Param("offset") int offset);
 }

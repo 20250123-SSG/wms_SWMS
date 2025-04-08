@@ -40,9 +40,9 @@ public class MainPage {
                     MyPage.myPage(userDto);
                     break;
                 case "2":
-
+                    break;
                 case "8":
-                    StoreManagerPage.storeMangerPage(userDto);
+                    message = StoreManagerPage.storeMangerPage(userDto);
                     break;
                 case "9":
                     message = AdminPage.adminPage(userDto);

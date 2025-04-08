@@ -15,13 +15,13 @@ public class OfflineSaleController {
     private OfflineSaleService offlineSaleService = new OfflineSaleService();
 
     // ✅ 일별 매출 조회
-    public List<OfflineSaleStatsDto> offlineDailySales(int storeId, int page) {
+    public List<OfflineSaleStatsDto> offlineDailySales(Integer storeId, int page) {
 
         return offlineSaleService.getDailySales(storeId, page);
     }
 
     // ✅ 월별 매출 조회
-    public List<OfflineSaleStatsDto> offlineMonthlySales(int storeId, int page) {
+    public List<OfflineSaleStatsDto> offlineMonthlySales(Integer storeId, int page) {
         return offlineSaleService.getMonthlySales(storeId, page);
     }
 

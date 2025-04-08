@@ -16,10 +16,9 @@ public class StoreManagerPage {
     private static OfflineWarehouseView offlineWarehouseView = new OfflineWarehouseView();
     private static OfflineSaleView offlineSaleView = new OfflineSaleView();
 
-    public static void storeMangerPage(UserDto userDto) {
+    public static String storeMangerPage(UserDto userDto) {
         if(userDto.getAuth() != 2){
-            System.out.println(AnsiColor.BRIGHT_RED + "  점장만 접속 가능합니다.");
-            return;
+            return "점장 권한이 없어 접속 권한이 없습니다.";
         }
 
         StoreController storeController = new StoreController();
@@ -39,8 +38,8 @@ public class StoreManagerPage {
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               1. 상품 재고" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               2. 판매 내역" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               3. 일별 매출" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               4. 월별 매출" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               3. 현재 매장 일별 매출" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               4. 현재 매장 월별 매출" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               0. 뒤로가기" + AnsiColor.RESET);
             System.out.println();

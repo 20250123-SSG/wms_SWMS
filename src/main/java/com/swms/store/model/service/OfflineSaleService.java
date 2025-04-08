@@ -57,7 +57,7 @@ public class OfflineSaleService {
     }
 
 
-    public List<OfflineSaleStatsDto> getDailySales(int storeId, int page) {
+    public List<OfflineSaleStatsDto> getDailySales(Integer storeId, int page) {
         SqlSession sqlSession = getSqlSession();
         offlineSaleMapper = sqlSession.getMapper(OfflineSaleMapper.class);
 
@@ -69,7 +69,7 @@ public class OfflineSaleService {
         return list;
     }
 
-    public List<OfflineSaleStatsDto> getMonthlySales(int storeId, int page) {
+    public List<OfflineSaleStatsDto> getMonthlySales(Integer storeId, int page) {
         SqlSession sqlSession = getSqlSession();
         offlineSaleMapper = sqlSession.getMapper(OfflineSaleMapper.class);
 
