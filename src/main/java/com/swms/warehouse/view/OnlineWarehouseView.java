@@ -7,6 +7,8 @@ import com.swms.warehouse.model.dto.OnlineWarehouseDto;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.swms.common.util.ConsoleAlignUtil.*;
+
 public class OnlineWarehouseView {
     private Scanner sc = new Scanner(System.in);
     private OnlineWarehouseController onlineWarehouseController = new OnlineWarehouseController();
@@ -28,17 +30,23 @@ public class OnlineWarehouseView {
                     message = "⚠\uFE0F 온라인 창고 정보가 없습니다.";
                 }
             }
+            String format = AnsiColor.BRIGHT_WHITE + "🆔 %-5s 🏷️ %-8s 🧩 %-8s   📏 %-6s 📦 %-6s 👟 %s" + AnsiColor.RESET + "\n";
+
+            System.out.printf(AnsiColor.BRIGHT_BLUE +
+                    "🆔 ID     🏷️ 브랜드      🧩 종류     📏 사이즈  📦 수량   👟 모델명\n" +
+                    "────────────────────────────────────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
+
             for (OnlineWarehouseDto dto : list) {
-                System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🆔 창고 ID : " + dto.getOnlineWarehouseId() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  👟 모델명 : " + dto.getShoesName() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🏷️ 브랜드 : " + dto.getBrandName() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🧩 종류 : " + dto.getShoesType() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📏 사이즈 : " + dto.getSize() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 수량 : " + dto.getQuantity() + AnsiColor.RESET);
-                System.out.println();
+                System.out.printf(format,
+                        dto.getOnlineWarehouseId(),
+                        padRight(dto.getBrandName(), 12),
+                        padRight(dto.getShoesType(), 10),
+                        dto.getSize(),
+                        dto.getQuantity(),
+                        dto.getShoesName());
             }
-            System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_BLUE + " ────────────────────────────────────────────────────────────────────────────\n" + AnsiColor.RESET);
             if (message != null) {
                 System.out.println(AnsiColor.BRIGHT_RED + "                " + message + AnsiColor.RESET);
                 message = null;
@@ -114,5 +122,4 @@ public class OnlineWarehouseView {
             }
         }
     }
-
 }
