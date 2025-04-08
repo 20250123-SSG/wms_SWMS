@@ -1,5 +1,6 @@
 package com.swms.shoes.view;
 
+import com.swms.order.controller.OnlineOrderController;
 import com.swms.shoes.controller.ShoesController;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesOrderDto;
@@ -10,6 +11,7 @@ import java.util.*;
 
 public class ShoesMenuView {
     private ShoesController shoesController = new ShoesController();
+    private OnlineOrderController onlineOrderController = new OnlineOrderController();
     private Scanner sc = new Scanner(System.in);
 
     private ShoesOptionView optionView = new ShoesOptionView(); // type, brand, sorting 선택
@@ -42,16 +44,20 @@ public class ShoesMenuView {
             // 6. 사용자동작선택 (구매/장바구니/좋아요)
             String action = userActionView();
             String size = inputSize();
-            shoesController.getShoes(shoes, size); // 사이즈 선택하고, 해당 shoes_id구해서 shoesDto에 set하는 함수
+            String quantity = inputQuantity();
+            ShoesDto orderShoes = shoesController.getShoes(shoes, size, quantity); // 사이즈 선택하고, 해당 shoes_id구해서 shoesDto에 set하는 함수
 
             switch (action) {
                 case "1":
                     // 구매단으로shoes 넘기기
+                    UserDto user = new UserDto(4, "qwer",2,"010-9378-8677", "rewq", 215000);
+                    onlineOrderController.checkMoney(user, shoes);
+                    onlineOrderController.checkWarehouseStock(user, shoes);
+                    onlineOrderController.onlineOrder(user, shoes);
                     break; // 구매하기 (shoes활용)
                 case "2":
-                    UserDto user = new UserDto(4, "qwer",2,"010-9378-8677", "rewq", 215000);
-
-                    shoesController.insertToCart(user, shoes);
+                    UserDto user2 = new UserDto(4, "qwer",2,"010-9378-8677", "rewq", 215000);
+                    shoesController.insertToCart(user2, shoes);
                     break; // 장바구니
                 case "3":
                     break; // 좋아요
@@ -84,5 +90,12 @@ public class ShoesMenuView {
         String size = sc.nextLine();
         return size;
     }
+    public String inputQuantity(){
+        //size 한번더 출력해주면 좋을 듯
+        System.out.print("구매하려는 수량를 입력해주세요 : ");
+        String quantity = sc.nextLine();
+        return quantity;
+    }
+
 
 }
