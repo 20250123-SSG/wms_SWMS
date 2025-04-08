@@ -72,7 +72,7 @@ public class PurchaseOrderService {
 
         int result = 0;
         try {
-            int warehouseResult = offlineWarehouseMapper.updateQuantityByStoreAndShoesById(offlineWarehouseDto);
+            int warehouseResult = offlineWarehouseMapper.updateAddQuantityByStoreAndShoesById(offlineWarehouseDto);
             // 없는 경우 생성
             if(warehouseResult == 0){
                 offlineWarehouseMapper.upsertOfflineWarehouseQuantity(offlineWarehouseDto);

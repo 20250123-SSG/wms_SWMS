@@ -46,7 +46,7 @@
             offline_warehouse_id = #{offlineWarehouseId}
     </update>
 
-    <update id="updateQuantityByStoreAndShoesById" parameterType="OfflineWarehouseDto">
+    <update id="updateAddQuantityByStoreAndShoesById" parameterType="OfflineWarehouseDto">
         update
             tbl_offline_warehouse
         set

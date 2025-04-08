@@ -65,7 +65,7 @@ public class OnlineWarehouseView {
                     page--;
                     break;
                 case "3":
-
+                    updateQuantity();
                     break;
                 case "0":
                     return;
@@ -73,6 +73,45 @@ public class OnlineWarehouseView {
                     System.out.println("메뉴를 잘못 입력하셨습니다.");
             }
 
+        }
+    }
+
+    public void updateQuantity() {
+        int warehouseId;
+        OnlineWarehouseDto onlineWarehouseDto;
+
+        while (true) {
+            System.out.println(AnsiColor.GREEN + "재고 추가할 창고 ID를 입력하세요" + AnsiColor.RESET);
+            System.out.print("""
+                    > 입력:""");
+            warehouseId = sc.nextInt();
+            sc.nextLine(); // 줄바꿈 제거용
+
+            onlineWarehouseDto = onlineWarehouseController.existsWarehouseById(warehouseId);
+
+            if (onlineWarehouseDto == null) {
+                System.out.println(AnsiColor.RED + "존재하지 않는 창고 ID 입니다. 다시 입력해주세요." + AnsiColor.RESET);
+                continue;
+            }
+
+            System.out.println(AnsiColor.GREEN + "현재 수량 : " + onlineWarehouseDto.getQuantity() + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "재고 추가할 수량을 입력하세요" + AnsiColor.RESET);
+
+            System.out.print("""
+                    > 입력:""");
+            int quantity = sc.nextInt();
+            sc.nextLine(); // 줄바꿈 제거용
+            onlineWarehouseDto.setQuantity(quantity);
+
+            // 발주 등록
+            int result = onlineWarehouseController.updateAddQuantity(onlineWarehouseDto);
+
+            if (result == 1) {
+                message = "재고 추가 등록을 완료 되었습니다.";
+                break;
+            } else {
+                message = "재고 추가 등록이 실패 되었습니다.";
+            }
         }
     }
 

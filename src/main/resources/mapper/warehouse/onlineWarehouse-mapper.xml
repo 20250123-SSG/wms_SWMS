@@ -47,4 +47,24 @@
             online_warehouse_id desc
             limit #{limit} offset #{offset}
     </select>
+
+    <!-- 수량 수정 -->
+    <update id="updateAddQuantity" parameterType="OnlineWarehouseDto">
+        update
+            tbl_online_warehouse
+        set
+            quantity = quantity + #{quantity}
+        where
+            online_warehouse_id = #{onlineWarehouseId}
+    </update>
+
+    <select id="selectWarehouseById" resultType="OnlineWarehouseDto">
+        SELECT
+        online_warehouse_id
+        , shoes_id
+        , quantity
+        FROM tbl_online_warehouse
+        WHERE online_warehouse_id = #{onlineWarehouseId}
+    </select>
+
 </mapper>

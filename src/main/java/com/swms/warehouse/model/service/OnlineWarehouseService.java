@@ -24,4 +24,34 @@ public class OnlineWarehouseService {
         return list;
     }
 
+    public OnlineWarehouseDto selectWarehouseById(int onlineWarehouseId) {
+        SqlSession sqlSession = getSqlSession();
+        onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);
+
+
+        OnlineWarehouseDto onlineWarehouseDto =
+                onlineWarehouseMapper.selectWarehouseById(onlineWarehouseId);
+
+        sqlSession.close();
+        return onlineWarehouseDto;
+    }
+
+    public int updateAddQuantity(OnlineWarehouseDto onlineWarehouseDto) {
+        SqlSession sqlSession = getSqlSession();
+        onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);
+
+        int result = 0;
+        try {
+            result = onlineWarehouseMapper.updateAddQuantity(onlineWarehouseDto);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
+        return result;
+
+    }
 }

@@ -23,7 +23,7 @@ public interface OfflineWarehouseMapper {
             OfflineWarehouseDto offlineWarehouseDto
     );
 
-    int updateQuantityByStoreAndShoesById(
+    int updateAddQuantityByStoreAndShoesById(
             OfflineWarehouseDto offlineWarehouseDto
     );
 
