@@ -2,6 +2,7 @@ package com.swms.store.model.service;
 
 import com.swms.store.model.dao.OfflineSaleMapper;
 import com.swms.store.model.dto.OfflineSaleDto;
+import com.swms.store.model.dto.OfflineSaleStatsDto;
 import com.swms.warehouse.model.dao.OfflineWarehouseMapper;
 import com.swms.warehouse.model.dao.PurchaseOrderMapper;
 import com.swms.warehouse.model.dto.OfflineWarehouseDto;
@@ -16,7 +17,7 @@ public class OfflineSaleService {
     private OfflineSaleMapper offlineSaleMapper;
     private OfflineWarehouseMapper offlineWarehouseMapper;
 
-    public int processSale(OfflineWarehouseDto offlineWarehouseDto , OfflineSaleDto offlineSaleDto){
+    public int processSale(OfflineWarehouseDto offlineWarehouseDto, OfflineSaleDto offlineSaleDto) {
         SqlSession sqlSession = getSqlSession();
         offlineSaleMapper = sqlSession.getMapper(OfflineSaleMapper.class);
         offlineWarehouseMapper = sqlSession.getMapper(OfflineWarehouseMapper.class);
@@ -40,18 +41,45 @@ public class OfflineSaleService {
 
     }
 
-    public List<OfflineSaleDto>  selectOfflineSaleByStoreId(int page, int storeId){
+    public List<OfflineSaleDto> selectOfflineSaleByStoreId(int page, int storeId) {
         SqlSession sqlSession = getSqlSession();
         offlineSaleMapper = sqlSession.getMapper(OfflineSaleMapper.class);
 
-        int size = 5;
-        int offset = (page - 1) * size;
+        int limit = 5;
+        int offset = (page - 1) * limit;
 
         List<OfflineSaleDto> list =
-                offlineSaleMapper.selectOfflineSaleByStoreId(storeId, size, offset);
+                offlineSaleMapper.selectOfflineSaleByStoreId(storeId, limit, offset);
 
         sqlSession.close();
 
         return list;
     }
+
+
+    public List<OfflineSaleStatsDto> getDailySales(int storeId, int page) {
+        SqlSession sqlSession = getSqlSession();
+        offlineSaleMapper = sqlSession.getMapper(OfflineSaleMapper.class);
+
+        int limit = 10;
+        int offset = (page - 1) * limit;
+
+        List<OfflineSaleStatsDto> list = offlineSaleMapper.selectDailySales(storeId, limit, offset);
+        sqlSession.close();
+        return list;
+    }
+
+    public List<OfflineSaleStatsDto> getMonthlySales(int storeId, int page) {
+        SqlSession sqlSession = getSqlSession();
+        offlineSaleMapper = sqlSession.getMapper(OfflineSaleMapper.class);
+
+        int limit = 10;
+        int offset = (page - 1) * limit;
+
+        List<OfflineSaleStatsDto> list = offlineSaleMapper.selectMonthlySales(storeId, limit, offset);
+        sqlSession.close();
+        return list;
+    }
+
+
 }

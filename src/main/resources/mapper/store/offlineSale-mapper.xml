@@ -47,4 +47,39 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <!-- 일별 매출 조회 -->
+    <select id="selectDailySales" resultType="OfflineSaleStatsDto">
+        SELECT
+        DATE(sale_date) AS date,
+        SUM(quantity) AS totalQuantity,
+        SUM(quantity * sh.shoes_price) AS totalRevenue
+        FROM tbl_offline_sale os
+        JOIN tbl_shoes sh ON os.shoes_id = sh.shoes_id
+        <where>
+            <if test="storeId != null">
+                os.store_id = #{storeId}
+            </if>
+        </where>
+        GROUP BY DATE(sale_date)
+        ORDER BY date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 월별 매출 조회 -->
+    <select id="selectMonthlySales" resultType="OfflineSaleStatsDto">
+        SELECT
+        DATE_FORMAT(sale_date, '%Y-%m') AS date,
+        SUM(quantity) AS totalQuantity,
+        SUM(quantity * sh.shoes_price) AS totalRevenue
+        FROM tbl_offline_sale os
+        JOIN tbl_shoes sh ON os.shoes_id = sh.shoes_id
+        <where>
+            <if test="storeId != null">
+                os.store_id = #{storeId}
+            </if>
+        </where>
+        GROUP BY DATE_FORMAT(sale_date, '%Y-%m')
+        ORDER BY date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
 </mapper>

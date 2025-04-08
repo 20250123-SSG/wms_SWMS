@@ -38,8 +38,9 @@ public class StoreManagerPage {
             System.out.println(AnsiColor.BRIGHT_CYAN + " ─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─-─" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               1. 상품 재고" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               2. 매출 확인" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               3. 판매 내역" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               2. 판매 내역" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               3. 일별 매출" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               4. 월별 매출" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               0. 뒤로가기" + AnsiColor.RESET);
             System.out.println();
@@ -56,9 +57,13 @@ public class StoreManagerPage {
                     offlineWarehouseView.offlineWarehouse(storeId);
                     break;
                 case "2":
+                    offlineSaleView.selectAllOfflineSale(storeDto);
                     break;
                 case "3":
-                    offlineSaleView.selectAllOfflineSale(storeDto);
+                    offlineSaleView.offlineDailySales(storeDto);
+                    break;
+                case "4":
+                    offlineSaleView.offlineMonthlySales(storeDto);
                     break;
                 case "0":
                     return;
