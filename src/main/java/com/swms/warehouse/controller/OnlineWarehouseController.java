@@ -1,13 +1,16 @@
 package com.swms.warehouse.controller;
 
+import com.swms.warehouse.model.dto.OnlineWarehouseDto;
 import com.swms.warehouse.model.service.OnlineWarehouseService;
 
+import java.util.List;
+
 public class OnlineWarehouseController {
-    private OnlineWarehouseService onlineWarehouseService;
+    private OnlineWarehouseService onlineWarehouseService = new OnlineWarehouseService();
 
-    public void selectOnlineWarehouse(int page){
+    public List<OnlineWarehouseDto> selectOnlineWarehouse(int page){
 
-        onlineWarehouseService.selectAllOnlineWarehouse(page);
+        return onlineWarehouseService.selectAllOnlineWarehouse(page);
 
     }
 }
