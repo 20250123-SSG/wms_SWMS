@@ -29,11 +29,20 @@
     <!-- 전체 조회 -->
     <select id="selectAllOnlineWarehouse" resultMap="onlineWarehouseResultMap">
         select
-            online_warehouse_id
-          , shoes_id
-          , quantity
-        from
-            tbl_online_warehouse
+            ow.online_warehouse_id,
+            ow.shoes_id,
+            ow.quantity,
+                s.shoes_name,
+                s.shoes_price,
+                s.size,
+                s.shoes_type_id,
+                s.brand_id,
+                    st.shoes_type,
+                    b.brand_name
+        FROM tbl_online_warehouse ow
+            JOIN tbl_shoes s ON ow.shoes_id = s.shoes_id
+            JOIN tbl_shoes_type st ON s.shoes_type_id = st.shoes_type_id
+            JOIN tbl_brand b ON s.brand_id = b.brand_id
         order by
             online_warehouse_id desc
             limit #{limit} offset #{offset}

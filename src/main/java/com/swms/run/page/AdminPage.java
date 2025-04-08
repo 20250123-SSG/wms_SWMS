@@ -4,6 +4,7 @@ import com.swms.common.AnsiColor;
 import com.swms.common.Logo;
 import com.swms.user.model.dto.UserDto;
 import com.swms.shoes.view.ShoesManagementView;
+import com.swms.warehouse.view.OnlineWarehouseView;
 import com.swms.warehouse.view.PurchaseOrderView;
 
 import java.util.Scanner;
@@ -12,6 +13,7 @@ public class AdminPage {
     private static Scanner sc = new Scanner(System.in);
     private static ShoesManagementView shoesManagementView = new ShoesManagementView();
     private static PurchaseOrderView purchaseOrderView = new PurchaseOrderView();
+    private static OnlineWarehouseView onlineWarehouseView = new OnlineWarehouseView();
 
     public static String adminPage(UserDto userDto) {
         if(userDto.getAuth() != 0){
@@ -24,8 +26,8 @@ public class AdminPage {
             System.out.println(AnsiColor.BLUE + "  └─────────────────────────────────────────────┘" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "               1. 상품 등록 / 수정" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               2. 발주 요청 확인" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "               3. 전체 매출 확인" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               2. 온라인 창고 확인" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               3. 발주 요청 확인" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               4. 온라인 매출 확인" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               5. 지점별 매출 확인" + AnsiColor.RESET);
             System.out.println();
@@ -41,7 +43,16 @@ public class AdminPage {
                     shoesManagementView.ShoesManagementView();
                     break;
                 case "2":
+                    onlineWarehouseView.selectAllPurchaseOrder();
+                    break;
+                case "3":
                     purchaseOrderView.selectAllPurchaseOrder();
+                    break;
+                case "4":
+
+                    break;
+                case "5":
+
                     break;
                 case "0":
                     return null;
