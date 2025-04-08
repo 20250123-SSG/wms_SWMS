@@ -18,6 +18,10 @@ public interface OnlineWarehouseMapper {
             @Param("onlineWarehouseId") int onlineWarehouseId
     );
 
+    OnlineWarehouseDto selectWarehouseByShoesId(
+            @Param("shoesId") int shoesId
+    );
+
     int updateAddQuantity(
             OnlineWarehouseDto onlineWarehouseDto
     );

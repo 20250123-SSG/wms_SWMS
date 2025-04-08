@@ -36,6 +36,16 @@ public class OnlineWarehouseService {
         return onlineWarehouseDto;
     }
 
+    public OnlineWarehouseDto selectWarehouseByShoesId(int shoesId) {
+        SqlSession sqlSession = getSqlSession();
+        onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);
+
+        OnlineWarehouseDto result = onlineWarehouseMapper.selectWarehouseByShoesId(shoesId);
+        sqlSession.close();
+
+        return result;
+    }
+
     public int updateAddQuantity(OnlineWarehouseDto onlineWarehouseDto) {
         SqlSession sqlSession = getSqlSession();
         onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);

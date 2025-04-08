@@ -20,4 +20,8 @@ public class OnlineWarehouseController {
     public int updateAddQuantity(OnlineWarehouseDto onlineWarehouseDto) {
         return onlineWarehouseService.updateAddQuantity(onlineWarehouseDto);
     }
+
+    public OnlineWarehouseDto selectWarehouseByShoesId(int shoesId) {
+        return onlineWarehouseService.selectWarehouseByShoesId(shoesId);
+    }
 }
