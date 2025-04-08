@@ -1,15 +1,30 @@
 package com.swms.store.controller;
 
 import com.swms.store.model.dto.OfflineSaleDto;
+import com.swms.store.model.dto.OfflineSaleStatsDto;
 import com.swms.store.model.dto.StoreDto;
 import com.swms.store.model.service.OfflineSaleService;
 import com.swms.store.model.service.StoreService;
 import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
 
+import java.util.List;
+
 public class OfflineSaleController {
 
     private OfflineSaleService offlineSaleService = new OfflineSaleService();
+
+    // ✅ 일별 매출 조회
+    public List<OfflineSaleStatsDto> offlineDailySales(Integer storeId, int page) {
+
+        return offlineSaleService.getDailySales(storeId, page);
+    }
+
+    // ✅ 월별 매출 조회
+    public List<OfflineSaleStatsDto> offlineMonthlySales(Integer storeId, int page) {
+        return offlineSaleService.getMonthlySales(storeId, page);
+    }
+
 
     public int processSale(OfflineWarehouseDto offlineWarehouseDto, int saleQuantity) {
 
@@ -27,8 +42,13 @@ public class OfflineSaleController {
                 .build();
 
 
-
         return offlineSaleService.processSale(offlineWarehouseDto, offlineSaleDto);
+
+    }
+
+    public List<OfflineSaleDto> selectOfflineSaleByStoreId(int page, int storeId) {
+
+        return offlineSaleService.selectOfflineSaleByStoreId(page, storeId);
 
     }
 }

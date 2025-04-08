@@ -1,14 +1,25 @@
 package com.swms.order.controller;
 
+import com.swms.order.model.dto.OnlineOrderStatsDto;
 import com.swms.order.model.service.OnlineOrderService;
 import com.swms.order.view.OnlineOrderView;
 import com.swms.shoes.model.dto.ShoesDto;
 
 import com.swms.user.model.dto.UserDto;
 
+import java.util.List;
+
 
 public class OnlineOrderController {
     private OnlineOrderService onlineOrderService = new OnlineOrderService();
+
+    public List<OnlineOrderStatsDto> getOnlineDailyStats(int page) {
+        return onlineOrderService.getOnlineDailyStats(page);
+    }
+
+    public List<OnlineOrderStatsDto> getOnlineMonthlyStats(int page) {
+        return onlineOrderService.getOnlineMonthlyStats(page);
+    }
 
 
     public void orderPrint(UserDto userDto, ShoesDto shoesDto) {

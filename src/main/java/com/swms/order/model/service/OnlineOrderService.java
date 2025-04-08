@@ -3,9 +3,12 @@ package com.swms.order.model.service;
 import com.swms.order.model.dao.OnlineOrderMapper;
 import com.swms.order.model.dto.OnlineOrderDetailDto;
 import com.swms.order.model.dto.OnlineOrderDto;
+import com.swms.order.model.dto.OnlineOrderStatsDto;
 import com.swms.shoes.model.dao.ShoesMapper;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.store.model.dao.OfflineSaleMapper;
+import com.swms.store.model.dto.OfflineSaleStatsDto;
 import com.swms.user.model.dto.UserDto;
 import com.swms.warehouse.model.dao.OnlineWarehouseMapper;
 import org.apache.ibatis.session.SqlSession;
@@ -18,6 +21,30 @@ public class OnlineOrderService {
 
     private OnlineOrderMapper onlineOrderMapper;
     private OnlineWarehouseMapper onlineWarehouseMapper;
+
+    public List<OnlineOrderStatsDto> getOnlineDailyStats(int page) {
+        SqlSession sqlSession = getSqlSession();
+        onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
+
+        int limit = 10;
+        int offset = (page - 1) * limit;
+
+        List<OnlineOrderStatsDto> list = onlineOrderMapper.selectOnlineDailyStats(limit, offset);
+        sqlSession.close();
+        return list;
+    }
+
+    public List<OnlineOrderStatsDto> getOnlineMonthlyStats(int page) {
+        SqlSession sqlSession = getSqlSession();
+        onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
+
+        int limit = 10;
+        int offset = (page - 1) * limit;
+
+        List<OnlineOrderStatsDto> list = onlineOrderMapper.selectOnlineMonthlyStats(limit, offset);
+        sqlSession.close();
+        return list;
+    }
 
 
     // 구매 트랜젝션
