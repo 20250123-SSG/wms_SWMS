@@ -4,7 +4,6 @@ import com.swms.common.AnsiColor;
 import com.swms.common.Logo;
 import com.swms.store.controller.StoreController;
 import com.swms.store.model.dto.StoreDto;
-import com.swms.store.model.service.StoreService;
 import com.swms.store.view.OfflineSaleView;
 import com.swms.user.model.dto.UserDto;
 import com.swms.warehouse.view.OfflineWarehouseView;
@@ -65,7 +64,7 @@ public class StoreManagerPage {
                     offlineSaleView.offlineMonthlySales(storeDto);
                     break;
                 case "0":
-                    return;
+                    return null;
                 default:
                     System.out.println("메뉴를 잘못 입력하셨습니다.");
             }

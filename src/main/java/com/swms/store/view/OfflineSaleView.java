@@ -201,10 +201,6 @@ public class OfflineSaleView {
 
     }
 
-
-/// ///////////
-
-
 public void offlineAllDailySales() {
     int page = 1;
     Integer storeId = null;

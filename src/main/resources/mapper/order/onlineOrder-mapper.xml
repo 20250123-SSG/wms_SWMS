@@ -33,4 +33,30 @@
     </select>
 
 
+    <!-- 일별 온라인 주문 통계 -->
+    <select id="selectOnlineDailyStats" resultType="OnlineOrderStatsDto">
+        SELECT
+            DATE(o.order_date) AS date,
+            SUM(d.quantity) AS totalQuantity,
+            SUM(d.quantity * o.total_price) AS totalRevenue
+        FROM tbl_online_order o
+            JOIN tbl_online_order_detail d ON o.order_id = d.order_id
+        GROUP BY DATE(o.order_date)
+        ORDER BY date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+    <!-- 월별 온라인 주문 통계 -->
+    <select id="selectOnlineMonthlyStats" resultType="OnlineOrderStatsDto">
+        SELECT
+        DATE_FORMAT(o.order_date, '%Y-%m') AS date,
+        SUM(d.quantity) AS totalQuantity,
+        SUM(o.total_price) AS totalRevenue
+        FROM tbl_online_order o
+            JOIN tbl_online_order_detail d ON o.order_id = d.order_id
+        GROUP BY DATE_FORMAT(o.order_date, '%Y-%m')
+        ORDER BY date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
 </mapper>

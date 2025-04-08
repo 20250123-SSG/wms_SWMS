@@ -1,25 +1,24 @@
 package com.swms.order.controller;
 
+import com.swms.order.model.dto.OnlineOrderStatsDto;
 import com.swms.order.model.service.OnlineOrderService;
 import com.swms.order.view.OnlineOrderView;
 import com.swms.shoes.model.dto.ShoesDto;
 
 import com.swms.user.model.dto.UserDto;
 
+import java.util.List;
+
 
 public class OnlineOrderController {
     private OnlineOrderService onlineOrderService = new OnlineOrderService();
 
-    // ✅ 월별 매출 조회
-    public void offlineMonthlySales() {
-        // 예시: 2025년 4월 매출 총합 등
-        // 로직은 나중에 구현
+    public List<OnlineOrderStatsDto> getOnlineDailyStats(int page) {
+        return onlineOrderService.getOnlineDailyStats(page);
     }
 
-    // ✅ 일별 매출 조회
-    public void offlineDailySales() {
-        // 예시: 2025-04-07 매출 내역
-        // 로직은 나중에 구현
+    public List<OnlineOrderStatsDto> getOnlineMonthlyStats(int page) {
+        return onlineOrderService.getOnlineMonthlyStats(page);
     }
 
 
