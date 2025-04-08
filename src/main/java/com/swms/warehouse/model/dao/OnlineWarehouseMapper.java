@@ -14,5 +14,16 @@ public interface OnlineWarehouseMapper {
             @Param("limit") int limit,
             @Param("offset") int offset);
 
+    OnlineWarehouseDto selectWarehouseById(
+            @Param("onlineWarehouseId") int onlineWarehouseId
+    );
+
+    OnlineWarehouseDto selectWarehouseByShoesId(
+            @Param("shoesId") int shoesId
+    );
+
+    int updateAddQuantity(
+            OnlineWarehouseDto onlineWarehouseDto
+    );
 
 }

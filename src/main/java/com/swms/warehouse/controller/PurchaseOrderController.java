@@ -1,6 +1,7 @@
 package com.swms.warehouse.controller;
 
 import com.swms.warehouse.model.dto.OfflineWarehouseDto;
+import com.swms.warehouse.model.dto.OnlineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
 import com.swms.warehouse.model.service.PurchaseOrderService;
 
@@ -34,8 +35,12 @@ public class PurchaseOrderController {
         return purchaseOrderService.selectWarehouseById(purchaseOrderId);
     }
 
-    public int approvePurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
+    public int approvePurchaseOrder(PurchaseOrderDto purchaseOrderDto, OnlineWarehouseDto onlineWarehouseDto) {
 
+        // 온라인 창고 수량 빼기
+        onlineWarehouseDto.setQuantity(-purchaseOrderDto.getQuantity());
+
+        // 오프라인 창고 수량 더하기
         OfflineWarehouseDto offlineWarehouseDto = OfflineWarehouseDto.builder()
                 .storeId(purchaseOrderDto.getStoreId())
                 .shoesId(purchaseOrderDto.getShoesId())
@@ -45,7 +50,8 @@ public class PurchaseOrderController {
         // 상태 완료 처리
         purchaseOrderDto.setStatus("발주완료");
 
-        return purchaseOrderService.approvePurchaseOrder(purchaseOrderDto, offlineWarehouseDto);
+        return purchaseOrderService.approvePurchaseOrder(
+                purchaseOrderDto, offlineWarehouseDto, onlineWarehouseDto);
     }
 
     public int rejectPurchaseOrder(PurchaseOrderDto purchaseOrderDto) {

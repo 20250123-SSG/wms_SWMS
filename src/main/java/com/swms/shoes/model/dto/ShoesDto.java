@@ -15,4 +15,6 @@ public class ShoesDto {
     private String shoesName;
     private int shoesPrice;
     private String size;
+    private Integer quantity;
+
 }

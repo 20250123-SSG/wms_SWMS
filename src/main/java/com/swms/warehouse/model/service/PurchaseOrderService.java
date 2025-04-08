@@ -2,8 +2,10 @@ package com.swms.warehouse.model.service;
 
 
 import com.swms.warehouse.model.dao.OfflineWarehouseMapper;
+import com.swms.warehouse.model.dao.OnlineWarehouseMapper;
 import com.swms.warehouse.model.dao.PurchaseOrderMapper;
 import com.swms.warehouse.model.dto.OfflineWarehouseDto;
+import com.swms.warehouse.model.dto.OnlineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
 import org.apache.ibatis.session.SqlSession;
 
@@ -17,6 +19,7 @@ public class PurchaseOrderService {
 
     private PurchaseOrderMapper purchaseOrderMapper;
     private OfflineWarehouseMapper offlineWarehouseMapper;
+    private OnlineWarehouseMapper onlineWarehouseMapper;
 
 
     public int createPurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
@@ -65,14 +68,17 @@ public class PurchaseOrderService {
         return purchaseOrderDto;
     }
 
-    public int approvePurchaseOrder(PurchaseOrderDto purchaseOrderDto, OfflineWarehouseDto offlineWarehouseDto) {
+    public int approvePurchaseOrder(PurchaseOrderDto purchaseOrderDto, OfflineWarehouseDto offlineWarehouseDto, OnlineWarehouseDto onlineWarehouseDto) {
         SqlSession sqlSession = getSqlSession();
         purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
         offlineWarehouseMapper = sqlSession.getMapper(OfflineWarehouseMapper.class);
+        onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);
 
         int result = 0;
         try {
-            int warehouseResult = offlineWarehouseMapper.updateQuantityByStoreAndShoesById(offlineWarehouseDto);
+            onlineWarehouseMapper.updateAddQuantity(onlineWarehouseDto);
+
+            int warehouseResult = offlineWarehouseMapper.updateAddQuantityByStoreAndShoesById(offlineWarehouseDto);
             // 없는 경우 생성
             if(warehouseResult == 0){
                 offlineWarehouseMapper.upsertOfflineWarehouseQuantity(offlineWarehouseDto);

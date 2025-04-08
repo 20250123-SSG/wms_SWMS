@@ -28,10 +28,6 @@ public class OnlineOrderService {
 
         // TODO : 예외발생시 반환값처리
         try{
-            // 창고 수량 체크 (shoes >> warehouse로 변경)
-            int quantity = onlineWarehouseMapper.checkWarehouseStock(shoesDto.getShoesId());
-            // 금액체크
-            int available =  (userDto.getMoney() >= shoesDto.getShoesPrice()) ? 0 : 1;
             // 창고에서 재고 차감
             int update = onlineWarehouseMapper.updateShoesQuantity(shoesDto.getShoesId());
             //사용자 금액 차감
@@ -52,7 +48,7 @@ public class OnlineOrderService {
             OnlineOrderDetailDto orderDetail = OnlineOrderDetailDto.builder()
                     .orderId(orderDto.getOrderId())
                     .shoesId(shoesDto.getShoesId())
-                    .quantity(1)
+                    .quantity(shoesDto.getQuantity())
                     .build();
 
             int insertOrderDetail = onlineOrderMapper.insertOnlineOrderDetail(orderDetail);
@@ -64,5 +60,14 @@ public class OnlineOrderService {
         }
         int finalresult = 0; //  TODO: 결과값 반환
         return finalresult;
+    }
+
+    public int checkWarehouseStock(ShoesDto shoes) {
+        SqlSession sqlSession = getSqlSession();
+        onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
+        onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);
+
+        int quantity = onlineWarehouseMapper.checkWarehouseStock(shoes.getShoesId());
+        return quantity;
     }
 }
