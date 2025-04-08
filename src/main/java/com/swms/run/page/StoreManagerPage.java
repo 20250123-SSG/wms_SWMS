@@ -5,6 +5,7 @@ import com.swms.common.Logo;
 import com.swms.store.controller.StoreController;
 import com.swms.store.model.dto.StoreDto;
 import com.swms.store.model.service.StoreService;
+import com.swms.store.view.OfflineSaleView;
 import com.swms.user.model.dto.UserDto;
 import com.swms.warehouse.view.OfflineWarehouseView;
 
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class StoreManagerPage {
     private static Scanner sc = new Scanner(System.in);
     private static OfflineWarehouseView offlineWarehouseView = new OfflineWarehouseView();
+    private static OfflineSaleView offlineSaleView = new OfflineSaleView();
 
     public static void storeMangerPage(UserDto userDto) {
         if(userDto.getAuth() != 2){
@@ -46,15 +48,17 @@ public class StoreManagerPage {
 
             System.out.print("""
                     > 입력:""");
-
             String menu = sc.nextLine();
+
+            int storeId = storeDto.getStoreId();
             switch (menu) {
                 case "1":
-                    offlineWarehouseView.offlineWarehouse(storeDto.getStoreId());
+                    offlineWarehouseView.offlineWarehouse(storeId);
                     break;
                 case "2":
                     break;
                 case "3":
+                    offlineSaleView.selectAllOfflineSale(storeDto);
                     break;
                 case "0":
                     return;

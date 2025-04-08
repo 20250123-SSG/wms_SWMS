@@ -7,6 +7,8 @@ import com.swms.warehouse.model.dao.PurchaseOrderMapper;
 import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.List;
+
 import static com.swms.common.Template.getSqlSession;
 
 public class OfflineSaleService {
@@ -36,5 +38,20 @@ public class OfflineSaleService {
 
         return result;
 
+    }
+
+    public List<OfflineSaleDto>  selectOfflineSaleByStoreId(int page, int storeId){
+        SqlSession sqlSession = getSqlSession();
+        offlineSaleMapper = sqlSession.getMapper(OfflineSaleMapper.class);
+
+        int size = 5;
+        int offset = (page - 1) * size;
+
+        List<OfflineSaleDto> list =
+                offlineSaleMapper.selectOfflineSaleByStoreId(storeId, size, offset);
+
+        sqlSession.close();
+
+        return list;
     }
 }

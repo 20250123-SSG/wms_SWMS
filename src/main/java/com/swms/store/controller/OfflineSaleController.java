@@ -7,6 +7,8 @@ import com.swms.store.model.service.StoreService;
 import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
 
+import java.util.List;
+
 public class OfflineSaleController {
 
     private OfflineSaleService offlineSaleService = new OfflineSaleService();
@@ -29,6 +31,12 @@ public class OfflineSaleController {
 
 
         return offlineSaleService.processSale(offlineWarehouseDto, offlineSaleDto);
+
+    }
+
+    public List<OfflineSaleDto> selectOfflineSaleByStoreId(int page, int storeId) {
+
+        return offlineSaleService.selectOfflineSaleByStoreId(page, storeId);
 
     }
 }
