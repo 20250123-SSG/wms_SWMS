@@ -82,4 +82,5 @@
         ORDER BY date DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
+
 </mapper>

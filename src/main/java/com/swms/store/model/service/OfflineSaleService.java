@@ -4,7 +4,6 @@ import com.swms.store.model.dao.OfflineSaleMapper;
 import com.swms.store.model.dto.OfflineSaleDto;
 import com.swms.store.model.dto.OfflineSaleStatsDto;
 import com.swms.warehouse.model.dao.OfflineWarehouseMapper;
-import com.swms.warehouse.model.dao.PurchaseOrderMapper;
 import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import org.apache.ibatis.session.SqlSession;
 
