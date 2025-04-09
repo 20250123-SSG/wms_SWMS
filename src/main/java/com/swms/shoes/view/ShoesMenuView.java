@@ -57,10 +57,11 @@ public class ShoesMenuView {
             // 창고포함 신발 정보 들고오기
             ShoesDto orderShoes = shoesController.getShoes(shoes, size); // 사이즈 선택하고, 해당 shoes_id구해서 shoesDto에 set하는 함수
 
-            int buyQuantity = Integer.parseInt(inputQuantity(orderShoes.getQuantity()));
 
             switch (action) {
                 case "1":
+                    // 수량 금액 입력
+                    int buyQuantity = Integer.parseInt(inputQuantity(orderShoes.getQuantity()));
                     //  돈 체크하는거
                     int moneyResult = onlineOrderController.checkMoney(userDto, orderShoes.getShoesPrice(), buyQuantity);
                     if(moneyResult == 0){
