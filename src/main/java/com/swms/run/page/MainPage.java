@@ -2,6 +2,7 @@ package com.swms.run.page;
 
 import com.swms.common.AnsiColor;
 import com.swms.common.Logo;
+import com.swms.shoes.view.ShoesMenuView;
 import com.swms.user.model.dto.UserDto;
 
 import java.util.Scanner;
@@ -27,7 +28,7 @@ public class MainPage {
             System.out.println();
             System.out.println(AnsiColor.BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + AnsiColor.RESET);
             if (message != null) {
-                System.out.println(AnsiColor.BRIGHT_RED + "                " + message + AnsiColor.RESET);
+                System.out.println(AnsiColor.BRIGHT_RED + "            " + message + AnsiColor.RESET);
                 message = null;
             }
 
@@ -40,6 +41,7 @@ public class MainPage {
                     MyPage.myPage(userDto);
                     break;
                 case "2":
+                    message = new ShoesMenuView().MainView(userDto);
                     break;
                 case "8":
                     message = StoreManagerPage.storeMangerPage(userDto);

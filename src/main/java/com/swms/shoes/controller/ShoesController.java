@@ -3,6 +3,7 @@ package com.swms.shoes.controller;
 import com.swms.shoes.model.dto.ShoesDetailDto;
 import com.swms.shoes.model.dto.ShoesDto;
 import com.swms.shoes.model.dto.ShoesSelectDto;
+import com.swms.shoes.model.dto.ShoesSelectOptionDto;
 import com.swms.shoes.model.service.ShoesService;
 import com.swms.shoes.view.ShoesResultView;
 import com.swms.user.model.dto.CartDto;
@@ -30,8 +31,8 @@ public class ShoesController {
     public void /*List<String>*/ selectTypeList(){}
 
 
-    public List<ShoesSelectDto> selectShoesList(Map<String, Object> map) {
-        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
+    public List<ShoesSelectDto> selectShoesList(ShoesSelectOptionDto shoesSelectOptionDto, int page) {
+        List<ShoesSelectDto> list = shoesService.selectShoesList(shoesSelectOptionDto, page);
         ShoesResultView.displayShoesList(list);
         return list;
     }
@@ -44,48 +45,14 @@ public class ShoesController {
         return shoes;
     }
 
-    // 다음페이지
-    public List<ShoesSelectDto> pageUp(Map<String, Object> map) {
-
-        // 페이지네이션 데이터처리
-        if (totalShoes == 0) {
-            totalShoes = shoesService.getDisplayShoesCount(map);// 출력해야하는 상품목록줄 수
-        }
-        int offset = (int)map.get("offset") + UP;
-        if (offset >= totalShoes) {
-            offset = totalShoes - OFFSET;
-            ShoesResultView.displayEOP();
-        }
-        map.put("offset", offset);
-
-        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
-        ShoesResultView.displayShoesList(list);
-        return list;
-    }
-
-    public List<ShoesSelectDto> pageDown(Map<String, Object> map) {
-
-        int offset = (int)map.get("offset") + DOWN;
-        if (offset < 0) {
-            offset = 0;
-            ShoesResultView.displaySOP();
-        }
-        map.put("offset", offset);
-
-        List<ShoesSelectDto> list = shoesService.selectShoesList(map);
-        ShoesResultView.displayShoesList(list);
-        return list;
-    }
-
 
     // 구매할 상품 하나에 대한 정보를 가져온다. (Shoes_id)
-    public ShoesDto getShoes(ShoesDto shoes, String size,String quantity) {
-        int shoesId = shoesService.getShoesId(shoes);
-        shoes.setShoesId(shoesId);
+    public ShoesDto getShoes(ShoesDto shoes, String size) {
         shoes.setSize(size);
-        shoes.setQuantity(Integer.parseInt(quantity));
 
-        return shoes;
+        ShoesDto shoesDto = shoesService.getShoesId(shoes);
+
+        return shoesDto;
     }
 
     public void insertToCart(UserDto user, ShoesDto shoes) {

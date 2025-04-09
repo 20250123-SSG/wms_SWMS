@@ -48,41 +48,44 @@ public class OnlineOrderService {
 
 
     // 구매 트랜젝션
-    public int onlineOrder(UserDto userDto, ShoesDto shoesDto) {
+    public int onlineOrder(UserDto userDto, ShoesDto shoesDto, int quauntity) {
         SqlSession sqlSession = getSqlSession();
         onlineOrderMapper = sqlSession.getMapper(OnlineOrderMapper.class);
         onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);
 
         // TODO : 예외발생시 반환값처리
-        try{
+        try {
             // 창고에서 재고 차감
             int update = onlineWarehouseMapper.updateShoesQuantity(shoesDto.getShoesId());
             //사용자 금액 차감
             userDto.setMoney(userDto.getMoney() - shoesDto.getShoesPrice());
+
             // 구매내역등록
             OnlineOrderDto orderDto = OnlineOrderDto.builder()
                     .userId(userDto.getUserId())
-                    .totalPrice(shoesDto.getShoesPrice())
+                    .totalPrice(shoesDto.getShoesPrice() * quauntity)
                     .size(shoesDto.getSize())
                     .build();
-            try {
-                int insertOrder = onlineOrderMapper.insertOnlineOrder(orderDto);
-                sqlSession.commit();
-            }catch (Exception e) {
-                e.printStackTrace();
-                sqlSession.rollback();
+
+            int insertOrder = onlineOrderMapper.insertOnlineOrder(orderDto);
+            if(insertOrder == 1){
+                System.out.println("주문 완료");
             }
             OnlineOrderDetailDto orderDetail = OnlineOrderDetailDto.builder()
                     .orderId(orderDto.getOrderId())
                     .shoesId(shoesDto.getShoesId())
-                    .quantity(shoesDto.getQuantity())
+                    .quantity(quauntity)
                     .build();
 
             int insertOrderDetail = onlineOrderMapper.insertOnlineOrderDetail(orderDetail);
+            if(insertOrderDetail == 1){
+                System.out.println("상세 주문 완료");
+            }
 
+            sqlSession.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally{
+        } finally {
             sqlSession.close();
         }
         int finalresult = 0; //  TODO: 결과값 반환
