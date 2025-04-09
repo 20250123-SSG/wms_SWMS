@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.swms.common.util.ConsoleAlignUtil.padRight;
+
 public class OfflineSaleView {
     private Scanner sc = new Scanner(System.in);
     private OfflineSaleController offlineSaleController = new OfflineSaleController();
@@ -30,17 +32,27 @@ public class OfflineSaleView {
                     message = "⚠\uFE0F 발주 정보가 없습니다.";
                 }
             }
+            String format = AnsiColor.BRIGHT_WHITE +
+                    "🆔 %-5s 🧾 %-16s 📦 %-4s 👟 %-15s 🏷️ %-8s 🧩 %-10s 📏 %-4s" +
+                    AnsiColor.RESET + "\n";
+
+            System.out.printf(AnsiColor.BRIGHT_BLUE +
+                    "\n🆔 판매ID  🧾 판매날짜         📦 수량 👟 모델명           🏷️ 브랜드   🧩 종류        📏 사이즈\n" +
+                    "────────────────────────────────────────────────────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
             for (OfflineSaleDto dto : list) {
-                System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🆔 판매 ID : " + dto.getOfflineSaleId() + AnsiColor.RESET);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🧾 판매 날짜 : " + dto.getSaleDate().format(formatter) + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 판매 수량 : " + dto.getQuantity() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  👟 모델명 : " + dto.getShoesName() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🏷️ 브랜드 : " + dto.getBrandName() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🧩 종류 : " + dto.getShoesType() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📏 사이즈 : " + dto.getSize() + AnsiColor.RESET);
-                System.out.println();
+                System.out.printf(format,
+                        dto.getOfflineSaleId(),
+                        dto.getSaleDate().format(formatter),
+                        dto.getQuantity(),
+                        padRight(dto.getShoesName(), 15),
+                        padRight(dto.getBrandName(), 8),
+                        padRight(dto.getShoesType(), 10),
+                        dto.getSize()
+                );
             }
             System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_WHITE + "  🏪 매장 : " + storeDto.getStoreName() + " 의 판매 내역입니다." + AnsiColor.RESET);
@@ -157,13 +169,23 @@ public class OfflineSaleView {
                     message = "⚠\uFE0F 판매 정보가 없습니다.";
                 }
             }
+            String format = AnsiColor.BRIGHT_WHITE +
+                    "📅 %-10s 🧾 %-10s 📦 %s" +
+                    AnsiColor.RESET + "\n";
+
+            System.out.printf(AnsiColor.BRIGHT_BLUE +
+                    "\n📅 월별       🧾 총 판매 수량     📦 총 매출액\n" +
+                    "──────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
+
             for (OfflineSaleStatsDto dto : list) {
-                System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📅 월별 : " + dto.getDate() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🧾 총 판매 수량 : " + dto.getTotalQuantity() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 총 매출액 : " + dto.getTotalRevenue() + AnsiColor.RESET);
-                System.out.println();
+                System.out.printf(format,
+                        dto.getDate(), // 예: "2025-04"
+                        dto.getTotalQuantity(),
+                        dto.getTotalRevenue() + "원"
+                );
             }
+
             System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_WHITE + "  🏪 매장 : " + storeDto.getStoreName() + " 월별 판매 내역입니다." + AnsiColor.RESET);
             System.out.println();
@@ -217,13 +239,23 @@ public void offlineAllDailySales() {
                 message = "⚠\uFE0F 판매 정보가 없습니다.";
             }
         }
+        String format = AnsiColor.BRIGHT_WHITE +
+                "📅 %-10s 🧾 %-10s 📦 %s" +
+                AnsiColor.RESET + "\n";
+
+        System.out.printf(AnsiColor.BRIGHT_BLUE +
+                "\n📅 일별       🧾 총 판매 수량     📦 총 매출액\n" +
+                "──────────────────────────────────────────────\n" +
+                AnsiColor.RESET);
+
         for (OfflineSaleStatsDto dto : list) {
-            System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-            System.out.println(AnsiColor.BRIGHT_WHITE + "  📅 일별 : " + dto.getDate() + AnsiColor.RESET);
-            System.out.println(AnsiColor.BRIGHT_WHITE + "  🧾 총 판매 수량 : " + dto.getTotalQuantity() + AnsiColor.RESET);
-            System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 총 매출액 : " + dto.getTotalRevenue() + AnsiColor.RESET);
-            System.out.println();
+            System.out.printf(format,
+                    dto.getDate(), // 예: "2025-04"
+                    dto.getTotalQuantity(),
+                    dto.getTotalRevenue() + "원"
+            );
         }
+
         System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "            🏪 일별 판매 내역입니다." + AnsiColor.RESET);
         System.out.println();
@@ -278,13 +310,23 @@ public void offlineAllDailySales() {
                     message = "⚠\uFE0F 판매 정보가 없습니다.";
                 }
             }
+            String format = AnsiColor.BRIGHT_WHITE +
+                    "📅 %-10s 🧾 %-10s 📦 %s" +
+                    AnsiColor.RESET + "\n";
+
+            System.out.printf(AnsiColor.BRIGHT_BLUE +
+                    "\n📅 월별       🧾 총 판매 수량     📦 총 매출액\n" +
+                    "──────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
+
             for (OfflineSaleStatsDto dto : list) {
-                System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📅 월별 : " + dto.getDate() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🧾 총 판매 수량 : " + dto.getTotalQuantity() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 총 매출액 : " + dto.getTotalRevenue() + AnsiColor.RESET);
-                System.out.println();
+                System.out.printf(format,
+                        dto.getDate(), // 예: "2025-04"
+                        dto.getTotalQuantity(),
+                        dto.getTotalRevenue() + "원"
+                );
             }
+
             System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_WHITE + "            🏪 월별 판매 내역입니다." + AnsiColor.RESET);
             System.out.println();

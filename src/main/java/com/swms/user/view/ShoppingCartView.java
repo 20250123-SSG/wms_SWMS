@@ -26,12 +26,12 @@ public class ShoppingCartView {
         ===========================================
                      🛒  장바구니 목록  🛒
         ===========================================
-        신발명\t\t신발ID\t\t가격\t\t사이즈
+        신발명\t\t신발ID\t\t\t가격\t\t사이즈
         -------------------------------------------
         """ + AnsiColor.RESET);
 
             for (ShoesDto cart : list) {
-                System.out.printf(AnsiColor.BRIGHT_WHITE + "%-15s\t%-8s\t%8s원\t%4s\n" + AnsiColor.RESET,
+                System.out.printf(AnsiColor.BRIGHT_WHITE + "%-15s %-8s%8s원\t%4s\n" + AnsiColor.RESET,
                         cart.getShoesName(),
                         cart.getShoesId(),
                         cart.getShoesPrice(),

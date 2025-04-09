@@ -29,12 +29,21 @@ public class OnlineOrderView {
                     message = "⚠\uFE0F 판매 정보가 없습니다.";
                 }
             }
+            String format = AnsiColor.BRIGHT_WHITE +
+                    "📅 %-12s 🧾 %-8s 📦 %s" +
+                    AnsiColor.RESET + "\n";
+
+            System.out.printf(AnsiColor.BRIGHT_BLUE +
+                    "\n📅 일자         🧾 총 판매 수량   📦 총 매출액\n" +
+                    "───────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
+
             for (OnlineOrderStatsDto dto : list) {
-                System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📅 일별 : " + dto.getDate() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🧾 총 판매 수량 : " + dto.getTotalQuantity() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 총 매출액 : " + dto.getTotalRevenue() + AnsiColor.RESET);
-                System.out.println();
+                System.out.printf(format,
+                        dto.getDate(),
+                        dto.getTotalQuantity(),
+                        dto.getTotalRevenue() + "원"
+                );
             }
             System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_WHITE + "            🏪 온라인 일별 판매 내역입니다." + AnsiColor.RESET);
@@ -89,12 +98,21 @@ public class OnlineOrderView {
                     message = "⚠\uFE0F 판매 정보가 없습니다.";
                 }
             }
+            String format = AnsiColor.BRIGHT_WHITE +
+                    "📅 %-12s 🧾 %-8s 📦 %s" +
+                    AnsiColor.RESET + "\n";
+
+            System.out.printf(AnsiColor.BRIGHT_BLUE +
+                    "\n📅 일자         🧾 총 판매 수량   📦 총 매출액\n" +
+                    "───────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
+
             for (OnlineOrderStatsDto dto : list) {
-                System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📅 월별 : " + dto.getDate() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🧾 총 판매 수량 : " + dto.getTotalQuantity() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 총 매출액 : " + dto.getTotalRevenue() + AnsiColor.RESET);
-                System.out.println();
+                System.out.printf(format,
+                        dto.getDate(),
+                        dto.getTotalQuantity(),
+                        dto.getTotalRevenue() + "원"
+                );
             }
             System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_WHITE + "            🏪 온라인 월별 판매 내역입니다." + AnsiColor.RESET);
