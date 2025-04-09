@@ -1,5 +1,6 @@
 package com.swms.shoes.view;
 
+import com.swms.common.AnsiColor;
 import com.swms.order.controller.OnlineOrderController;
 import com.swms.shoes.controller.ShoesController;
 import com.swms.shoes.model.dto.ShoesDto;
@@ -23,6 +24,14 @@ public class ShoesMenuView {
 
         while (true) {
             ShoesSelectOptionDto ShoesSelectOptionDto = new ShoesSelectOptionDto();
+            System.out.println(AnsiColor.BRIGHT_BLUE + "=======================================================" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + "           👋 신발 쇼핑몰에 오신 것을 환영합니다!👟" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + "      아래 단계를 따라 원하는 신발을 조회하고 구매해보세요" + AnsiColor.RESET);
+            System.out.println();
+            System.out.println(AnsiColor.BRIGHT_YELLOW + "              📌 신발을 고르는 순서 안내:" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + """
+                       1️⃣ 종류 선택 → 2️⃣ 브랜드 선택 → 3️⃣ 신발 정렬 옵션 선택
+                    """ + AnsiColor.RESET);
 
             String type = optionView.inputType(); // 1. 신발종류 선택
             ShoesSelectOptionDto.setType(Integer.parseInt(type));
@@ -52,13 +61,13 @@ public class ShoesMenuView {
             switch (action) {
                 case "1":
                     // 구매단으로shoes 넘기기
-                    onlineOrderController.checkMoney(userDto, orderShoes);
-                    onlineOrderController.checkWarehouseStock(userDto, orderShoes);
-                    onlineOrderController.onlineOrder(userDto, orderShoes);
-                    break; // 구매하기 (shoes활용)
+                    onlineOrderController.checkMoney(userDto, orderShoes); //  돈 체크하는거
+
+                    onlineOrderController.onlineOrder(userDto, orderShoes); // 구매
+                    return; // 구매하기 (shoes활용)
                 case "2":
                     shoesController.insertToCart(userDto, orderShoes);
-                    break; // 장바구니
+                    return;
             }
 
         }
@@ -69,19 +78,26 @@ public class ShoesMenuView {
 
 
     public String userActionView() {
-        System.out.println(
-                """
-                        \n
-                        ----------------------------------
-                        원하시는 기능을 선택하세요.
-                        
-                        1. 구매하기
-                        2. 장바구니 
-                        
-                        0. 뒤로가기
-                        ----------------------------------
-                        >> 입력 : """);
-        return sc.nextLine();
+        String action;
+
+        while (true) {
+            System.out.println(AnsiColor.BRIGHT_BLUE + "--------------------------------------------" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + "  원하시는 기능을 선택하세요." + AnsiColor.RESET);
+            System.out.println();
+            System.out.println(AnsiColor.BRIGHT_WHITE + "  1.  구매하기" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_WHITE + "  2.  장바구니" + AnsiColor.RESET);
+            System.out.println();
+            System.out.println(AnsiColor.BRIGHT_WHITE + "  0.  뒤로가기" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_BLUE + "  ----------------------------------" + AnsiColor.RESET);
+            System.out.print(AnsiColor.BRIGHT_WHITE + "  >> 입력 : " + AnsiColor.RESET);
+            action = sc.nextLine();
+
+            if (action.equals("1") || action.equals("2") || action.equals("0")) {
+                return action;
+            }
+
+            System.out.println(AnsiColor.RED + "잘못된 입력입니다. 1, 2, 0 중에서 선택해주세요." + AnsiColor.RESET);
+        }
     }
 
     public String inputSize() {
@@ -95,18 +111,24 @@ public class ShoesMenuView {
 
 
         while (true) {
-            System.out.print("구매하려는 수량를 입력해주세요 : ");
-            String quantity = sc.nextLine();
+            try {
+                System.out.println(AnsiColor.BRIGHT_BLUE + "📦 구매 가능한 수량은 " + warehouseQuantity + "개 입니다." + AnsiColor.RESET);
+                System.out.print(AnsiColor.BRIGHT_WHITE + "🛒 구매하려는 수량을 입력해주세요 : " + AnsiColor.RESET);
+                String quantity = sc.nextLine();
 
-            System.out.println("구매 가능한 수량은 " + warehouseQuantity + "개 입니다.");
+                int inputQty = Integer.parseInt(quantity);
 
-            if (warehouseQuantity < Integer.parseInt(quantity)) {
-                System.out.println("❗ 구매 가능한 수량보다 많이 입력하였습니다. 다시 입력해주세요.");
-            } else {
+                if (inputQty > warehouseQuantity) {
+                    System.out.println(AnsiColor.RED + "❗ 구매 가능한 수량보다 많이 입력하였습니다. 다시 입력해주세요." + AnsiColor.RESET);
+                } else if (inputQty <= 0) {
+                    System.out.println(AnsiColor.RED + "❗ 1개 이상 입력해주세요." + AnsiColor.RESET);
+                } else {
+                    return quantity;
+                }
 
-                return quantity;
+            } catch (NumberFormatException e) {
+                System.out.println(AnsiColor.RED + "❗ 숫자만 입력해주세요." + AnsiColor.RESET);
             }
-
         }
     }
 

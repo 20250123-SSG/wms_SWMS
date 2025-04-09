@@ -20,9 +20,9 @@ public class ShoesOptionView {
         System.out.println();
         System.out.println(AnsiColor.BRIGHT_WHITE + "  0.  프로그램 종료" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BRIGHT_WHITE + "\n🔎 찾으시는 상품의 종류를 선택해주세요." + AnsiColor.RESET);
+        System.out.println(AnsiColor.BRIGHT_YELLOW + " 🔎 찾으시는 상품의 종류를 선택해주세요." + AnsiColor.RESET);
         System.out.print("""
-                >> 입력 :\t""");
+                >> 입력 : """);
 
         String input = sc.nextLine();
 
@@ -35,7 +35,6 @@ public class ShoesOptionView {
 
     public String inputBrand() {
         System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BRIGHT_WHITE + "  📢 찾으시는 브랜드를 선택해주세요." + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  1.  나이키" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  2.  아디다스" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  3.  뉴발란스" + AnsiColor.RESET);
@@ -44,7 +43,8 @@ public class ShoesOptionView {
         System.out.println();
         System.out.println(AnsiColor.BRIGHT_WHITE + "  0.  프로그램 종료" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-        System.out.print(AnsiColor.BRIGHT_WHITE + ">> 입력 :\t" + AnsiColor.RESET);
+        System.out.println(AnsiColor.BRIGHT_YELLOW + "  📢 찾으시는 브랜드를 선택해주세요." + AnsiColor.RESET);
+        System.out.print(AnsiColor.BRIGHT_WHITE + ">> 입력 : " + AnsiColor.RESET);
         String input = sc.nextLine();
 
         if("0".equals(input)){
@@ -57,14 +57,14 @@ public class ShoesOptionView {
     public List<String> inputSorting() {
         List<String> sortingOption = new ArrayList<>();
         System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BRIGHT_WHITE + "  📂 정렬 옵션을 선택해주세요." + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  1.  📅 최신순" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  2.  💸 낮은가격순" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  3.  💰 높은가격순" + AnsiColor.RESET);
         System.out.println();
         System.out.println(AnsiColor.BRIGHT_WHITE + "  0.  프로그램 종료" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-        System.out.print(AnsiColor.BRIGHT_WHITE + ">> 입력 :\t" + AnsiColor.RESET);
+        System.out.println(AnsiColor.BRIGHT_YELLOW + "  📂 정렬 옵션을 선택해주세요." + AnsiColor.RESET);
+        System.out.print(AnsiColor.BRIGHT_WHITE + ">> 입력 : " + AnsiColor.RESET);
 
         switch (sc.nextLine()) {
             case "1":
