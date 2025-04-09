@@ -10,6 +10,8 @@ import com.swms.warehouse.model.dto.PurchaseOrderDto;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.swms.common.util.ConsoleAlignUtil.padRight;
+
 public class PurchaseOrderView {
     private Scanner sc = new Scanner(System.in);
     private PurchaseOrderController purchaseOrderController = new PurchaseOrderController();
@@ -32,21 +34,32 @@ public class PurchaseOrderView {
                     message = "⚠\uFE0F 발주 정보가 없습니다.";
                 }
             }
-            for (PurchaseOrderDto dto : list) {
-                System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🆔 발주 ID : " + dto.getPurchaseOrderId() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🆔 신발 ID : " + dto.getShoesId() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📝 발주 상태 : " + dto.getStatus() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🏪 매장 : " + dto.getStoreName() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  👟 모델명 : " + dto.getShoesName() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🏷️ 브랜드 : " + dto.getBrandName() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  🧩 종류 : " + dto.getShoesType() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📏 사이즈 : " + dto.getSize() + AnsiColor.RESET);
-                System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 수량 : " + dto.getQuantity() + AnsiColor.RESET);
-                System.out.println();
+            String format = AnsiColor.BRIGHT_WHITE +
+                    "🆔 %-5s 🆔 %-5s 📝 %-8s 🏪 %-8s 👟 %-15s 🏷️ %-8s 🧩 %-10s 📏 %-4s 📦 %-4s" +
+                    AnsiColor.RESET + "\n";
 
+            System.out.printf(AnsiColor.BRIGHT_BLUE +
+                    "\n🆔 발주ID  🆔 신발ID  📝 상태     🏪 매장       👟 모델명             🏷️ 브랜드     🧩 종류        📏 사이즈   📦 수량\n" +
+                    "────────────────────────────────────────────────────────────────────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
+
+            for (PurchaseOrderDto dto : list) {
+                System.out.printf(format,
+                        dto.getPurchaseOrderId(),
+                        dto.getShoesId(),
+                        padRight(dto.getStatus(), 8),
+                        padRight(dto.getStoreName(), 8),
+                        padRight(dto.getShoesName(), 15),
+                        padRight(dto.getBrandName(), 8),
+                        padRight(dto.getShoesType(), 10),
+                        dto.getSize(),
+                        dto.getQuantity()
+                );
             }
-            System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
+
+            System.out.println(AnsiColor.BRIGHT_BLUE +
+                    "────────────────────────────────────────────────────────────────────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
             if (message != null) {
                 System.out.println(AnsiColor.BRIGHT_RED + "                " + message + AnsiColor.RESET);
                 message = null;
