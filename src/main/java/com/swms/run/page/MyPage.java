@@ -35,7 +35,6 @@ public class MyPage {
             System.out.println(AnsiColor.GREEN + "                2. 전화번호 수정" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "                3. 돈 충전하기" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "                4. 장바구니 조회" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "                5. 좋아요 조회" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "                0. 뒤로 가기" + AnsiColor.RESET);
             System.out.println();

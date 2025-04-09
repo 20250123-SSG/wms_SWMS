@@ -24,7 +24,7 @@ public class MainPage {
             System.out.println(AnsiColor.GREEN + "               8. 점장 페이지" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               9. 관리자 페이지" + AnsiColor.RESET);
             System.out.println();
-            System.out.println(AnsiColor.GREEN + "               0. 프로그램 종료" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               0. 로그아웃" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + AnsiColor.RESET);
             if (message != null) {

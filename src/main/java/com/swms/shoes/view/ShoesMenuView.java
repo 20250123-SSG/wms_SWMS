@@ -107,7 +107,7 @@ public class ShoesMenuView {
 
     public String inputSize() {
         //size 한번더 출력해주면 좋을 듯
-        System.out.print(AnsiColor.BRIGHT_WHITE + " 👟 구매하시려는 사이즈를 입력해주세요 (ex. 230): ");
+        System.out.print(AnsiColor.BRIGHT_WHITE + " 👟 사이즈를 입력해주세요 (ex. 230): ");
         String size = sc.nextLine();
         return size;
     }

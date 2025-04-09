@@ -10,8 +10,11 @@ import java.util.Scanner;
 public class LoginPage {
     private static AccountView accountView = new AccountView();
     private static Scanner sc = new Scanner(System.in);
+    private static String message = null;
 
     public static UserDto loginPage() {
+        UserDto userDto = null;
+        while (userDto == null) {
         Logo.printLogo();
         System.out.println(AnsiColor.BLUE + "  ┌─────────────────────────────────────────────┐" + AnsiColor.RESET);
         System.out.println(AnsiColor.BLUE + "  │ " + AnsiColor.GREEN + "     Shoes Warehouse Management System " + AnsiColor.BLUE + "     │" + AnsiColor.RESET);
@@ -23,10 +26,11 @@ public class LoginPage {
         System.out.println(AnsiColor.GREEN + "                0. 프로그램 종료" + AnsiColor.RESET);
         System.out.println();
         System.out.println(AnsiColor.BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + AnsiColor.RESET);
+            if (message != null) {
+                System.out.println(AnsiColor.BRIGHT_YELLOW + "  " + message + AnsiColor.RESET);
+                message = null;
+            }
 
-        UserDto userDto = null;
-
-        while (userDto == null) {
             System.out.print("""
                     > 입력:""");
 
@@ -37,6 +41,8 @@ public class LoginPage {
                     break;
                 case "2":
                     accountView.signup();
+                    message = "📢 회원가입 이 완료되었습니다. 로그인을 시도해주세요";
+                    break;
                 case "0":
                     System.out.println("프로그램을 종료합니다.");
                     return null;
