@@ -27,14 +27,14 @@ public class OnlineOrderController {
     }
 
     //온라인 주문 서비스 (트랜젝션처리완)
-    public void onlineOrder(UserDto user, ShoesDto shoes) {
-        int result = onlineOrderService.onlineOrder(user, shoes);
+    public void onlineOrder(UserDto user, ShoesDto shoes, int buyQuantity) {
+        int result = onlineOrderService.onlineOrder(user, shoes, buyQuantity);
         OnlineOrderView.displayShoesOrder(result);
     }
 
     // 금액체크
-    public void checkMoney(UserDto user, ShoesDto shoes){
-        int available =  (user.getMoney() >= shoes.getShoesPrice()*shoes.getQuantity()) ? 0 : 1;
+    public void checkMoney(UserDto user, int price, int quantity){
+        int available =  (user.getMoney() >= price * quantity) ? 0 : 1;
         OnlineOrderView.PurchaseFailedMoney(available); // 구매불가 : 1
         if(available == 1){
             // 시작페이지로

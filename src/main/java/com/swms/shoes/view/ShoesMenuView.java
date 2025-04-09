@@ -20,7 +20,7 @@ public class ShoesMenuView {
     private ShoesView shoesView = new ShoesView();
 
 
-    public void MainView(UserDto userDto) {
+    public String MainView (UserDto userDto) {
 
         while (true) {
             ShoesSelectOptionDto ShoesSelectOptionDto = new ShoesSelectOptionDto();
@@ -55,19 +55,18 @@ public class ShoesMenuView {
             // 창고포함 신발 정보 들고오기
             ShoesDto orderShoes = shoesController.getShoes(shoes, size); // 사이즈 선택하고, 해당 shoes_id구해서 shoesDto에 set하는 함수
 
-            String buyQuantity = inputQuantity(orderShoes.getQuantity());
-
+            int buyQuantity = Integer.parseInt(inputQuantity(orderShoes.getQuantity()));
 
             switch (action) {
                 case "1":
-                    // 구매단으로shoes 넘기기
-                    onlineOrderController.checkMoney(userDto, orderShoes); //  돈 체크하는거
+                    //  돈 체크하는거
+                    onlineOrderController.checkMoney(userDto, orderShoes.getShoesPrice(), buyQuantity);
 
-                    onlineOrderController.onlineOrder(userDto, orderShoes); // 구매
-                    return; // 구매하기 (shoes활용)
+                    onlineOrderController.onlineOrder(userDto, orderShoes, buyQuantity); // 구매
+                    return "\uD83C\uDF89 구매가 완료되었습니다! 감사합니다 \uD83D\uDE0A";
                 case "2":
                     shoesController.insertToCart(userDto, orderShoes);
-                    return;
+                    return "\uD83E\uDDFA 장바구니에 상품이 담겼습니다!";
             }
 
         }
@@ -82,7 +81,7 @@ public class ShoesMenuView {
 
         while (true) {
             System.out.println(AnsiColor.BRIGHT_BLUE + "--------------------------------------------" + AnsiColor.RESET);
-            System.out.println(AnsiColor.BRIGHT_WHITE + "  원하시는 기능을 선택하세요." + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_YELLOW + "  원하시는 기능을 선택하세요." + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.BRIGHT_WHITE + "  1.  구매하기" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_WHITE + "  2.  장바구니" + AnsiColor.RESET);
