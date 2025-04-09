@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class ShoesOptionView {
     private Scanner sc = new Scanner(System.in);
     public String inputType() {
-        System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
+        System.out.println();
         System.out.println(AnsiColor.BRIGHT_WHITE + "  1.  👟 스니커즈" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  2.  👟 런닝화" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  3.  👞 구두" + AnsiColor.RESET);
@@ -34,7 +34,7 @@ public class ShoesOptionView {
     }
 
     public String inputBrand() {
-        System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
+        System.out.println();
         System.out.println(AnsiColor.BRIGHT_WHITE + "  1.  나이키" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  2.  아디다스" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  3.  뉴발란스" + AnsiColor.RESET);
@@ -56,7 +56,7 @@ public class ShoesOptionView {
 
     public List<String> inputSorting() {
         List<String> sortingOption = new ArrayList<>();
-        System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
+        System.out.println();
         System.out.println(AnsiColor.BRIGHT_WHITE + "  1.  📅 최신순" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  2.  💸 낮은가격순" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "  3.  💰 높은가격순" + AnsiColor.RESET);

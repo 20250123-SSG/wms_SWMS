@@ -1,5 +1,6 @@
 package com.swms.user.view;
 
+import com.swms.common.AnsiColor;
 import com.swms.order.controller.OnlineOrderController;
 import com.swms.order.model.service.OnlineOrderService;
 import com.swms.shoes.model.dto.ShoesDto;
@@ -16,45 +17,51 @@ public class ShoppingCartView {
     private OnlineOrderService onlineOrderService = new OnlineOrderService();
 
     private Scanner sc = new Scanner(System.in);
-    public void checkCartList(List<ShoesDto> list){
+    public String checkCartList(List<ShoesDto> list){
         if (list.isEmpty()){
-            System.out.println("==장바구니가 아직 등록되지 않았습니다==");
+            return "장바구니가 아직 등록되지 않았습니다";
         }else {
-            for (ShoesDto cart : list){
-                System.out.printf("장바구니 :신발명: %s\t신발ID: %s\t가격: %s\t사이즈: %s \n",
+            System.out.println(AnsiColor.BRIGHT_BLUE + """
+        \n
+        ===========================================
+                     🛒  장바구니 목록  🛒
+        ===========================================
+        신발명\t\t신발ID\t\t가격\t\t사이즈
+        -------------------------------------------
+        """ + AnsiColor.RESET);
+
+            for (ShoesDto cart : list) {
+                System.out.printf(AnsiColor.BRIGHT_WHITE + "%-15s\t%-8s\t%8s원\t%4s\n" + AnsiColor.RESET,
                         cart.getShoesName(),
                         cart.getShoesId(),
                         cart.getShoesPrice(),
                         cart.getSize());
-
-
             }
             ShoppingCartController shoppingCartController = new ShoppingCartController();
+
             while(true) {
-                System.out.print("""
-                    \n=============================
-                    1. 장바구니 상품 구매
-                    2. 장바구니 상품 삭제
-                    0. 뒤로가기
-                    =============================
-                    > 입력:""");
+                System.out.print(AnsiColor.BRIGHT_BLUE + """
+        \n=========================================
+                 🛒  장바구니 메뉴 선택  🛒
+        
+        """ + AnsiColor.BRIGHT_WHITE + """
+        1. 장바구니 상품 구매
+        2. 장바구니 상품 삭제
+        0. 뒤로가기
+        """ + AnsiColor.BRIGHT_BLUE + """
+        
+        """ + AnsiColor.RESET + "> 입력 : ");
 
                 String menu = sc.nextLine();
                 switch (menu) {
                     case "1":
                         shoppingCartController.buyCart((buyShoesId("구매할 신발ID")));
-                        //insertOnlineOrder();
-//                        UserDto userDto = new UserDto();
-//                        ShoesDto shoesDto = new ShoesDto();
-//
-                        //onlineOrderService.onlineOrder(); break;
 
                     case "2":
-
                         shoppingCartController.removeCart(inputId("삭제할 상품 아이디"));
                         break;
                     case "0":
-                        return;
+                        return null;
                     default:
                         System.out.println("메뉴를 잘못 입력하셨습니다.");
                 }

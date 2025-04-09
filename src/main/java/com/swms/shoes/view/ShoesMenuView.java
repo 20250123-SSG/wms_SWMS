@@ -24,7 +24,9 @@ public class ShoesMenuView {
 
         while (true) {
             ShoesSelectOptionDto ShoesSelectOptionDto = new ShoesSelectOptionDto();
+            System.out.println();
             System.out.println(AnsiColor.BRIGHT_BLUE + "=======================================================" + AnsiColor.RESET);
+            System.out.println();
             System.out.println(AnsiColor.BRIGHT_WHITE + "           👋 신발 쇼핑몰에 오신 것을 환영합니다!👟" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_WHITE + "      아래 단계를 따라 원하는 신발을 조회하고 구매해보세요" + AnsiColor.RESET);
             System.out.println();
@@ -32,7 +34,7 @@ public class ShoesMenuView {
             System.out.println(AnsiColor.BRIGHT_WHITE + """
                        1️⃣ 종류 선택 → 2️⃣ 브랜드 선택 → 3️⃣ 신발 정렬 옵션 선택
                     """ + AnsiColor.RESET);
-
+            System.out.println(AnsiColor.BRIGHT_BLUE + "=======================================================" + AnsiColor.RESET);
             String type = optionView.inputType(); // 1. 신발종류 선택
             ShoesSelectOptionDto.setType(Integer.parseInt(type));
 
@@ -60,7 +62,10 @@ public class ShoesMenuView {
             switch (action) {
                 case "1":
                     //  돈 체크하는거
-                    onlineOrderController.checkMoney(userDto, orderShoes.getShoesPrice(), buyQuantity);
+                    int moneyResult = onlineOrderController.checkMoney(userDto, orderShoes.getShoesPrice(), buyQuantity);
+                    if(moneyResult == 0){
+                        return "⚠\uFE0F 돈이 부족합니다! ⚠\uFE0F \n              \uD83D\uDEA8 마이페이지에서 충전해주세요! \uD83D\uDEA8";
+                    }
 
                     onlineOrderController.onlineOrder(userDto, orderShoes, buyQuantity); // 구매
                     return "\uD83C\uDF89 구매가 완료되었습니다! 감사합니다 \uD83D\uDE0A";
@@ -80,7 +85,7 @@ public class ShoesMenuView {
         String action;
 
         while (true) {
-            System.out.println(AnsiColor.BRIGHT_BLUE + "--------------------------------------------" + AnsiColor.RESET);
+            System.out.println(AnsiColor.BRIGHT_BLUE + "============================================" + AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_YELLOW + "  원하시는 기능을 선택하세요." + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.BRIGHT_WHITE + "  1.  구매하기" + AnsiColor.RESET);
@@ -101,7 +106,7 @@ public class ShoesMenuView {
 
     public String inputSize() {
         //size 한번더 출력해주면 좋을 듯
-        System.out.print("구매하시려는 사이즈를 입력해주세요 (ex. 230): ");
+        System.out.print(AnsiColor.BRIGHT_WHITE + " 👟 구매하시려는 사이즈를 입력해주세요 (ex. 230): ");
         String size = sc.nextLine();
         return size;
     }

@@ -76,14 +76,17 @@ public class PurchaseOrderService {
 
         int result = 0;
         try {
+            // 온라인 창고 수량 차감
             onlineWarehouseMapper.updateAddQuantity(onlineWarehouseDto);
 
+            // 오프라인 창고 수량 증가
             int warehouseResult = offlineWarehouseMapper.updateAddQuantityByStoreAndShoesById(offlineWarehouseDto);
-            // 없는 경우 생성
+            // 발주 데이터가 오프라인에 없는 경우 생성
             if(warehouseResult == 0){
                 offlineWarehouseMapper.upsertOfflineWarehouseQuantity(offlineWarehouseDto);
             }
 
+            // 발주 상태 업데이트 (요청완료)
             result = purchaseOrderMapper.updateStatusAndCompletionDate(purchaseOrderDto);
 
             sqlSession.commit();

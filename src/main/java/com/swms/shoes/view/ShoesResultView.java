@@ -35,8 +35,7 @@ public class ShoesResultView {
     public static void displayShoes(ShoesDto shoes) {
         System.out.println(AnsiColor.BRIGHT_BLUE + "============================================" + AnsiColor.RESET);
         System.out.println(AnsiColor.BRIGHT_WHITE + "          🔍👟 신발 상세 정보 조회 📋" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BRIGHT_BLUE + "============================================" + AnsiColor.RESET);
-
+        System.out.println();
         System.out.printf(AnsiColor.BRIGHT_WHITE + """
         🏷️ 브랜드      : %s
         🧩 종류        : %s
@@ -48,12 +47,13 @@ public class ShoesResultView {
                 shoes.getShoesName(),
                 shoes.getShoesPrice()
         );
+        System.out.println();
     }
 
     public static void displayShoesSizeList(List<String> sizeList) {
-        System.out.println(AnsiColor.BRIGHT_BLUE + "============================================" + AnsiColor.RESET);
+        System.out.println();
         System.out.println(AnsiColor.BRIGHT_WHITE + "         📏 현재 구매 가능한 사이즈 👟" + AnsiColor.RESET);
-        System.out.println(AnsiColor.BRIGHT_BLUE + "============================================" + AnsiColor.RESET);
+        System.out.println();
         sizeList.forEach(size -> System.out.printf(AnsiColor.BRIGHT_WHITE + "%smm \t", size));
         System.out.println();
     }

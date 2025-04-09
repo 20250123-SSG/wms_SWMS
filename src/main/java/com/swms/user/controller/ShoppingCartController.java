@@ -15,10 +15,9 @@ public class ShoppingCartController {
 
 
     // 장바구니 목록 불러오는 메소드
-    public void selectCartList(UserDto userDto){
+    public String selectCartList(UserDto userDto){
         List<ShoesDto> list = shoppingCartService.selectCartList(userDto);
-        shoppingCartView.checkCartList(list);
-
+        return shoppingCartView.checkCartList(list);
     }
     public void removeCart(String shoesid) {
 

@@ -72,9 +72,9 @@ public class ShoesView {
 
     // TODO: 데이터처리 controller에서 하도록 변경하기
     public ShoesDto selectShoesDetail(List<ShoesSelectDto> pageShoesList) {
-        System.out.print("""
-                상세조회할 상품의 번호를 입력하세요.
-                >> 입력 : """);
+        System.out.print(AnsiColor.BRIGHT_WHITE + """
+        🔍 상세조회할 상품의 번호를 입력하세요.
+        >> 입력 : """ + AnsiColor.RESET);
         //TODO: shoesDTO에 shoes_id를 추가하는게 좋을 듯. 우선은 이름으로 진행
 
         ShoesSelectDto shoesInfo = pageShoesList.get(Integer.parseInt(sc.nextLine()) - 1); // 상품상세보기

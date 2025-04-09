@@ -33,7 +33,7 @@ public class OnlineWarehouseView {
             String format = AnsiColor.BRIGHT_WHITE + "🆔 %-5s 🏷️ %-8s 🧩 %-8s   📏 %-6s 📦 %-6s 👟 %s" + AnsiColor.RESET + "\n";
 
             System.out.printf(AnsiColor.BRIGHT_BLUE +
-                    "🆔 ID     🏷️ 브랜드      🧩 종류     📏 사이즈  📦 수량   👟 모델명\n" +
+                    "🆔 ID     🏷️ 브랜드      🧩 종류         📏 사이즈  📦 수량   👟 모델명\n" +
                     "────────────────────────────────────────────────────────────────────────────\n" +
                     AnsiColor.RESET);
 

@@ -28,7 +28,7 @@ public class MainPage {
             System.out.println();
             System.out.println(AnsiColor.BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + AnsiColor.RESET);
             if (message != null) {
-                System.out.println(AnsiColor.BRIGHT_RED + "                " + message + AnsiColor.RESET);
+                System.out.println(AnsiColor.BRIGHT_RED + "            " + message + AnsiColor.RESET);
                 message = null;
             }
 
@@ -41,7 +41,7 @@ public class MainPage {
                     MyPage.myPage(userDto);
                     break;
                 case "2":
-                    new ShoesMenuView().MainView(userDto);
+                    message = new ShoesMenuView().MainView(userDto);
                     break;
                 case "8":
                     message = StoreManagerPage.storeMangerPage(userDto);
