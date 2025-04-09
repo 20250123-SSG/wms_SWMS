@@ -1,5 +1,6 @@
 package com.swms.user.view;
 
+import com.swms.common.AnsiColor;
 import com.swms.user.controller.AccountController;
 import com.swms.user.model.dto.UserDto;
 
@@ -14,8 +15,8 @@ public class AccountView {
         // 아이디
         String account;
         while (true) {
-            System.out.println("\n~~~ 등록할 회원 정보를 작성해주세요 ~~~");
-            System.out.println("\n 아이디는 20자 이내여야 합니다.");
+            System.out.println(AnsiColor.BRIGHT_BLUE + "\n        등록할 회원 정보를 작성해주세요.");
+            System.out.println(AnsiColor.BRIGHT_YELLOW + "\n 아이디는 20자 이내여야 합니다.");
             System.out.println("> 아이디: ");
             account = sc.nextLine();
 
@@ -28,24 +29,25 @@ public class AccountView {
         }
 
         // 비밀번호
-        System.out.println("\n 비밀번호는 20자 이내여야 합니다.");
+        System.out.println(AnsiColor.BRIGHT_YELLOW + "\n 비밀번호는 20자 이내여야 합니다.");
         System.out.println("> 비밀번호: ");
         String password = sc.nextLine();
 
         // 이름
-        System.out.println("\n 이름을 입력하세요");
+        System.out.println(AnsiColor.BRIGHT_YELLOW + "\n 이름을 입력하세요");
         System.out.println("> 이름: ");
         String userName = sc.nextLine();
 
         // 권한
         System.out.print("""
-                \n=============================
-                     <권한을 선택하세요>
-                1. 일반 사용자
-                2. 점장
-                0. 관리자
-                =============================
-                > 권한:""");
+    \n╔════════════════════════════╗
+      🔐 권한을 선택하세요
+    ╟────────────────────────────╢
+      1. 👤 일반 사용자
+      2. 🧑‍💼 점장
+      0. 🛠️ 관리자
+    ╚════════════════════════════╝
+    > 권한: """);
 
         String auth;
         while (true) {
@@ -62,7 +64,7 @@ public class AccountView {
 
         // 주소
         System.out.println("\n 주소를 입력하세요");
-        System.out.println("> 주소: ");
+        System.out.println("> 주소: " + AnsiColor.RESET);
         String address = sc.nextLine();
 
         int result = accountController.signup(account, password, userName, Integer.parseInt(auth), phone, address);

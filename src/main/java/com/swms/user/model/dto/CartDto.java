@@ -8,11 +8,9 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class UserDto {
+public class CartDto {
+    private Integer cartId;
     private int userId;
-    private String userName;
-    private int auth;
-    private String phone;
-    private String address;
-    private int money;
+    private int shoesId;
+    private String cartDate;
 }

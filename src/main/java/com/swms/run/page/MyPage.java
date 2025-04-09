@@ -15,6 +15,7 @@ public class MyPage {
     private static UserView userView = new UserView();
     private static ShoppingCartController shoppingCartController = new ShoppingCartController();
     private static Scanner sc = new Scanner(System.in);
+    private static String message = null;
 
     public static void myPage(UserDto userDto) {
         while (true) {
@@ -34,11 +35,14 @@ public class MyPage {
             System.out.println(AnsiColor.GREEN + "                2. 전화번호 수정" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "                3. 돈 충전하기" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "                4. 장바구니 조회" + AnsiColor.RESET);
-            System.out.println(AnsiColor.GREEN + "                5. 좋아요 조회" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.GREEN + "                0. 뒤로 가기" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + AnsiColor.RESET);
+            if (message != null) {
+                System.out.println(AnsiColor.BRIGHT_RED + "            " + message + AnsiColor.RESET);
+                message = null;
+            }
             System.out.print("""
                     > 입력:""");
             String menu = sc.nextLine();
@@ -53,7 +57,7 @@ public class MyPage {
                     userView.updateMoney(userDto);
                     break;
                 case "4":
-                    shoppingCartController.selectCartList(userDto);
+                    message = shoppingCartController.selectCartList(userDto);
                     break;
                 case "0":
                     System.out.println("뒤로 갑니다.");

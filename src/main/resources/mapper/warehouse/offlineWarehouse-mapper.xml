@@ -46,4 +46,21 @@
             offline_warehouse_id = #{offlineWarehouseId}
     </update>
 
+    <update id="updateAddQuantityByStoreAndShoesById" parameterType="OfflineWarehouseDto">
+        update
+            tbl_offline_warehouse
+        set
+            quantity = quantity + #{quantity}
+        where
+            store_id = #{storeId}
+            AND shoes_id = #{shoesId}
+    </update>
+
+    <insert id="upsertOfflineWarehouseQuantity" parameterType="OfflineWarehouseDto">
+        INSERT INTO tbl_offline_warehouse (store_id, shoes_id, quantity)
+        VALUES (#{storeId}, #{shoesId}, #{quantity})
+        ON DUPLICATE KEY UPDATE
+        quantity = quantity + #{quantity}
+    </insert>
+
 </mapper>

@@ -39,7 +39,7 @@
     </select>
 
 
-    <select id="selectShoesList" parameterType="map" resultMap="shoesListResultMap">
+    <select id="selectShoesList" parameterType="ShoesSelectOptionDto" resultMap="shoesListResultMap">
         SELECT DISTINCT
             shoes_name
             , shoes_price
@@ -52,7 +52,7 @@
             ORDER BY
             ${sortBy} ${ascDesc}
         </if>
-        LIMIT 10 OFFSET #{offset}
+        LIMIT 5 OFFSET #{offset}
     </select>
 
     <select id="selectShoesDetail" parameterType="String" resultMap="SizeListResultMap">
@@ -73,11 +73,12 @@
         SELECT
             size
         FROM
-        tbl_shoes
+            tbl_shoes
         JOIN tbl_brand USING(brand_id)
         JOIN tbl_shoes_type USING(shoes_type_id)
+        RIGHT JOIN tbl_online_warehouse USING(shoes_id)
         WHERE
-        shoes_name =  #{shoesName}
+            shoes_name =   #{shoesName}
 
     </select>
 
@@ -92,16 +93,48 @@
         AND brand_id = #{brand}
     </select>
 
-    <select id="getShoesId" parameterType="ShoesDto" resultType="_int">
+
+    <select id="getShoesId" parameterType="ShoesDto" resultType="ShoesDto">
         SELECT DISTINCT
-        shoes_id
+            shoes_id
+          , brand_name
+          , shoes_type
+          , shoes_name
+          , shoes_price
+          , size
+          , quantity
         FROM
-        tbl_shoes
-        JOIN tbl_brand USING(brand_id)
-        JOIN tbl_shoes_type USING(shoes_type_id)
+            tbl_shoes
+                JOIN tbl_brand USING(brand_id)
+                JOIN tbl_shoes_type USING(shoes_type_id)
+                JOIN tbl_online_warehouse USING(shoes_id)
         WHERE
-        shoes_name =  #{shoesName}
-        AND size = #{size}
+            shoes_name =  #{shoesName}
+            AND size = #{size}
     </select>
+
+    <insert id="insertToCart" parameterType="CartDto"  useGeneratedKeys="true" keyProperty="cartId">
+        INSERT INTO
+                tbl_cart(
+                        user_id
+                        , shoes_id
+                        )
+        VALUES (#{userId}, #{shoesId})
+    </insert>
+
+    <select id="searchByShoesName" parameterType="String" resultType="ShoesDto">
+        SELECT DISTINCT
+            brand_name
+            , shoes_type
+            , shoes_name
+            , shoes_price
+        FROM
+            tbl_shoes
+                JOIN tbl_brand USING(brand_id)
+                JOIN tbl_shoes_type USING(shoes_type_id)
+        WHERE
+            shoes_name LIKE CONCAT('%', #{shoesName}, '%')
+    </select>
+
 
 </mapper>

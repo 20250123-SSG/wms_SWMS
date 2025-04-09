@@ -2,7 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.swms.warehouse.model.dao.OnlineWarehouseMapper">
+
     <select id="checkWarehouseStock" parameterType="_int" resultType="_int">
         SELECT
         quantity
@@ -11,7 +13,6 @@
         WHERE
         shoes_id = #{shoesId}
     </select>
-
 
     <update id="updateShoesQuantity" parameterType="_int">
         UPDATE
@@ -30,13 +31,51 @@
     <!-- 전체 조회 -->
     <select id="selectAllOnlineWarehouse" resultMap="onlineWarehouseResultMap">
         select
-            online_warehouse_id
-          , shoes_id
-          , quantity
-        from
-            tbl_online_warehouse
+            ow.online_warehouse_id,
+            ow.shoes_id,
+            ow.quantity,
+                s.shoes_name,
+                s.shoes_price,
+                s.size,
+                s.shoes_type_id,
+                s.brand_id,
+                    st.shoes_type,
+                    b.brand_name
+        FROM tbl_online_warehouse ow
+            JOIN tbl_shoes s ON ow.shoes_id = s.shoes_id
+            JOIN tbl_shoes_type st ON s.shoes_type_id = st.shoes_type_id
+            JOIN tbl_brand b ON s.brand_id = b.brand_id
         order by
             online_warehouse_id desc
             limit #{limit} offset #{offset}
     </select>
+
+    <!-- 수량 수정 -->
+    <update id="updateAddQuantity" parameterType="OnlineWarehouseDto">
+        update
+            tbl_online_warehouse
+        set
+            quantity = quantity + #{quantity}
+        where
+            online_warehouse_id = #{onlineWarehouseId}
+    </update>
+
+    <select id="selectWarehouseByShoesId" resultType="OnlineWarehouseDto">
+        SELECT
+        online_warehouse_id
+        , shoes_id
+        , quantity
+        FROM tbl_online_warehouse
+        WHERE shoes_id = #{shoesId}
+    </select>
+
+    <select id="selectWarehouseById" resultType="OnlineWarehouseDto">
+        SELECT
+        online_warehouse_id
+        , shoes_id
+        , quantity
+        FROM tbl_online_warehouse
+        WHERE online_warehouse_id = #{onlineWarehouseId}
+    </select>
+
 </mapper>

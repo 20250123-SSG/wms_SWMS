@@ -1,7 +1,11 @@
 package com.swms.warehouse.controller;
 
+import com.swms.warehouse.model.dto.OfflineWarehouseDto;
+import com.swms.warehouse.model.dto.OnlineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
 import com.swms.warehouse.model.service.PurchaseOrderService;
+
+import java.util.List;
 
 public class PurchaseOrderController {
     private PurchaseOrderService purchaseOrderService = new PurchaseOrderService();
@@ -20,5 +24,41 @@ public class PurchaseOrderController {
 
     }
 
+    public List<PurchaseOrderDto> selectAllPurchaseOrder(int page) {
+
+        return purchaseOrderService.selectAllPurchaseOrder(page);
+
+    }
+
+    public PurchaseOrderDto selectWarehouseById(int purchaseOrderId) {
+
+        return purchaseOrderService.selectWarehouseById(purchaseOrderId);
+    }
+
+    public int approvePurchaseOrder(PurchaseOrderDto purchaseOrderDto, OnlineWarehouseDto onlineWarehouseDto) {
+
+        // 온라인 창고 수량 빼기
+        onlineWarehouseDto.setQuantity(-purchaseOrderDto.getQuantity());
+
+        // 오프라인 창고 수량 더하기
+        OfflineWarehouseDto offlineWarehouseDto = OfflineWarehouseDto.builder()
+                .storeId(purchaseOrderDto.getStoreId())
+                .shoesId(purchaseOrderDto.getShoesId())
+                .quantity(purchaseOrderDto.getQuantity()) // 주입한 수량만큼 기존 데이터에 더함
+                .build();
+
+        // 상태 완료 처리
+        purchaseOrderDto.setStatus("발주완료");
+
+        return purchaseOrderService.approvePurchaseOrder(
+                purchaseOrderDto, offlineWarehouseDto, onlineWarehouseDto);
+    }
+
+    public int rejectPurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
+        // 상태 완료 처리
+        purchaseOrderDto.setStatus("발주취소");
+
+        return purchaseOrderService.updatePurchaseOrder(purchaseOrderDto);
+    }
 }
 

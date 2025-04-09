@@ -21,4 +21,58 @@
         )
     </insert>
 
+    <select id="selectAllPurchaseOrder" resultType="PurchaseOrderDto">
+        SELECT
+            po.purchase_order_id,
+            po.store_id,
+            po.shoes_id,
+            po.quantity,
+            po.request_date,
+            po.status,
+            po.completion_date,
+            store.store_id,
+            store.store_name,
+            s.shoes_name,
+            s.shoes_price,
+            s.size,
+            s.shoes_type_id,
+            s.brand_id,
+            st.shoes_type,
+            b.brand_name
+        FROM tbl_purchase_order po
+            JOIN tbl_store store ON po.store_id = store.store_id
+            JOIN tbl_shoes s ON po.shoes_id = s.shoes_id
+            JOIN tbl_shoes_type st ON s.shoes_type_id = st.shoes_type_id
+            JOIN tbl_brand b ON s.brand_id = b.brand_id
+        ORDER BY po. purchase_order_id DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="selectPurchaseOrderById" resultType="PurchaseOrderDto">
+        SELECT
+        purchase_order_id
+        , store_id
+        , shoes_id
+        , quantity
+        , request_date
+        , status
+        , completion_date
+        FROM tbl_purchase_order
+        WHERE purchase_order_id = #{purchaseOrderId}
+    </select>
+
+    <update id="updateStatusAndCompletionDate" parameterType="PurchaseOrderDto">
+        UPDATE tbl_purchase_order
+        SET
+            status = #{status},
+            completion_date = NOW()
+        WHERE
+            purchase_order_id = #{purchaseOrderId}
+    </update>
+
+    <delete id="deletePurchaseOrderById" parameterType="PurchaseOrderDto">
+        DELETE FROM tbl_purchase_order
+        WHERE purchase_order_id = #{purchaseOrderId}
+    </delete>
+
 </mapper>

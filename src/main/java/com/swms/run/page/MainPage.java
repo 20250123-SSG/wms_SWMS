@@ -2,12 +2,14 @@ package com.swms.run.page;
 
 import com.swms.common.AnsiColor;
 import com.swms.common.Logo;
+import com.swms.shoes.view.ShoesMenuView;
 import com.swms.user.model.dto.UserDto;
 
 import java.util.Scanner;
 
 public class MainPage {
     private static Scanner sc = new Scanner(System.in);
+    private static String message = null;
 
     public static void mianPage(UserDto userDto) {
         while (true) {
@@ -22,10 +24,13 @@ public class MainPage {
             System.out.println(AnsiColor.GREEN + "               8. 점장 페이지" + AnsiColor.RESET);
             System.out.println(AnsiColor.GREEN + "               9. 관리자 페이지" + AnsiColor.RESET);
             System.out.println();
-            System.out.println(AnsiColor.GREEN + "               0. 프로그램 종료" + AnsiColor.RESET);
+            System.out.println(AnsiColor.GREEN + "               0. 로그아웃" + AnsiColor.RESET);
             System.out.println();
             System.out.println(AnsiColor.BLUE + " ─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─=─" + AnsiColor.RESET);
-
+            if (message != null) {
+                System.out.println(AnsiColor.BRIGHT_RED + "            " + message + AnsiColor.RESET);
+                message = null;
+            }
 
             System.out.print("""
                     > 입력:""");
@@ -36,12 +41,13 @@ public class MainPage {
                     MyPage.myPage(userDto);
                     break;
                 case "2":
-
+                    message = new ShoesMenuView().MainView(userDto);
+                    break;
                 case "8":
-                    StoreManagerPage.storeMangerPage(userDto);
+                    message = StoreManagerPage.storeMangerPage(userDto);
                     break;
                 case "9":
-                    AdminPage.adminPage(userDto);
+                    message = AdminPage.adminPage(userDto);
                     break;
                 case "0":
                     return;

@@ -1,13 +1,27 @@
 package com.swms.warehouse.controller;
 
+import com.swms.warehouse.model.dto.OfflineWarehouseDto;
+import com.swms.warehouse.model.dto.OnlineWarehouseDto;
 import com.swms.warehouse.model.service.OnlineWarehouseService;
 
+import java.util.List;
+
 public class OnlineWarehouseController {
-    private OnlineWarehouseService onlineWarehouseService;
+    private OnlineWarehouseService onlineWarehouseService = new OnlineWarehouseService();
 
-    public void selectOnlineWarehouse(int page){
+    public List<OnlineWarehouseDto> selectOnlineWarehouse(int page){
+        return onlineWarehouseService.selectAllOnlineWarehouse(page);
+    }
 
-        onlineWarehouseService.selectAllOnlineWarehouse(page);
+    public OnlineWarehouseDto existsWarehouseById(int warehouseId){
+        return onlineWarehouseService.selectWarehouseById(warehouseId);
+    }
 
+    public int updateAddQuantity(OnlineWarehouseDto onlineWarehouseDto) {
+        return onlineWarehouseService.updateAddQuantity(onlineWarehouseDto);
+    }
+
+    public OnlineWarehouseDto selectWarehouseByShoesId(int shoesId) {
+        return onlineWarehouseService.selectWarehouseByShoesId(shoesId);
     }
 }

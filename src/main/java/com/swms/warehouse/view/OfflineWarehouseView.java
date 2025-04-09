@@ -10,6 +10,8 @@ import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.swms.common.util.ConsoleAlignUtil.padRight;
+
 public class OfflineWarehouseView {
 
     private Scanner sc = new Scanner(System.in);
@@ -21,29 +23,38 @@ public class OfflineWarehouseView {
     public void offlineWarehouse(int storeId) {
         int page = 1;
 
-
         while (true) {
             List<OfflineWarehouseDto> list = offlineWarehouseController.selectAllStoreWarehouse(page, storeId);
 
             if (list.isEmpty()) {
                 if (page > 1) {
                     --page;
+                    list = offlineWarehouseController.selectAllStoreWarehouse(page, storeId);
                     message = "⚠\uFE0F 마지막 페이지 입니다.";
                 } else {
                     message = "⚠\uFE0F 해당 매장의 창고 정보가 없습니다.";
                 }
-            } else {
-                for (OfflineWarehouseDto dto : list) {
-                    System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
-                    System.out.println(AnsiColor.BRIGHT_WHITE + "  🆔 창고 ID : " + dto.getOfflineWarehouseId() + AnsiColor.RESET);
-                    System.out.println(AnsiColor.BRIGHT_WHITE + "  👟 모델명 : " + dto.getShoesName() + AnsiColor.RESET);
-                    System.out.println(AnsiColor.BRIGHT_WHITE + "  🏷️ 브랜드 : " + dto.getBrandName() + AnsiColor.RESET);
-                    System.out.println(AnsiColor.BRIGHT_WHITE + "  🧩 종류 : " + dto.getShoesType() + AnsiColor.RESET);
-                    System.out.println(AnsiColor.BRIGHT_WHITE + "  📏 사이즈 : " + dto.getSize() + AnsiColor.RESET);
-                    System.out.println(AnsiColor.BRIGHT_WHITE + "  📦 수량 : " + dto.getQuantity() + AnsiColor.RESET);
-                    System.out.println();
-                }
             }
+            String format = AnsiColor.BRIGHT_WHITE + "🆔 %-5s 🏷️ %-8s 🧩 %-10s 📏 %-6s 📦 %-6s 👟 %s" + AnsiColor.RESET + "\n";
+
+            System.out.printf(AnsiColor.BRIGHT_BLUE +
+                    "\n🆔 ID     🏷️ 브랜드      🧩 종류         📏 사이즈  📦 수량   👟 모델명\n" +
+                    "────────────────────────────────────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
+
+            for (OfflineWarehouseDto dto : list) {
+                System.out.printf(format,
+                        dto.getOfflineWarehouseId(),
+                        padRight(dto.getBrandName(), 12),
+                        padRight(dto.getShoesType(), 12),
+                        dto.getSize(),
+                        dto.getQuantity(),
+                        dto.getShoesName());
+            }
+
+            System.out.println(AnsiColor.BRIGHT_BLUE +
+                    "────────────────────────────────────────────────────────────────────────────\n" +
+                    AnsiColor.RESET);
             System.out.println(AnsiColor.BRIGHT_BLUE + " ─────────────────────────────────────────────" + AnsiColor.RESET);
             if (message != null) {
                 System.out.println(AnsiColor.BRIGHT_RED + "                " + message + AnsiColor.RESET);
@@ -124,7 +135,6 @@ public class OfflineWarehouseView {
             } else {
                 message = "발주 등록이 실패 되었습니다.";
             }
-
         }
     }
 

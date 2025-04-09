@@ -1,8 +1,10 @@
 package com.swms.warehouse.model.service;
 
 
+import com.swms.warehouse.model.dao.OfflineWarehouseMapper;
 import com.swms.warehouse.model.dao.OnlineWarehouseMapper;
 import com.swms.warehouse.model.dao.PurchaseOrderMapper;
+import com.swms.warehouse.model.dto.OfflineWarehouseDto;
 import com.swms.warehouse.model.dto.OnlineWarehouseDto;
 import com.swms.warehouse.model.dto.PurchaseOrderDto;
 import org.apache.ibatis.session.SqlSession;
@@ -16,6 +18,8 @@ public class PurchaseOrderService {
 
 
     private PurchaseOrderMapper purchaseOrderMapper;
+    private OfflineWarehouseMapper offlineWarehouseMapper;
+    private OnlineWarehouseMapper onlineWarehouseMapper;
 
 
     public int createPurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
@@ -37,4 +41,81 @@ public class PurchaseOrderService {
 
         return result;
     }
+
+    public List<PurchaseOrderDto> selectAllPurchaseOrder(int page) {
+        SqlSession sqlSession = getSqlSession();
+        purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+
+        int size = 5;
+        int offset = (page - 1) * size;
+
+        List<PurchaseOrderDto> list =
+                purchaseOrderMapper.selectAllPurchaseOrder(size, offset);
+
+        sqlSession.close();
+        return list;
+    }
+
+    public PurchaseOrderDto selectWarehouseById(int purchaseOrderId) {
+        SqlSession sqlSession = getSqlSession();
+        purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+
+
+        PurchaseOrderDto purchaseOrderDto =
+                purchaseOrderMapper.selectPurchaseOrderById(purchaseOrderId);
+
+        sqlSession.close();
+        return purchaseOrderDto;
+    }
+
+    public int approvePurchaseOrder(PurchaseOrderDto purchaseOrderDto, OfflineWarehouseDto offlineWarehouseDto, OnlineWarehouseDto onlineWarehouseDto) {
+        SqlSession sqlSession = getSqlSession();
+        purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+        offlineWarehouseMapper = sqlSession.getMapper(OfflineWarehouseMapper.class);
+        onlineWarehouseMapper = sqlSession.getMapper(OnlineWarehouseMapper.class);
+
+        int result = 0;
+        try {
+            // 온라인 창고 수량 차감
+            onlineWarehouseMapper.updateAddQuantity(onlineWarehouseDto);
+
+            // 오프라인 창고 수량 증가
+            int warehouseResult = offlineWarehouseMapper.updateAddQuantityByStoreAndShoesById(offlineWarehouseDto);
+            // 발주 데이터가 오프라인에 없는 경우 생성
+            if(warehouseResult == 0){
+                offlineWarehouseMapper.upsertOfflineWarehouseQuantity(offlineWarehouseDto);
+            }
+
+            // 발주 상태 업데이트 (요청완료)
+            result = purchaseOrderMapper.updateStatusAndCompletionDate(purchaseOrderDto);
+
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw e;
+        } finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
+    public int updatePurchaseOrder(PurchaseOrderDto purchaseOrderDto) {
+        int result = 0;
+        SqlSession sqlSession = getSqlSession();
+        purchaseOrderMapper = sqlSession.getMapper(PurchaseOrderMapper.class);
+
+        try {
+            result = purchaseOrderMapper.updateStatusAndCompletionDate(purchaseOrderDto);
+
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw e;
+        } finally {
+            sqlSession.close();
+        }
+
+        return result;
+    }
+
 }

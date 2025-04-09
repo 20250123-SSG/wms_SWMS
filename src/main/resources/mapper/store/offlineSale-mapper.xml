@@ -20,4 +20,67 @@
             )
     </insert>
 
+    <select id="selectOfflineSaleByStoreId" resultType="OfflineSaleDto">
+        SELECT
+            ow.offline_sale_id,
+            ow.store_id,
+            ow.shoes_id,
+            ow.quantity,
+            ow.sale_date,
+            st.store_name,
+            st.store_phone,
+            st.store_address,
+            s.shoes_name,
+            s.shoes_price,
+            s.size,
+            s.shoes_type_id,
+            s.brand_id,
+            t.shoes_type,
+            b.brand_name
+        FROM tbl_offline_sale ow
+            JOIN tbl_store st ON ow.store_id = st.store_id
+            JOIN tbl_shoes s ON ow.shoes_id = s.shoes_id
+            JOIN tbl_shoes_type t ON s.shoes_type_id = t.shoes_type_id
+            JOIN tbl_brand b ON s.brand_id = b.brand_id
+        WHERE ow.store_id = #{storeId}
+        ORDER BY ow.offline_sale_id DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 일별 매출 조회 -->
+    <select id="selectDailySales" resultType="OfflineSaleStatsDto">
+        SELECT
+        DATE(sale_date) AS date,
+        SUM(quantity) AS totalQuantity,
+        SUM(quantity * sh.shoes_price) AS totalRevenue
+        FROM tbl_offline_sale os
+        JOIN tbl_shoes sh ON os.shoes_id = sh.shoes_id
+        <where>
+            <if test="storeId != null">
+                os.store_id = #{storeId}
+            </if>
+        </where>
+        GROUP BY DATE(sale_date)
+        ORDER BY date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 월별 매출 조회 -->
+    <select id="selectMonthlySales" resultType="OfflineSaleStatsDto">
+        SELECT
+        DATE_FORMAT(sale_date, '%Y-%m') AS date,
+        SUM(quantity) AS totalQuantity,
+        SUM(quantity * sh.shoes_price) AS totalRevenue
+        FROM tbl_offline_sale os
+        JOIN tbl_shoes sh ON os.shoes_id = sh.shoes_id
+        <where>
+            <if test="storeId != null">
+                os.store_id = #{storeId}
+            </if>
+        </where>
+        GROUP BY DATE_FORMAT(sale_date, '%Y-%m')
+        ORDER BY date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
 </mapper>
